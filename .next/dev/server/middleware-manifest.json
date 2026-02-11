@@ -1,0 +1,142 @@
+{
+  "version": 3,
+  "middleware": {},
+  "sortedMiddleware": [],
+  "functions": {
+    "/api/pulses/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/app/api/pulses/route_client-reference-manifest.js",
+        "server/edge/chunks/SB_Lumen__next-internal_server_app_api_pulses_route_actions_df7f022a.js",
+        "server/edge/chunks/c3031_next_dist_esm_118ae948._.js",
+        "server/edge/chunks/c3031_next_dist_compiled_dc0c7045._.js",
+        "server/edge/chunks/c3031_next_dist_5d7d1eee._.js",
+        "server/edge/chunks/[root-of-the-server]__5b7c0c73._.js",
+        "server/edge/chunks/53363_next_dist_esm_build_templates_edge-wrapper_a45312d2.js"
+      ],
+      "name": "app/api/pulses/route",
+      "page": "/api/pulses/route",
+      "matchers": [
+        {
+          "regexp": "^/api/pulses(?:/)?$",
+          "originalSource": "/api/pulses"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fbwiZI2bB5AvStzVczbKJl1EZwure/WOL8Bj8dVwLLs=",
+        "__NEXT_PREVIEW_MODE_ID": "5faf4e7bd741127f6944f46baedb3210",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "d8eb67f71806df641761eb6ea57bbca28cfb6abf8afa3c9469cb8dcf7e03aca0",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "fcce0cae20478abc660a164b7a37e9d6cba8227d707ab590475c34ebbc59b170"
+      }
+    },
+    "/projects/[projectName]/page": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/next-font-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/edge/chunks/ssr/c3031_5d76ffed._.js",
+        "server/edge/chunks/ssr/c3031_806237ab._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_components_79a94066._.js",
+        "server/edge/chunks/ssr/c3031_ebf6c2c4._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_111c7986._.js",
+        "server/edge/chunks/ssr/c3031_bb1a9a1c._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_f8e08e2b._.js",
+        "server/app/projects/[projectName]/page_client-reference-manifest.js",
+        "server/edge/chunks/ssr/SB_Lumen__next-internal_server_app_projects_[projectName]_page_actions_5407c4f6.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_web_37dbb3c4._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_app-render_f3193c15._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_lib_d0f75969._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_f9102d72._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_lib_1bce76c8._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_shared_lib_290c8779._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_client_5b6d5484._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_build_32f2768e._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_next-devtools_798853da._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_react-dom_733b2392._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_react-server-dom-turbopack_6b7b663e._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_03fb689f._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_0ebbcc6b._.js",
+        "server/edge/chunks/ssr/c3031_@swc_helpers_cjs_6ee56384._.js",
+        "server/edge/chunks/ssr/[root-of-the-server]__0a88bfad._.js",
+        "server/edge/chunks/ssr/53363_next_dist_esm_build_templates_edge-wrapper_10013512.js",
+        "server/app/projects/[projectName]/page/react-loadable-manifest.js"
+      ],
+      "name": "app/projects/[projectName]/page",
+      "page": "/projects/[projectName]/page",
+      "matchers": [
+        {
+          "regexp": "^/projects/(?P<nxtPprojectName>[^/]+?)(?:/)?$",
+          "originalSource": "/projects/[projectName]"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fbwiZI2bB5AvStzVczbKJl1EZwure/WOL8Bj8dVwLLs=",
+        "__NEXT_PREVIEW_MODE_ID": "5faf4e7bd741127f6944f46baedb3210",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "d8eb67f71806df641761eb6ea57bbca28cfb6abf8afa3c9469cb8dcf7e03aca0",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "fcce0cae20478abc660a164b7a37e9d6cba8227d707ab590475c34ebbc59b170"
+      }
+    },
+    "/signals/[slug]/page": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/next-font-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/edge/chunks/ssr/c3031_5d76ffed._.js",
+        "server/edge/chunks/ssr/c3031_806237ab._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_components_79a94066._.js",
+        "server/edge/chunks/ssr/c3031_ebf6c2c4._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_111c7986._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_6bf7a790._.js",
+        "server/edge/chunks/ssr/c3031_micromark-core-commonmark_dev_lib_7993b10a._.js",
+        "server/edge/chunks/ssr/c3031_b24a5e7f._.js",
+        "server/edge/chunks/ssr/SB_Lumen_app_30ac4f5c._.js",
+        "server/app/signals/[slug]/page_client-reference-manifest.js",
+        "server/edge/chunks/ssr/SB_Lumen__next-internal_server_app_signals_[slug]_page_actions_940f5dfe.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_web_37dbb3c4._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_app-render_f3193c15._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_lib_d0f75969._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_server_f9102d72._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_lib_1bce76c8._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_shared_lib_290c8779._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_client_5b6d5484._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_build_6d645d03._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_esm_next-devtools_798853da._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_react-dom_733b2392._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_react-server-dom-turbopack_6b7b663e._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_compiled_03fb689f._.js",
+        "server/edge/chunks/ssr/c3031_next_dist_0ebbcc6b._.js",
+        "server/edge/chunks/ssr/c3031_@swc_helpers_cjs_6ee56384._.js",
+        "server/edge/chunks/ssr/[root-of-the-server]__977b5aae._.js",
+        "server/edge/chunks/ssr/53363_next_dist_esm_build_templates_edge-wrapper_cbc1c49f.js",
+        "server/app/signals/[slug]/page/react-loadable-manifest.js"
+      ],
+      "name": "app/signals/[slug]/page",
+      "page": "/signals/[slug]/page",
+      "matchers": [
+        {
+          "regexp": "^/signals/(?P<nxtPslug>[^/]+?)(?:/)?$",
+          "originalSource": "/signals/[slug]"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fbwiZI2bB5AvStzVczbKJl1EZwure/WOL8Bj8dVwLLs=",
+        "__NEXT_PREVIEW_MODE_ID": "5faf4e7bd741127f6944f46baedb3210",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "d8eb67f71806df641761eb6ea57bbca28cfb6abf8afa3c9469cb8dcf7e03aca0",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "fcce0cae20478abc660a164b7a37e9d6cba8227d707ab590475c34ebbc59b170"
+      }
+    }
+  }
+}

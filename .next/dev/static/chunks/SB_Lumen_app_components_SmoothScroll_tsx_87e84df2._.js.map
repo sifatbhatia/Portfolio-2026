@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/molty/.openclaw/workspace/SB/Lumen/app/components/SmoothScroll.tsx"],"sourcesContent":["'use client'\n\nimport { ReactLenis } from 'lenis/react'\nimport { ReactNode } from 'react'\n\nexport default function SmoothScroll({ children }: { children: ReactNode }) {\n  return (\n    <ReactLenis root options={{ \n      lerp: 0.1, \n      duration: 1.5, \n      smoothWheel: true \n    }}>\n      {children}\n    </ReactLenis>\n  )\n}\n"],"names":[],"mappings":";;;;;AAEA;AAFA;;;AAKe,SAAS,aAAa,EAAE,QAAQ,EAA2B;IACxE,qBACE,4MAAC,gLAAU;QAAC,IAAI;QAAC,SAAS;YACxB,MAAM;YACN,UAAU;YACV,aAAa;QACf;kBACG;;;;;;AAGP;KAVwB"}}]
+}

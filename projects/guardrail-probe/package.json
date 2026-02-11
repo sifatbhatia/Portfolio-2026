@@ -1,0 +1,39 @@
+{
+  "name": "guardrail-probe",
+  "version": "1.0.0",
+  "description": "AI safety testing framework for probing language model guardrails",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "guardrail-probe": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/cli.ts",
+    "probe": "ts-node src/cli.ts",
+    "test": "vitest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "ai-safety",
+    "llm",
+    "testing",
+    "guardrails",
+    "red-team",
+    "security"
+  ],
+  "author": "Sifat Bhatia",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "openai": "^4.77.0",
+    "ora": "^8.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

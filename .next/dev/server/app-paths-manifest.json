@@ -1,0 +1,10 @@
+{
+  "/about/page": "app/about/page.js",
+  "/api/pulses/route": "app-edge-has-no-entrypoint",
+  "/contact/page": "app/contact/page.js",
+  "/page": "app/page.js",
+  "/projects/[projectName]/page": "app-edge-has-no-entrypoint",
+  "/projects/page": "app/projects/page.js",
+  "/signals/[slug]/page": "app-edge-has-no-entrypoint",
+  "/signals/page": "app/signals/page.js"
+}

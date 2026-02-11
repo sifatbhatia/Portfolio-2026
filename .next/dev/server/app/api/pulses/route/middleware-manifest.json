@@ -1,0 +1,40 @@
+{
+  "sorted_middleware": [
+    "/api/pulses/route"
+  ],
+  "middleware": {},
+  "instrumentation": null,
+  "functions": {
+    "/api/pulses/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/app/api/pulses/route_client-reference-manifest.js",
+        "server/edge/chunks/SB_Lumen__next-internal_server_app_api_pulses_route_actions_df7f022a.js",
+        "server/edge/chunks/c3031_next_dist_esm_118ae948._.js",
+        "server/edge/chunks/c3031_next_dist_compiled_dc0c7045._.js",
+        "server/edge/chunks/c3031_next_dist_5d7d1eee._.js",
+        "server/edge/chunks/[root-of-the-server]__5b7c0c73._.js",
+        "server/edge/chunks/53363_next_dist_esm_build_templates_edge-wrapper_a45312d2.js"
+      ],
+      "name": "app/api/pulses/route",
+      "page": "/api/pulses/route",
+      "matchers": [
+        {
+          "regexp": "^/api/pulses(?:/)?$",
+          "originalSource": "/api/pulses"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fbwiZI2bB5AvStzVczbKJl1EZwure/WOL8Bj8dVwLLs=",
+        "__NEXT_PREVIEW_MODE_ID": "5faf4e7bd741127f6944f46baedb3210",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "d8eb67f71806df641761eb6ea57bbca28cfb6abf8afa3c9469cb8dcf7e03aca0",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "fcce0cae20478abc660a164b7a37e9d6cba8227d707ab590475c34ebbc59b170"
+      }
+    }
+  }
+}
