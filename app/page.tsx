@@ -6,6 +6,7 @@ import Link from 'next/link'
 import GlobalNavbar from './components/GlobalNavbar'
 import { ArrowUpRight } from 'lucide-react'
 import Footer from './components/Footer'
+import GlowingOrb from './components/GlowingOrb'
 
 export default function Home() {
   const { scrollY } = useScroll()
@@ -65,6 +66,8 @@ export default function Home() {
           <span className="font-playfair italic">Bhatia.</span>
         </motion.h1>
       </div>
+
+      <GlowingOrb />
 
       {/* Cursor Following Preview */}
       <AnimatePresence>
