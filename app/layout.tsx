@@ -81,7 +81,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen">
         <script src="https://js.puter.com/v2/" defer></script>
-        <GlowingOrb />
         <SmoothScroll>
           {children}
           <BackToTop />

@@ -35,14 +35,6 @@ export default function Home() {
   const titleY = useTransform(scrollY, [0, 200], [0, isMobile ? 2 : -10])
   const subContentOpacity = useTransform(scrollY, [0, 150], [1, 0])
 
-  // Track scroll for pointer events
-  const [isScrolled, setIsScrolled] = React.useState(false)
-  React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const projects = [
     { title: 'J. Worra', cat: 'Art Direction', year: '2026', slug: 'j-worra', color: '#d12424', image: '/previews/j-worra.png' },
     { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities.png' },
@@ -53,21 +45,18 @@ export default function Home() {
   return (
     <main className="bg-white text-black font-inter relative">
 
-      {/* Navbar with hidden logo (opacity 0) so we can replace it with our hero text */}
       <GlobalNavbar />
 
       {/* Fixed Hero Title Section */}
-      <div className={`fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 mix-blend-difference text-white selection:bg-[#2EDBDB] transition-opacity duration-300 ${isScrolled ? 'pointer-events-none' : 'pointer-events-auto'}`}>
+      <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
         <motion.h1
           style={{ scale: titleScale, y: titleY }}
-          className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left text-white"
+          className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left pointer-events-auto"
         >
           Sifat <br />
           <span className="font-playfair italic">Bhatia.</span>
         </motion.h1>
       </div>
-
-      <GlowingOrb />
 
       {/* Cursor Following Preview */}
       <AnimatePresence>
@@ -103,28 +92,33 @@ export default function Home() {
       </AnimatePresence>
 
       <section className="relative z-10 min-h-screen flex flex-col justify-between px-[6%] pt-32 pb-12 top-0 pointer-events-none">
+        
+        {/* Scoped Glowing Orb Container */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-[0]">
+          <GlowingOrb />
+        </div>
 
         {/* This spacer pushes content down so it doesn't overlap the fixed header initially */}
         <div className="flex-grow min-h-[20vh] md:min-h-[30vh]" />
 
         {/* Bottom Content - Refined Typography */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-12 w-full pointer-events-auto pb-8">
+        <div className="flex flex-col md:flex-row justify-between items-end md:items-end gap-8 md:gap-12 w-full pointer-events-auto pb-8">
 
-          {/* Left Side */}
-          <div className="max-w-3xl">
+          {/* Left Side -> Bottom Right on Mobile */}
+          <div className="max-w-3xl ml-auto md:ml-0 text-right md:text-left">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-6xl md:text-8xl font-normal tracking-[-0.03em] leading-[0.9] mb-6 text-black"
+              className="text-4xl sm:text-5xl md:text-8xl font-normal tracking-[-0.03em] leading-[0.9] mb-4 md:mb-6 text-black"
             >
-              Atmospheric <span className="font-playfair italic">Interfaces</span><sup className="text-2xl align-top ml-2 font-inter">™</sup>
+              Atmospheric <span className="font-playfair italic">Interfaces</span><sup className="text-xl md:text-2xl align-top ml-1 md:ml-2 font-inter">™</sup>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-2xl md:text-3xl font-light text-black/60 mb-12 font-inter max-w-xl"
+              className="text-lg sm:text-xl md:text-3xl font-light text-black/60 mb-8 md:mb-12 font-inter max-w-xl ml-auto md:ml-0"
             >
               Design. Engineering. Experience.
             </motion.p>
@@ -132,13 +126,13 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-[0.6rem] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[280px] text-black"
+              className="text-[0.5rem] md:text-[0.6rem] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[200px] md:max-w-[280px] text-black ml-auto md:ml-0"
             >
               Los Angeles based designer and developer crafting high-fidelity interactive digital experiences.
             </motion.div>
           </div>
           {/* Right Side - Selected Projects Call to Action */}
-          <div className="flex flex-col items-end gap-6 w-full md:w-auto">
+          <div className="flex flex-col items-end gap-4 md:gap-6 w-full md:w-auto mt-8 md:mt-0">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -148,15 +142,14 @@ export default function Home() {
                 onClick={() => {
                   const element = document.getElementById('selected-works');
                   if (element) {
-                    // Native scroll behavior for simplicity and reliability or use lenis if available globally
                     element.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="group relative inline-flex items-center gap-4 px-8 py-4 bg-black text-white hover:bg-[var(--accent)] transition-colors duration-300 rounded-full overflow-hidden cursor-pointer"
+                className="group relative inline-flex items-center gap-3 md:gap-4 px-6 py-3 md:px-8 md:py-4 bg-black text-white hover:bg-[var(--accent)] transition-colors duration-300 rounded-full overflow-hidden cursor-pointer"
               >
-                <span className="relative z-10 text-xs font-bold uppercase tracking-[0.2em]">Selected Projects</span>
+                <span className="relative z-10 text-[0.6rem] md:text-xs font-bold uppercase tracking-[0.2em]">Selected Projects</span>
                 <span className="relative z-10 p-1 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
-                  <ArrowUpRight size={14} className="text-white" />
+                  <ArrowUpRight size={12} className="md:w-[14px] md:h-[14px] text-white" />
                 </span>
               </button>
             </motion.div>

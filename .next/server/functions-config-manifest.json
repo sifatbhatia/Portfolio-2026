@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/pulses": {},
+    "/projects/[projectName]": {},
+    "/pulse/[pulseId]": {},
+    "/signals/[slug]": {}
+  }
+}

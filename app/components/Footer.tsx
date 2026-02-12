@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Globe } from 'lucide-react'
+import GlowingOrb from './GlowingOrb'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -26,6 +27,10 @@ export default function Footer() {
 
   return (
     <footer className="bg-black text-white w-full relative overflow-hidden border-t border-white/5 pt-24 md:pt-40">
+      {/* Background Subtle Orb */}
+      <div className="absolute top-0 right-0 w-full h-full md:w-1/2 md:h-full opacity-30 pointer-events-none">
+        <GlowingOrb isFooter={true} />
+      </div>
       <div className="px-[6%] relative z-10 w-full">
         {/* Header */}
         <div className="mb-24">
@@ -40,8 +45,8 @@ export default function Footer() {
           {/* Column 1: Email */}
           <div className="md:col-span-5">
             <a href="mailto:sifatbht@gmail.com" className="group flex flex-col no-underline text-white w-fit">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-4 group-hover:opacity-100 transition-opacity">Email</span>
-              <span className="text-xl md:text-5xl font-normal hover:text-[var(--accent)] transition-colors border-b-2 border-black/5 pb-2">
+              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40 mb-4 group-hover:opacity-100 transition-opacity">Email</span>
+              <span className="text-xl md:text-5xl font-normal hover:text-[var(--accent)] transition-colors border-b-2 border-white/10 pb-2">
                 sifatbht@gmail.com
               </span>
             </a>
@@ -49,7 +54,7 @@ export default function Footer() {
 
           {/* Column 2: Connect */}
           <div className="md:col-span-3">
-            <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-20 mb-6 block">Connect</span>
+            <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40 mb-6 block">Connect</span>
             <div className="flex flex-col gap-4">
               {[
                 { name: 'LinkedIn', href: 'https://linkedin.com/in/siftion' },
@@ -67,15 +72,15 @@ export default function Footer() {
           {/* Column 3: Time Block */}
           <div className="md:col-span-4 flex flex-col gap-8 md:items-end text-left md:text-right">
             <div className="flex flex-col gap-2">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-20">Current Time</span>
-              <div className="flex items-center md:justify-end gap-3 opacity-40">
+              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">Current Time</span>
+              <div className="flex items-center md:justify-end gap-3 opacity-60">
                 <Globe size={14} strokeWidth={1.5} />
                 <span className="text-xl md:text-2xl font-medium tracking-tight uppercase">{currentTime} PST</span>
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-20">System Status</span>
-              <div className="text-[0.6rem] font-bold uppercase tracking-[0.4em] opacity-40">
+              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">System Status</span>
+              <div className="text-[0.6rem] font-bold uppercase tracking-[0.4em] opacity-60">
                 EST. 2026 // LUME 2.0
               </div>
             </div>
@@ -84,11 +89,11 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-12 border-t border-white/10 gap-8 w-full">
-          <div className="flex gap-8 md:gap-16 text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-40">
+          <div className="flex gap-8 md:gap-16 text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-60">
             <span className="text-white">Based in Los Angeles</span>
             <span className="text-white">Available for Q1 2026</span>
           </div>
-          <div className="text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-20 text-white">
+          <div className="text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-40 text-white">
             © {currentYear} // Sifat Bhatia // All Rights Reserved
           </div>
         </div>
