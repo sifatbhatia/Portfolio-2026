@@ -163,3 +163,10 @@ Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
  GET /v1/mcp 404 in 32ms (compile: 4ms, render: 29ms)
  GET /jsonrpc 404 in 48ms (compile: 8ms, render: 40ms)
  GET / 200 in 87ms (compile: 55ms, render: 32ms)
+ GET / 200 in 1925ms (compile: 852ms, render: 1073ms)
+ HEAD / 200 in 65ms (compile: 9ms, render: 56ms)
+ GET / 200 in 177ms (compile: 13ms, render: 164ms)
+ GET / 200 in 56ms (compile: 3ms, render: 53ms)
+⚠ Cross origin request detected from 15bd15a5dc1095.lhr.life to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 82ms (compile: 4ms, render: 79ms)

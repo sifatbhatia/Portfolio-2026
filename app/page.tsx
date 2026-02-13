@@ -158,7 +158,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Selected Projects Section - Refactored to V7 Swarm Layout */}
+      {/* Selected Projects Section - High-end Asymmetrical Gallery */}
       <WorkGallery />
 
       <Footer />
