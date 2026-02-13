@@ -12,6 +12,7 @@ const PROJECTS = [
     title: 'J. Worra',
     category: 'Art Direction',
     image: '/previews/j-worra.png',
+    slug: 'j-worra',
     offset: "mt-0",
     width: "w-full md:w-[60%]",
   },
@@ -19,6 +20,7 @@ const PROJECTS = [
     title: "Sif's Utilities",
     category: 'Performance Utilities',
     image: '/previews/sifs-utilities.png',
+    slug: 'sifs-utilities',
     offset: "md:mt-[-10rem] md:ml-auto",
     width: "w-full md:w-[50%]",
   },
@@ -26,6 +28,7 @@ const PROJECTS = [
     title: 'L’ Affaire Musicale',
     category: 'Identity Design',
     image: '/previews/l-affaire-musicale.png',
+    slug: 'l-affaire-musicale',
     offset: "md:mt-[-5rem]",
     width: "w-full md:w-[70%]",
   },
@@ -33,6 +36,7 @@ const PROJECTS = [
     title: 'The Void',
     category: 'Digital Art',
     image: '/previews/the-void.png',
+    slug: 'the-void',
     offset: "md:mt-[-15rem] md:ml-[10%]",
     width: "w-full md:w-[55%]",
   },
@@ -106,7 +110,7 @@ export default function WorkGallery() {
               key={i}
               className={`group relative z-10 mb-20 md:mb-40 transition-all duration-700 ${project.offset} ${project.width}`}
             >
-              <Link href="/projects" className="block cursor-pointer">
+              <Link href={`/projects/${project.slug}`} className="block cursor-pointer">
                 <div className="relative overflow-hidden aspect-[4/5] reveal-image bg-black/5">
                   {project.image ? (
                     <img
