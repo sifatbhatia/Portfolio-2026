@@ -41,12 +41,12 @@ export default function Footer() {
         </div>
 
         {/* Triple Column Block */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-32 md:mb-48 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-32 md:mb-48 items-start">
           {/* Column 1: Email */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-12 lg:col-span-5 mb-12 lg:mb-0">
             <a href="mailto:sifatbht@gmail.com" className="group flex flex-col no-underline text-white w-fit">
               <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40 mb-4 group-hover:opacity-100 transition-opacity">Email</span>
-              <span className="text-xl md:text-5xl font-normal hover:text-[var(--accent)] transition-colors border-b-2 border-white/10 pb-2">
+              <span className="text-2xl sm:text-3xl md:text-5xl font-normal hover:text-[var(--accent)] transition-colors border-b-2 border-white/10 pb-2 break-all sm:break-normal">
                 sifatbht@gmail.com
               </span>
             </a>
