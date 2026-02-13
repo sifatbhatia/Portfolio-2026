@@ -167,7 +167,7 @@ export default function Home() {
           {projects.map((project, i) => (
             <Link
               key={i}
-              href={`/projects`}
+              href={`/projects/${project.slug}`}
               className="group block no-underline text-black"
               onMouseEnter={() => setHoveredProject(i)}
               onMouseLeave={() => setHoveredProject(null)}
