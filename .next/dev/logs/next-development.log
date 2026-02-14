@@ -1,0 +1,134 @@
+[00:00:02.307] Server  LOG     ✓ Ready in 1730ms
+[00:15:53.144] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[01:39:47.382] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[01:39:47.891] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[01:55:35.418] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[01:55:35.937] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[02:06:15.998] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[03:45:35.809] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[05:22:15.771] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[06:34:01.236] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[06:49:19.115] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[08:37:11.335] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[08:37:11.800] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[08:48:02.244] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[10:13:26.070] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[15:10:42.989] Server  WARN    Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[16:26:37.251] Server  WARN    ⚠ Cross origin request detected from 15bd15a5dc1095.lhr.life to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[16:26:37.694] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[16:26:37.694] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         data-darkreader-mode="dynamic"
+-                         data-darkreader-scheme="dark"
+                        >
+                          <head>
+                          ...
+                            <main className="bg-white t...">
+                              ...
+                                <span className="absolute i..." style={{opacity:0, ...}} ...>
+                                  <X size={12} strokeWidth={3}>
+                                    <svg
+                                      ref={null}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width={12}
+                                      height={12}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth={3}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      className="lucide lucide-x"
+-                                     style={{--darkreader-inline-stroke:"currentColor"}}
+-                                     data-darkreader-inline-stroke=""
+                                    >
+                                  ...
+                              <div>
+                              <AnimatePresence>
+                              ...
+                                <span className="relative z...">
+                                  <ArrowUpRight size={12} className="md:w-[14px...">
+                                    <svg
+                                      ref={null}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width={12}
+                                      height={12}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth={2}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      className="lucide lucide-arrow-up-right md:w-[14px] md:h-[14px] text-white"
+-                                     style={{--darkreader-inline-stroke:"currentColor"}}
+-                                     data-darkreader-inline-stroke=""
+                                    >
+                              <WorkGallery>
+                              ...
+                                <div className="flex items...">
+                                  <Globe size={14} strokeWidth={1.5}>
+                                    <svg
+                                      ref={null}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width={14}
+                                      height={14}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth={1.5}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      className="lucide lucide-globe"
+-                                     style={{--darkreader-inline-stroke:"currentColor"}}
+-                                     data-darkreader-inline-stroke=""
+                                    >
+                                  ...
+                  ...
+
+[16:36:05.580] Server  LOG     ✓ Compiled in 99ms

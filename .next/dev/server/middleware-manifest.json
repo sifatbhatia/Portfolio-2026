@@ -1,0 +1,38 @@
+{
+  "version": 3,
+  "middleware": {},
+  "sortedMiddleware": [],
+  "functions": {
+    "/api/pulses/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/app/api/pulses/route_client-reference-manifest.js",
+        "server/edge/chunks/_next-internal_server_app_api_pulses_route_actions_81a6019c.js",
+        "server/edge/chunks/node_modules_next_dist_esm_bcdecce9._.js",
+        "server/edge/chunks/node_modules_next_dist_compiled_1fe0aaac._.js",
+        "server/edge/chunks/node_modules_next_dist_7bea040f._.js",
+        "server/edge/chunks/[root-of-the-server]__b0325696._.js",
+        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_3488feb0.js"
+      ],
+      "name": "app/api/pulses/route",
+      "page": "/api/pulses/route",
+      "matchers": [
+        {
+          "regexp": "^/api/pulses(?:/)?$",
+          "originalSource": "/api/pulses"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "CMwU1TYTiLa9RwDhKygeqO2GKMwqPLFb7LK17hKa6bg=",
+        "__NEXT_PREVIEW_MODE_ID": "d60eeb06e742b843d827da282e6134a4",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "74b2134217a1263bc016abbeed477db500b2ed1ec9075e1998df142d0a72f08b",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "6671e35ab7d130e3d0ef4e2c56cb31d01cfb9cc9789437352464e9848c36d365"
+      }
+    }
+  }
+}

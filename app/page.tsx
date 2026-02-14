@@ -6,7 +6,7 @@ import Link from 'next/link'
 import GlobalNavbar from './components/GlobalNavbar'
 import { ArrowUpRight } from 'lucide-react'
 import Footer from './components/Footer'
-import GlowingOrb from './components/GlowingOrb'
+import WorkGallery from './components/WorkGallery'
 
 export default function Home() {
   const { scrollY } = useScroll()
@@ -92,11 +92,6 @@ export default function Home() {
       </AnimatePresence>
 
       <section className="relative z-10 min-h-screen flex flex-col justify-between px-[6%] pt-32 pb-12 top-0 pointer-events-none">
-        
-        {/* Scoped Glowing Orb Container */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-[0]">
-          <GlowingOrb />
-        </div>
 
         {/* This spacer pushes content down so it doesn't overlap the fixed header initially */}
         <div className="flex-grow min-h-[20vh] md:min-h-[30vh]" />
@@ -157,68 +152,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Selected Projects Section */}
-      <section id="selected-works" className="px-[6%] py-16 md:py-60 border-t border-black/5 bg-white relative z-10">
-        <div className="mb-20 md:mb-32 flex justify-start items-start">
-          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-black">Selected Works</h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-px bg-transparent mb-32">
-          {projects.map((project, i) => (
-            <Link
-              key={i}
-              href={`/projects/${project.slug}`}
-              className="group block no-underline text-black"
-              onMouseEnter={() => setHoveredProject(i)}
-              onMouseLeave={() => setHoveredProject(null)}
-            >
-              <motion.div
-                className="bg-transparent py-8 md:py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer px-4 md:group-hover:px-8 transition-all duration-700 ease-[0.19, 1, 0.22, 1] border-b border-black/5"
-              >
-                <div className="flex items-baseline gap-6 md:gap-12 mb-4 md:mb-0">
-                  <span className="text-[0.55rem] md:text-[0.65rem] font-bold opacity-20 font-inter text-black">0{i + 1}</span>
-                  <div className="relative">
-                    <h2 className="font-inter text-4xl md:text-6xl lg:text-8xl font-normal tracking-tight whitespace-normal md:whitespace-nowrap group-hover:opacity-0 transition-opacity duration-500">
-                      {project.title}
-                    </h2>
-                    <h2 className="absolute top-0 left-0 font-inter text-4xl md:text-6xl lg:text-8xl font-normal tracking-tight italic whitespace-normal md:whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:text-[var(--accent)] transition-opacity duration-500">
-                      {project.title}
-                    </h2>
-                  </div>
-                </div>
-                <div className="w-full md:w-auto flex justify-between items-center md:gap-20">
-                  <div className="text-left md:text-right">
-                    <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] group-hover:text-[var(--accent)] transition-colors">{project.cat}</div>
-                    <div className="text-[0.5rem] md:text-[0.6rem] font-black opacity-30 mt-1 uppercase text-black">{project.year}</div>
-                  </div>
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] transition-all duration-500 overflow-hidden">
-                    <motion.div
-                      initial={{ rotate: 0, scale: 1 }}
-                      whileHover={{ rotate: -135, scale: 0.8 }}
-                      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                    >
-                      <ArrowUpRight size={18} className="md:w-5 md:h-5 group-hover:text-white transition-colors duration-500" strokeWidth={1.5} />
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex justify-center">
-          <Link
-            href="/projects"
-            className="group relative inline-flex items-center gap-4 px-12 py-6 bg-black text-white hover:bg-[var(--accent)] transition-colors duration-500 rounded-full overflow-hidden"
-          >
-            <span className="relative z-10 text-sm font-bold uppercase tracking-[0.2em]">View All Projects</span>
-            <span className="relative z-10 p-1 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
-              <ArrowUpRight size={16} className="text-white" />
-            </span>
-          </Link>
-        </div>
-
-      </section>
+      {/* Selected Projects Section - High-end Asymmetrical Gallery */}
+      <WorkGallery projects={projects} />
 
       <Footer />
 
