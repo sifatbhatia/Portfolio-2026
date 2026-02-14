@@ -6,7 +6,6 @@ import Link from 'next/link'
 import GlobalNavbar from './components/GlobalNavbar'
 import { ArrowUpRight } from 'lucide-react'
 import Footer from './components/Footer'
-import GlowingOrb from './components/GlowingOrb'
 import WorkGallery from './components/WorkGallery'
 
 export default function Home() {
@@ -93,11 +92,6 @@ export default function Home() {
       </AnimatePresence>
 
       <section className="relative z-10 min-h-screen flex flex-col justify-between px-[6%] pt-32 pb-12 top-0 pointer-events-none">
-        
-        {/* Scoped Glowing Orb Container */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-[0]">
-          <GlowingOrb />
-        </div>
 
         {/* This spacer pushes content down so it doesn't overlap the fixed header initially */}
         <div className="flex-grow min-h-[20vh] md:min-h-[30vh]" />
@@ -159,7 +153,7 @@ export default function Home() {
       </section>
 
       {/* Selected Projects Section - High-end Asymmetrical Gallery */}
-      <WorkGallery />
+      <WorkGallery projects={projects} />
 
       <Footer />
 

@@ -3,7 +3,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Globe } from 'lucide-react'
-import GlowingOrb from './GlowingOrb'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -27,10 +26,6 @@ export default function Footer() {
 
   return (
     <footer className="bg-black text-white w-full relative overflow-hidden border-t border-white/5 pt-24 md:pt-40">
-      {/* Background Subtle Orb */}
-      <div className="absolute top-0 right-0 w-full h-full md:w-1/2 md:h-full opacity-30 pointer-events-none">
-        <GlowingOrb isFooter={true} />
-      </div>
       <div className="px-[6%] relative z-10 w-full">
         {/* Header */}
         <div className="mb-24">
