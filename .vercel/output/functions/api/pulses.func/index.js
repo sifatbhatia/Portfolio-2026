@@ -11,11 +11,11 @@
   ],
   "lowPriorityFiles": [],
   "rootMainFiles": [
-    "static/chunks/9185a2f4e2fd27c3.js",
+    "static/chunks/514b6bbc3f7ab0f8.js",
     "static/chunks/23ac229c467ffd9b.js",
+    "static/chunks/aebc3b6d791f68d2.js",
     "static/chunks/10cbf02e6fc36465.js",
-    "static/chunks/7de9141b1af425c3.js",
-    "static/chunks/turbopack-f6baabbf97ba43bc.js"
+    "static/chunks/turbopack-c7296c712575d99a.js"
   ]
 };
 globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
@@ -130,7 +130,7 @@ globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/molty/.openclaw/workspace/SB/Lumen",
+    "outputFileTracingRoot": "/home/sifat/.openclaw/workspace/sifPort",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -323,11 +323,11 @@ globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/home/molty/.openclaw/workspace/SB/Lumen"
+      "root": "/home/sifat/.openclaw/workspace/sifPort"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/home/molty/.openclaw/workspace/SB/Lumen",
+  "appDir": "/home/sifat/.openclaw/workspace/sifPort",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
@@ -348,7 +348,7 @@ globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
   ],
   "ignore": []
 }
-/**/;self.__RSC_SERVER_MANIFEST="{\n  \"node\": {},\n  \"edge\": {},\n  \"encryptionKey\": \"vxggVCyXtaRK8GrhXpnq0PZrI2/t6bokEOaUX/WcL+A=\"\n}"
+/**/;self.__RSC_SERVER_MANIFEST="{\n  \"node\": {},\n  \"edge\": {},\n  \"encryptionKey\": \"ZQFanfD/870KVQRjMroAmlM6dCek3Jf1Mn+lcZK2vE0=\"\n}"
 /**/;globalThis.__RSC_MANIFEST = globalThis.__RSC_MANIFEST || {};
 globalThis.__RSC_MANIFEST["/api/pulses/route"] = {"moduleLoading":{"prefix":"","crossOrigin":null},"clientModules":{},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"rscModuleMapping":{},"edgeRscModuleMapping":{},"entryCSSFiles":{},"entryJSFiles":{}}
 

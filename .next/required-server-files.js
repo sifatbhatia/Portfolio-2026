@@ -21,7 +21,7 @@ self.__SERVER_FILES_MANIFEST={
       "js"
     ],
     "poweredByHeader": true,
-    "compress": true,
+    "compress": false,
     "images": {
       "deviceSizes": [
         640,
@@ -105,7 +105,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026",
+    "outputFileTracingRoot": "/home/sifat/.openclaw/workspace/sifPort",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -162,7 +162,7 @@ self.__SERVER_FILES_MANIFEST={
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 1,
+      "cpus": 15,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -214,6 +214,7 @@ self.__SERVER_FILES_MANIFEST={
       "turbopackFileSystemCacheForDev": true,
       "turbopackFileSystemCacheForBuild": false,
       "turbopackInferModuleSideEffects": false,
+      "trustHostHeader": true,
       "optimizePackageImports": [
         "lucide-react",
         "date-fns",
@@ -291,18 +292,17 @@ self.__SERVER_FILES_MANIFEST={
         "react-icons/vsc",
         "react-icons/wi"
       ],
-      "trustHostHeader": false,
       "isExperimentalCompile": false
     },
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026"
+      "root": "/home/sifat/.openclaw/workspace/sifPort"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026",
+  "appDir": "/home/sifat/.openclaw/workspace/sifPort",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

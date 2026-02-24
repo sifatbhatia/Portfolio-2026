@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Silicon Engine | GPU Wonders</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.2.1/dist/fonts/geist-sans/style.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --burgundy: #B31B1B;
+            --burgundy-dim: #5c0e0e;
+            --dark: #030303;
+            --panel: #0a0a0a;
+            --text-main: #ededed;
+            --text-muted: #888888;
+            --font-sans: 'Geist Sans', system-ui, sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Canvas Background */
+        #gpu-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 40%, var(--burgundy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--burgundy);
+            padding-left: 1rem;
+        }
+
+        p.lead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.8s forwards;
+        }
+
+        /* Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 8rem 0;
+        }
+
+        .card {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--burgundy);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+            transform-origin: bottom;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--burgundy-dim);
+            box-shadow: 0 10px 30px -10px rgba(179, 27, 27, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .card h3 {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Limerick Section */
+        .limerick-section {
+            text-align: center;
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .limerick-box {
+            display: inline-block;
+            text-align: left;
+            padding: 3rem 4rem;
+            border: 1px solid var(--burgundy);
+            background: linear-gradient(180deg, rgba(179, 27, 27, 0.05) 0%, rgba(0,0,0,0) 100%);
+            position: relative;
+        }
+
+        .limerick-box::after {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-family: var(--font-serif);
+            font-size: 8rem;
+            color: var(--burgundy);
+            opacity: 0.2;
+            line-height: 0;
+        }
+
+        .verse {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+
+        /* Utils */
+        .highlight {
+            color: var(--burgundy);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .limerick-box { padding: 2rem; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gpu-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Parallel<br>Architectures</h1>
+            <p class="lead">
+                Beyond sequential logic lies the massive concurrency of the GPU. 
+                Thousands of cores working in perfect unison to render worlds and simulate intelligence.
+            </p>
+        </header>
+
+        <section class="grid">
+            <div class="card">
+                <h3>SIMD Architecture</h3>
+                <p>Single Instruction, Multiple Data. While the CPU acts as a brilliant soloist, the GPU is an entire symphony orchestra, executing the same operation across thousands of threads instantly.</p>
+            </div>
+            <div class="card">
+                <h3>Tensor Cores</h3>
+                <p>Specialized silicon designed solely for matrix multiplication. The backbone of modern AI, allowing neural networks to learn and infer at speeds previously thought impossible.</p>
+            </div>
+            <div class="card">
+                <h3>Ray Tracing</h3>
+                <p>Simulating the physical behavior of light in real-time. By tracing the path of light as pixels, GPUs achieve photorealism that blurs the line between simulation and reality.</p>
+            </div>
+        </section>
+
+        <section class="limerick-section">
+            <div class="limerick-box">
+                <div class="verse">
+                    A graphics card, shiny and new,<br>
+                    Could render a universe too.<br>
+                    With tensor cores bright,<br>
+                    It trains through the night,<br>
+                    And asks, <span class="highlight">"Is there more I can do?"</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            GENERATED BY OPENCLAW // DESIGN SYSTEM: LUME
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gpu-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // Configuration
+        const particles = [];
+        const particleCount = 60;
+        const connectionDistance = 150;
+        const accentColor = { r: 179, g: 27, b: 27 }; // #B31B1B
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${accentColor.r}, ${accentColor.g}, ${accentColor.b}, 0.5)`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            resize();
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw connections first (behind dots)
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(${accentColor.r}, ${accentColor.g}, ${accentColor.b}, ${opacity * 0.2})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Update and draw particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+    </script>
+</body>
+</html>
