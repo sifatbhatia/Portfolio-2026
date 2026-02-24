@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../src/components/ResponsiveCarousel.css";
 import SmoothScroll from "./components/SmoothScroll";
 import BackToTop from "./components/BackToTop";
 import GlowingOrb from "./components/GlowingOrb";
@@ -9,6 +10,24 @@ export const metadata: Metadata = {
   description: "Portfolio of Sifat Bhatia, an LA-based designer and developer. Specializing in Webflow, Next.js, and custom digital experiences for artists and visionary brands through Siftion.",
   keywords: ["Sifat Bhatia", "Siftion", "Los Angeles Web Designer", "Web Developer LA", "Webflow Developer", "Next.js Developer", "Artist Web Design", "Digital Identity"],
   authors: [{ name: "Sifat Bhatia" }],
+  icons: {
+    icon: [
+      { url: '/favicon/icon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon/icon-80x80.png', sizes: '80x80', type: 'image/png' },
+      { url: '/favicon/icon-120x120.png', sizes: '120x120', type: 'image/png' },
+      { url: '/favicon/icon-152x152.png', sizes: '152x152', type: 'image/png' },
+      { url: '/favicon/icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon/icon-1024x1024.png', sizes: '1024x1024', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon/icon-120x120.png', sizes: '120x120', type: 'image/png' },
+      { url: '/favicon/icon-152x152.png', sizes: '152x152', type: 'image/png' },
+      { url: '/favicon/icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: "Sifat Bhatia | Design & Development Portfolio",
     description: "Surgical precision in high-fidelity digital experiences. Based in Los Angeles.",
@@ -80,7 +99,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen">
-        <script src="https://js.puter.com/v2/" defer></script>
         <SmoothScroll>
           {children}
           <BackToTop />

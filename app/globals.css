@@ -326,14 +326,20 @@ body::-webkit-scrollbar-thumb {
 .animate-pulse-dramatic {
   animation: pulse-dramatic 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
+
 /* Moving Grid */
 @keyframes grid-move {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(50px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(50px);
+  }
 }
 
 .void-grid-animate {
-  background-image: 
+  background-image:
     linear-gradient(var(--void-border-accent) 1px, transparent 1px),
     linear-gradient(90deg, var(--void-border-accent) 1px, transparent 1px);
   background-size: 50px 50px;

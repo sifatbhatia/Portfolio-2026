@@ -105,7 +105,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026",
+    "outputFileTracingRoot": "/home/sifat/.openclaw/workspace",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -162,7 +162,7 @@ self.__SERVER_FILES_MANIFEST={
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 1,
+      "cpus": 15,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -298,12 +298,12 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026"
+      "root": "/home/sifat/.openclaw/workspace"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/home/Lume/.openclaw/workspace/AGENT/Portfolio-2026",
-  "relativeAppDir": "",
+  "appDir": "/home/sifat/.openclaw/workspace/sifPort",
+  "relativeAppDir": "sifPort",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",

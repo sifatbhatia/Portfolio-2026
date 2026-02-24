@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation'
 import GlobalNavbar from '../../components/GlobalNavbar'
 import Footer from '../../components/Footer'
 import { useLenis } from 'lenis/react'
+import ResponsiveCarousel from '../../../src/components/ResponsiveCarousel'
 
 const PROJECT_DATA: Record<string, {
   title: string,
@@ -20,7 +21,6 @@ const PROJECT_DATA: Record<string, {
   role: string,
   service: string[],
   url: string,
-  image?: string,
   slug: string,
   stats: { label: string, value: string }[]
 }> = {
@@ -34,7 +34,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Creative Lead & Lead Developer',
     service: ['Digital Identity', 'Art Direction', 'Web Design', 'Full-Stack Development', 'GSAP Animation'],
     url: 'https://jworra.com',
-    image: '/previews/j-worra.png',
     stats: [
       { label: 'Year', value: '2026' },
       { label: 'Genre', value: 'Tech-House' }
@@ -50,7 +49,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Designer & Developer',
     service: ['Logo Redesign', 'Website Redesign', 'Artist Sub-Pages', 'Mailchimp Design', 'Custom Layouts'],
     url: 'https://laffairemusicale.com',
-    image: '/previews/l-affaire-musicale.png',
     stats: [
       { label: 'Tenure', value: '20+ Years' },
       { label: 'Platform', value: 'Squarespace' }
@@ -66,7 +64,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Designer & Developer',
     service: ['Website Redesign', 'Mailchimp Design', 'Design Systems', 'Custom Layouts'],
     url: 'https://wckdparadise.com',
-    image: '/previews/wicked-paradise.png',
     stats: [
       { label: 'Scale', value: 'Multi-City' },
       { label: 'Platform', value: 'Squarespace' }
@@ -82,7 +79,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Technical Partner & Lead Developer',
     service: ['Digital Product Design', 'Full Webflow Development', 'GSAP Animation', 'Strategy'],
     url: 'https://qlos-re.webflow.io/',
-    image: '/previews/qlo-agency.png',
     stats: [
       { label: 'Status', value: 'In Progress' },
       { label: 'Base', value: 'Los Angeles' }
@@ -98,7 +94,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Front-End Developer',
     service: ['Site Audit', 'Performance Optimization', 'Squarespace Refactor'],
     url: 'https://samblacky.com',
-    image: '/previews/sam-blacky.png',
     stats: [
       { label: 'Status', value: 'Complete' },
       { label: 'Platform', value: 'Squarespace' }
@@ -114,7 +109,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Developer',
     service: ['Web Design', 'Webflow Development', 'Identity Systems'],
     url: 'https://kaysin.com',
-    image: '/previews/kaysin.png',
     stats: [
       { label: 'Role', value: 'DJ/Producer' },
       { label: 'Focus', value: 'Tech-House' }
@@ -130,7 +124,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Designer & Developer',
     service: ['Experience Design', 'Creative Development', 'Motion Graphics'],
     url: 'https://starconsciousness.com/',
-    image: '/previews/star-consciousness.png',
     stats: [
       { label: 'Year', value: '2025' },
       { label: 'Platform', value: 'Web' }
@@ -146,7 +139,6 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Designer & Developer',
     service: ['Product Design', 'Next.js Development', 'Database Architecture'],
     url: 'https://clipkeep.pages.dev/',
-    image: '/previews/clipkeep.png',
     stats: [
       { label: 'Platform', value: 'Web / Cloudflare' },
       { label: 'Status', value: 'Live' }
@@ -162,7 +154,6 @@ const PROJECT_DATA: Record<string, {
     role: 'System Designer',
     service: ['Architecture', 'Dynamic API', 'Art Direction'],
     url: '/void',
-    image: '/previews/the-void.png',
     stats: [
       { label: 'Sync', value: '4-Hour Cycle' },
       { label: 'Status', value: 'Active' }
@@ -178,15 +169,67 @@ const PROJECT_DATA: Record<string, {
     role: 'Lead Architect & Developer',
     service: ['Wasm Integration', 'FFmpeg Implementation', 'Next.js 15', 'Full-Stack Development', 'Security Engineering'],
     url: 'https://sifs-utils.vercel.app/sif/utils',
-    image: '/previews/sifs-utilities.png',
     stats: [
       { label: 'Year', value: '2025' },
       { label: 'Stack', value: 'Wasm / Next.js' }
     ]
+  },
+  'miss-dre': {
+    title: 'Miss Dre',
+    subtitle: 'Identity Design',
+    slug: 'miss-dre',
+    description: 'Miss Dre is a rising artist in the electronic music scene with a distinctive visual identity that blends futuristic aesthetics with underground sensibilities.',
+    objective: 'Create a cohesive digital identity that captures Miss Dre\'s unique artistic vision while providing a professional platform for her growing audience.',
+    impact: 'The new identity system establishes Miss Dre as a serious artist in the competitive electronic music landscape, with a digital presence that matches her innovative sound.',
+    role: 'Lead Designer & Developer',
+    service: ['Brand Identity', 'Web Design', 'Visual Systems', 'Digital Strategy'],
+    url: '#',
+    stats: [
+      { label: 'Year', value: '2024' },
+      { label: 'Focus', value: 'Electronic Music' }
+    ]
+  },
+  'cherry-tooth': {
+    title: 'Cherry Tooth',
+    subtitle: 'Visual Protocol',
+    slug: 'cherry-tooth',
+    description: 'Cherry Tooth represents a cutting-edge visual protocol for digital art presentation, combining algorithmic design with human curation.',
+    objective: 'Develop a systematic approach to digital art presentation that maintains artistic integrity while optimizing for web delivery and user engagement.',
+    impact: 'The Cherry Tooth protocol provides a framework for artists to present their work in a consistent, high-fidelity manner across different platforms and devices.',
+    role: 'System Designer & Developer',
+    service: ['Protocol Design', 'Web Development', 'Visual Systems', 'Performance Optimization'],
+    url: '#',
+    stats: [
+      { label: 'Year', value: '2024' },
+      { label: 'Type', value: 'Digital Protocol' }
+    ]
   }
 }
 
-const PROJECT_SLUGS = Object.keys(PROJECT_DATA).filter(slug => PROJECT_DATA[slug].image)
+// Function to get screenshot paths for each project
+const getScreenshotPaths = (slug: string): string[] => {
+  // For The Void (local project), use existing preview
+  if (slug === 'the-void') {
+    return ['/previews/the-void.png'];
+  }
+  
+  // For all other projects, look for screenshots in their subdirectory
+  // You should place your manual screenshots in:
+  // public/previews/{project-slug}/screenshot-1.webp, screenshot-2.webp, etc.
+  const basePaths = [
+    `/previews/${slug}/screenshot-1.webp`,
+    `/previews/${slug}/screenshot-2.webp`, 
+    `/previews/${slug}/screenshot-3.webp`,
+    `/previews/${slug}/screenshot-4.webp`,
+    `/previews/${slug}/screenshot-5.webp`
+  ];
+  
+  // In a real implementation, you'd check which files exist
+  // For now, we'll assume you'll provide the screenshots
+  return basePaths;
+}
+
+const PROJECT_SLUGS = Object.keys(PROJECT_DATA)
 
 export default function ProjectDetail() {
   const params = useParams()
@@ -199,57 +242,45 @@ export default function ProjectDetail() {
   }, [slug, lenis])
 
   const project = PROJECT_DATA[slug] || PROJECT_DATA['j-worra']
+  const screenshots = getScreenshotPaths(slug)
 
   const currentIndex = PROJECT_SLUGS.indexOf(slug)
   const nextSlug = PROJECT_SLUGS[(currentIndex + 1) % PROJECT_SLUGS.length]
   const nextProject = PROJECT_DATA[nextSlug]
 
-  const { scrollYProgress } = useScroll()
-  const yImage = useTransform(scrollYProgress, [0, 1], [0, -200])
-  const scaleImage = useTransform(scrollYProgress, [0, 0.5], [1, 1.1])
-
   return (
-    <main className="min-h-screen bg-white text-black overflow-x-hidden selection:bg-[var(--accent)] selection:text-white font-inter">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-[var(--accent)] selection:text-white font-inter">
       <GlobalNavbar />
 
       {/* Hero Section */}
-      <section className="relative pt-28 md:pt-60 px-[6%] pb-20 overflow-hidden bg-white">
+      <section className="relative pt-28 md:pt-60 px-[6%] pb-20 overflow-hidden bg-black">
         <div className="relative z-10 w-full">
           <div className="flex items-center gap-8 mb-12">
             <div className="w-12 h-[1px] bg-[var(--accent)]" />
-            <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">{project.subtitle} // 2026</span>
+            <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">{project.subtitle} // {project.stats.find(s => s.label === 'Year')?.value || '2026'}</span>
           </div>
-          <h1 className="font-inter text-[10vw] md:text-[12vw] font-normal leading-[0.8] tracking-[-0.06em] mb-20 md:mb-32 text-black">
+          <h1 className="font-inter text-[8vw] md:text-[10vw] font-normal leading-[0.8] tracking-[-0.06em] mb-16 md:mb-24 text-white">
             {project.title}<br />
-            <span className="font-playfair italic md:pl-[12vw]">Overview.</span>
+            <span className="font-playfair italic md:pl-[10vw]">Overview.</span>
           </h1>
         </div>
       </section>
 
-      {/* Primary Showcase */}
+      {/* Primary Showcase - Responsive Carousel */}
       <section className="px-[6%] mb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ margin: "-100px", once: true }}
-          transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-          className="relative aspect-video rounded-3xl overflow-hidden border border-black/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] bg-white"
-        >
-          {project.image ? (
-            <img src={project.image} alt="Project Showcase" className="w-full h-full object-cover object-top opacity-95 hover:opacity-100 transition-opacity duration-1000 group-hover:scale-[1.01]" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="w-12 h-12 border-2 border-black/5 rounded-full animate-pulse" />
-            </div>
-          )}
-        </motion.div>
+        <ResponsiveCarousel 
+          images={screenshots}
+          altTexts={screenshots.map((_, i) => `${project.title} screenshot ${i + 1}`)}
+          interval={5000}
+          inverted={true}
+        />
       </section>
 
       {/* Content Section */}
-      <section className="px-[6%] py-20 border-t border-black/10 bg-white">
+      <section className="px-[6%] py-20 border-t border-white/10 bg-black">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
           <div className="lg:col-span-7">
-            <p className="text-xl md:text-3xl font-light leading-snug text-black/80 mb-24">
+            <p className="text-xl md:text-3xl font-light leading-snug text-white/80 mb-24">
               {project.description}
             </p>
             <div className="space-y-32">
@@ -258,7 +289,7 @@ export default function ProjectDetail() {
                   <h3 className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)] mb-8">Objective</h3>
                 </div>
                 <div className="col-span-12 md:col-span-8">
-                  <p className="text-xl md:text-2xl font-light leading-relaxed text-black italic font-playfair tracking-tight">
+                  <p className="text-xl md:text-2xl font-light leading-relaxed text-white italic font-playfair tracking-tight">
                     "{project.objective}"
                   </p>
                 </div>
@@ -270,7 +301,7 @@ export default function ProjectDetail() {
                     <h3 className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)] mb-8">Impact</h3>
                   </div>
                   <div className="col-span-12 md:col-span-8">
-                    <p className="text-lg md:text-xl font-light leading-relaxed text-black/60">
+                    <p className="text-lg md:text-xl font-light leading-relaxed text-white/60">
                       {project.impact}
                     </p>
                   </div>
@@ -279,29 +310,29 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          <aside className="lg:col-span-4 lg:col-start-9 space-y-20 border-l border-black/10 pl-12">
+          <aside className="lg:col-span-4 lg:col-start-9 space-y-20 border-l border-white/10 pl-12">
             <div>
-              <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-8 text-black">Metadata</span>
+              <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-8 text-white">Metadata</span>
               <div className="space-y-6">
                 {project.stats.map(stat => (
-                  <div key={stat.label} className="flex justify-between items-baseline border-b border-black/10 pb-4">
-                    <span className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 text-black">{stat.label}</span>
-                    <span className="text-sm font-medium uppercase tracking-tight text-black">{stat.value}</span>
+                  <div key={stat.label} className="flex justify-between items-baseline border-b border-white/10 pb-4">
+                    <span className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 text-white">{stat.label}</span>
+                    <span className="text-sm font-medium uppercase tracking-tight text-white">{stat.value}</span>
                   </div>
                 ))}
-                <div className="flex justify-between items-baseline border-b border-black/10 pb-4">
-                  <span className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 text-black">Role</span>
-                  <span className="text-sm font-medium uppercase tracking-tight text-black">{project.role}</span>
+                <div className="flex justify-between items-baseline border-b border-white/10 pb-4">
+                  <span className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 text-white">Role</span>
+                  <span className="text-sm font-medium uppercase tracking-tight text-white">{project.role}</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-8 text-black">Services</span>
+              <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-8 text-white">Services</span>
               <div className="flex flex-col gap-3">
                 {project.service.map(s => (
-                  <div key={s} className="text-sm font-normal uppercase tracking-widest opacity-60 flex items-center gap-3 text-black">
-                    <div className="w-1 h-1 rounded-full bg-black/20" />
+                  <div key={s} className="text-sm font-normal uppercase tracking-widest opacity-60 flex items-center gap-3 text-white">
+                    <div className="w-1 h-1 rounded-full bg-white/20" />
                     {s}
                   </div>
                 ))}
@@ -310,11 +341,15 @@ export default function ProjectDetail() {
 
             <div className="pt-12">
               {project.slug === 'qlo-agency' ? (
-                <div className="flex items-center justify-between w-full p-6 border-2 border-black/10 rounded-full text-black/20 cursor-not-allowed text-center">
+                <div className="flex items-center justify-between w-full p-6 border-2 border-white/10 rounded-full text-white/20 cursor-not-allowed text-center">
                   <span className="text-[0.75rem] font-bold uppercase tracking-[0.4em] w-full text-center">Coming Soon</span>
                 </div>
+              ) : project.url === '#' ? (
+                <div className="flex items-center justify-between w-full p-6 border-2 border-white/10 rounded-full text-white/20 cursor-not-allowed text-center">
+                  <span className="text-[0.75rem] font-bold uppercase tracking-[0.4em] w-full text-center">Private Project</span>
+                </div>
               ) : (
-                <a href={project.url} target="_blank" className="group flex items-center justify-between w-full p-6 border-2 border-black rounded-full text-black hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-all duration-500 ease-[0.19,1,0.22,1]">
+                <a href={project.url} target="_blank" className="group flex items-center justify-between w-full p-6 border-2 border-white rounded-full text-white hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-black transition-all duration-500 ease-[0.19,1,0.22,1]">
                   <span className="text-[0.75rem] font-bold uppercase tracking-[0.4em] pl-4">Visit Site</span>
                   <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500 mr-2" />
                 </a>
@@ -327,10 +362,10 @@ export default function ProjectDetail() {
       <Footer />
 
       {/* Navigation Portal */}
-      <section className="border-t border-black/10 flex flex-col md:flex-row h-auto md:h-[30vh] overflow-hidden bg-black/5 gap-px relative">
+      <section className="border-t border-white/10 flex flex-col md:flex-row h-auto md:h-[30vh] overflow-hidden bg-white/5 gap-px relative">
         <Link
           href="/projects"
-          className="flex-1 group relative bg-white flex flex-col justify-center px-[6%] py-12 no-underline text-black transition-all duration-[1.2s] ease-[0.19, 1, 0.22, 1] hover:flex-[1.5]"
+          className="flex-1 group relative bg-black flex flex-col justify-center px-[6%] py-12 no-underline text-white transition-all duration-[1.2s] ease-[0.19, 1, 0.22, 1] hover:flex-[1.5]"
         >
           <div className="relative z-10">
             <span className="text-[0.6rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)] mb-4 block opacity-40 group-hover:opacity-100 transition-opacity">Back</span>
@@ -342,11 +377,11 @@ export default function ProjectDetail() {
 
         <Link
           href={`/projects/${nextSlug}`}
-          className={`flex-1 group relative bg-white flex flex-col justify-center px-[6%] py-12 no-underline text-black transition-all duration-[1.2s] ease-[0.19, 1, 0.22, 1] hover:flex-[1.5] ${!nextProject && 'opacity-50 pointer-events-none'}`}
+          className={`flex-1 group relative bg-black flex flex-col justify-center px-[6%] py-12 no-underline text-white transition-all duration-[1.2s] ease-[0.19, 1, 0.22, 1] hover:flex-[1.5] ${!nextProject && 'opacity-50 pointer-events-none'}`}
         >
           <div className="relative z-10 text-right md:text-left">
             <span className="text-[0.6rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)] mb-4 block opacity-40 group-hover:opacity-100 transition-opacity">Next</span>
-            <h2 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none group-hover:italic group-hover:text-[var(--accent)] transition-all duration-500 group-hover:translate-x-4 text-black">
+            <h2 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none group-hover:italic group-hover:text-[var(--accent)] transition-all duration-500 group-hover:translate-x-4 text-white">
               {nextProject ? nextProject.title : 'End'}
             </h2>
           </div>

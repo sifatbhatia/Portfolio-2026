@@ -1,71 +1,104 @@
 'use client'
 
-import React from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import GlobalNavbar from '../components/GlobalNavbar'
 import Footer from '../components/Footer'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function About() {
-  const { scrollY } = useScroll()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const subContentRef = useRef<HTMLDivElement>(null)
 
   // Responsive scale: bigger minimum on mobile, smaller on desktop
-  const [isMobile, setIsMobile] = React.useState(false)
-  React.useEffect(() => {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Header Animation Logic - Matching sub-pages
-  const titleScale = useTransform(scrollY, [0, 200], [1, isMobile ? 0.55 : 0.18])
-  const titleY = useTransform(scrollY, [0, 200], [0, isMobile ? 2 : -10])
-  const subContentOpacity = useTransform(scrollY, [0, 150], [1, 0])
+  // GSAP Scroll Animations
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        const wrapper = titleRef.current.parentElement
+        gsap.to(wrapper, {
+          scale: isMobile ? 0.55 : 0.18,
+          y: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "200 top",
+            scrub: 1,
+          },
+          ease: "none"
+        })
+      }
+
+      if (subContentRef.current) {
+        gsap.to(subContentRef.current, {
+          opacity: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "150 top",
+            scrub: true,
+          },
+          ease: "none"
+        })
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [isMobile])
 
   // Track if we've scrolled enough to click content
-  const [isScrolled, setIsScrolled] = React.useState(false)
-  React.useEffect(() => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 100)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <main className="min-h-screen bg-white text-black overflow-x-hidden selection:bg-[var(--accent)] selection:text-white relative">
+    <main ref={containerRef} className="min-h-screen bg-white text-black overflow-x-hidden selection:bg-[var(--accent)] selection:text-white relative">
       <GlobalNavbar />
 
       {/* Hero Background Layer - Removed gradients/textures per user request */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
 
       {/* Fixed Hero Title Section */}
-      <div className={`fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 mix-blend-difference text-white selection:bg-[#2EDBDB] transition-opacity duration-300 ${isScrolled ? 'pointer-events-none' : 'pointer-events-auto'}`}>
-        <motion.div
-          style={{ scale: titleScale, y: titleY }}
-          className="origin-top-left"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+      <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
+        <div
+          ref={subContentRef}
+          className="flex items-center gap-8 mb-8 pointer-events-none"
         >
-          <motion.div
-            style={{ opacity: subContentOpacity }}
-            className="flex items-center gap-8 mb-8"
-          >
-            <div className="w-12 h-[1px] bg-[var(--accent)] mix-blend-screen" />
-            <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)] mix-blend-screen">About</span>
-          </motion.div>
+          <div className="w-12 h-[1px] bg-[var(--accent)]" />
+          <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">About</span>
+        </div>
 
-          <h1 className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left mix-blend-difference text-white">
+        <div className="origin-top-left will-change-transform pointer-events-auto">
+          <h1
+            ref={titleRef}
+            className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em]"
+          >
             Design <br />
             <span className="font-playfair italic">Metamorphosis.</span>
           </h1>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Spacer to push content below the "Hero" area */}
-      <div className="h-[35vh] md:h-[45vh]" />
+      {/* Dead Space */}
+      <div className="h-[40vh] md:h-[60vh]" />
 
       <section className="relative z-10 px-[6%] pb-20">
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.15 }}

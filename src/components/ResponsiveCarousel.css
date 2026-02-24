@@ -1,0 +1,121 @@
+.responsive-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: var(--background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-slide {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--dot-background);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background: var(--dot-active);
+  transform: scale(1.2);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--arrow-background);
+  color: var(--arrow-color);
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  background: var(--arrow-hover);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.prev {
+  left: 1.5rem;
+}
+
+.carousel-arrow.next {
+  right: 1.5rem;
+}
+
+/* Inverted color scheme */
+.inverted .responsive-carousel {
+  border-color: var(--white-10);
+}
+
+.inverted .carousel-dot {
+  --dot-background: rgba(255, 255, 255, 0.3);
+  --dot-active: white;
+}
+
+.inverted .carousel-arrow {
+  --arrow-background: rgba(255, 255, 255, 0.1);
+  --arrow-color: white;
+  --arrow-hover: rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .responsive-carousel {
+    border-radius: 1rem;
+  }
+  
+  .carousel-arrow {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .carousel-dots {
+    bottom: 1rem;
+  }
+  
+  .carousel-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+}
+
+/* Ensure images fit properly without cropping */
+.carousel-slide {
+  object-fit: cover !important;
+  object-position: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}

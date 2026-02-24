@@ -96,6 +96,12 @@
       "namedRegex": "^/projects(?:/)?$"
     },
     {
+      "page": "/projects/j-worra",
+      "regex": "^/projects/j\\-worra(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/projects/j\\-worra(?:/)?$"
+    },
+    {
       "page": "/pulse",
       "regex": "^/pulse(?:/)?$",
       "routeKeys": {},

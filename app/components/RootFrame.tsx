@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import { motion, useScroll, useSpring, useMotionValue } from 'framer-motion'
+import { motion, useSpring, useMotionValue } from 'framer-motion'
 import Lenis from 'lenis'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // --- Magnetic Component ---
 export function Magnetic({ children }: { children: React.ReactNode }) {
@@ -34,6 +36,7 @@ export function Magnetic({ children }: { children: React.ReactNode }) {
 export default function RootFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [time, setTime] = useState('')
+  const progressRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true })
@@ -44,11 +47,23 @@ export default function RootFrame({ children }: { children: React.ReactNode }) {
       setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }))
     }, 1000)
 
+    // GSAP Scroll Progress
+    gsap.registerPlugin(ScrollTrigger)
+    if (progressRef.current) {
+      gsap.to(progressRef.current, {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.3,
+        }
+      })
+    }
+
     return () => { lenis.destroy(); clearInterval(timer) }
   }, [])
-
-  const { scrollYProgress } = useScroll()
-  const progressScale = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
 
   return (
     <div style={{ backgroundColor: '#FDFDFD', color: '#000', minHeight: '100vh', width: '100%', margin: 0, padding: 0, fontFamily: 'Inter, sans-serif', overflowX: 'hidden' }}>
@@ -91,7 +106,7 @@ export default function RootFrame({ children }: { children: React.ReactNode }) {
            <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
               <div style={{ width: '180px', position: 'relative' }}>
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(0,0,0,0.08)' }} />
-                <motion.div style={{ position: 'absolute', top: 0, left: 0, height: '1px', backgroundColor: '#B31B1B', width: '100%', scaleX: progressScale, transformOrigin: 'left' }} />
+                <div ref={progressRef} style={{ position: 'absolute', top: 0, left: 0, height: '1px', backgroundColor: '#B31B1B', width: '100%', transform: 'scaleX(0)', transformOrigin: 'left' }} />
                 <div style={{ marginTop: '0.8rem', display: 'flex', justifyContent: 'space-between', fontSize: '0.55rem', fontWeight: 900, opacity: 0.2, letterSpacing: '0.1em' }}>
                    <span>SCROLL_DEP</span>
                    <span>100%</span>

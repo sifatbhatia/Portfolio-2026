@@ -3,6 +3,7 @@
   "functions": {
     "/api/pulses": {},
     "/projects/[projectName]": {},
+    "/projects/j-worra": {},
     "/pulse/[pulseId]": {},
     "/signals/[slug]": {}
   }
