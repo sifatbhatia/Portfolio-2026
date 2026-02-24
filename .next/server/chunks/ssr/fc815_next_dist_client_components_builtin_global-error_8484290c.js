@@ -1,3 +1,0 @@
-module.exports=[60551,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(17736);a.n(d("[project]/sifPort/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},94848,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(17736);a.n(d("[project]/sifPort/node_modules/next/dist/client/components/builtin/global-error.js"))},82345,a=>{"use strict";a.i(60551);var b=a.i(94848);a.n(b)}];
-
-//# sourceMappingURL=fc815_next_dist_client_components_builtin_global-error_8484290c.js.map

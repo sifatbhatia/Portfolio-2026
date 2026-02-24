@@ -11,12 +11,12 @@ import * as THREE from 'three'
  * React Three Fiber (R3F) in generic bundlers/sandboxes. It is highly 
  * portable and can be dropped into any Next.js or React app reliably.
  */
-export default function SignalOrbScene({ 
-  particleCount = 3000, 
-  baseRadius = 2.2, 
+export default function SignalOrbScene({
+  particleCount = 3000,
+  baseRadius = 2.2,
   primaryColor = '#DC143C', // Updated to Crimson for the core
-  secondaryColor = '#000000', 
-  mouseInfluence = 0.05 
+  secondaryColor = '#000000',
+  mouseInfluence = 0.05
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -34,8 +34,12 @@ export default function SignalOrbScene({
     camera.position.z = 6
 
     // 3. Renderer Setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) // Cap at 2x for performance
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      alpha: true,
+      powerPreference: "high-performance"
+    })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)) // Cap at 1.5x for scroll performance
     renderer.setSize(window.innerWidth, window.innerHeight)
     container.appendChild(renderer.domElement)
 
@@ -165,11 +169,11 @@ export default function SignalOrbScene({
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)
-      
+
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
-      
+
       geometry.dispose()
       material.dispose()
       coreGeom.dispose()

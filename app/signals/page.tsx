@@ -59,13 +59,6 @@ export default function SignalsIndex() {
         return () => ctx.revert()
     }, [isMobile])
 
-    // Track scroll for pointer events
-    const [isScrolled, setIsScrolled] = React.useState(false)
-    useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 50)
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
 
     useEffect(() => {
         async function fetchPulses() {

@@ -1,3 +1,0 @@
-:HL["/_next/static/chunks/513cac3818e0f4c6.css","style"]
-:HL["https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap","style"]
-0:{"buildId":"ju9kJcsL9xZCkwgI0wvNR","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"pulse","paramType":null,"paramKey":"pulse","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
