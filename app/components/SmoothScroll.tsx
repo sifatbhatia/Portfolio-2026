@@ -8,9 +8,11 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   // We use ReactLenis root option to apply smooth scroll to the entire page
   return (
     <ReactLenis root options={{
-      lerp: 0.1,
-      duration: 1.5,
-      smoothWheel: true
+      lerp: 0.12,
+      duration: 1.2,
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2,
     }}>
       <ScrollToTop />
       {children}

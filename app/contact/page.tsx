@@ -1,62 +1,80 @@
 'use client'
 
-import React from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import GlobalNavbar from '../components/GlobalNavbar'
 import Footer from '../components/Footer'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function Contact() {
-  const { scrollY } = useScroll()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
 
   // Responsive scale: bigger minimum on mobile, smaller on desktop
-  const [isMobile, setIsMobile] = React.useState(false)
-  React.useEffect(() => {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Header Animation Logic - Matching hero-alt, projects, about, and pulse
-  // Note: Contact page is dark themed, so we keep text-white but still use the scaling logic
-  const titleScale = useTransform(scrollY, [0, 200], [1, isMobile ? 0.55 : 0.18])
-  const titleY = useTransform(scrollY, [0, 200], [0, isMobile ? 2 : -10])
-  const subContentOpacity = useTransform(scrollY, [0, 150], [1, 0])
+  // GSAP Scroll Animations
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        const wrapper = titleRef.current.parentElement
+        gsap.to(wrapper, {
+          scale: isMobile ? 0.55 : 0.18,
+          y: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "200 top",
+            scrub: 1,
+          },
+          ease: "none"
+        })
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [isMobile])
 
   // Track scroll for pointer events
-  const [isScrolled, setIsScrolled] = React.useState(false)
-  React.useEffect(() => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-[var(--accent)] selection:text-white relative overflow-x-hidden">
+    <main ref={containerRef} className="min-h-screen bg-black text-white selection:bg-[var(--accent)] selection:text-white relative overflow-x-hidden">
       <GlobalNavbar />
 
       {/* Fixed Hero Title Section */}
-      <div className={`fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 mix-blend-difference text-white selection:bg-[#2EDBDB] transition-opacity duration-300 ${isScrolled ? 'pointer-events-none' : 'pointer-events-auto'}`}>
-        <motion.div
-          style={{ scale: titleScale, y: titleY }}
-          className="origin-top-left"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-        >
-          <h1 className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left">
+      <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
+        <div className="origin-top-left will-change-transform pointer-events-auto">
+          <h1
+            ref={titleRef}
+            className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em]"
+          >
             Start the <br />
-            <span className="font-playfair italic text-white/80">Dialogue.</span>
+            <span className="font-playfair italic">Dialogue.</span>
           </h1>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Spacer to push content below the "Hero" area */}
+      {/* Dead Space */}
       <div className="h-[35vh] md:h-[65vh]" />
 
       <section className="relative z-10 px-[6%] pb-20">
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.15 }}
@@ -68,8 +86,8 @@ export default function Contact() {
             </p>
 
             <div className="mt-20">
-              <a href="mailto:sifatbht@gmail.com" className="text-xl md:text-6xl font-normal tracking-tight no-underline text-white hover:text-[var(--accent)] transition-colors inline-flex items-center gap-4 md:gap-8 group">
-                sifatbht@gmail.com <ArrowUpRight size={24} className="md:w-16 md:h-16 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" strokeWidth={1} />
+              <a href="mailto:hi@sifat.tech" className="text-xl md:text-6xl font-normal tracking-tight no-underline text-white hover:text-[var(--accent)] transition-colors inline-flex items-center gap-4 md:gap-8 group">
+                hi@sifat.tech <ArrowUpRight size={24} className="md:w-16 md:h-16 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" strokeWidth={1} />
               </a>
             </div>
           </div>

@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import GlobalNavbar from '../components/GlobalNavbar'
 import Footer from '../components/Footer'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 interface Pulse {
   id: string
@@ -20,12 +22,46 @@ interface Pulse {
 export default function TheVoid() {
   const [pulses, setPulses] = useState<Pulse[]>([])
   const [loading, setLoading] = useState(true)
-  const { scrollY } = useScroll()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const subContentRef = useRef<HTMLDivElement>(null)
 
-  // Header Animation Logic - Matching hero-alt, projects, and about
-  const titleScale = useTransform(scrollY, [0, 300], [1, 0.15])
-  const titleY = useTransform(scrollY, [0, 300], [0, -10])
-  const subContentOpacity = useTransform(scrollY, [0, 200], [1, 0])
+  // GSAP Scroll Animations
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        const wrapper = titleRef.current.parentElement
+        gsap.to(wrapper, {
+          scale: 0.15,
+          y: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "300 top",
+            scrub: 1,
+          },
+          ease: "none"
+        })
+      }
+
+      if (subContentRef.current) {
+        gsap.to(subContentRef.current, {
+          opacity: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "200 top",
+            scrub: true,
+          },
+          ease: "none"
+        })
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
   useEffect(() => {
     async function fetchPulses() {
@@ -45,7 +81,7 @@ export default function TheVoid() {
   }, [])
 
   return (
-    <main className="min-h-screen relative overflow-hidden text-black bg-white selection:bg-[var(--accent)] selection:text-white">
+    <main ref={containerRef} className="min-h-screen relative overflow-hidden text-black bg-white selection:bg-[var(--accent)] selection:text-white">
       <GlobalNavbar />
 
       {/* Hero Background Layer */}
@@ -56,49 +92,33 @@ export default function TheVoid() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-black opacity-[0.05] blur-[120px] rounded-full" />
       </div>
 
-      {/* Fixed Hero Title Section - Accent Label (No Blend) */}
-      <div className="fixed top-0 left-0 w-full z-[71] px-[6%] pt-6 md:pt-8 pointer-events-none text-[var(--accent)]">
-        <motion.div
-          style={{ scale: titleScale, y: titleY }}
-          className="origin-top-left"
+      {/* Fixed Hero Title Section - Shared Scaling Container */}
+      <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
+        <div
+          ref={subContentRef}
+          className="flex items-center gap-8 mb-8 pointer-events-none"
         >
-          <motion.div
-            style={{ opacity: subContentOpacity }}
-            className="flex items-center gap-8 mb-12 md:mb-24"
-          >
-            <div className="w-12 h-[1px] bg-[var(--accent)]" />
-            <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">Signals</span>
-          </motion.div>
-        </motion.div>
-      </div>
+          <div className="w-12 h-[1px] bg-[var(--accent)]" />
+          <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">Signals</span>
+        </div>
 
-      {/* Fixed Hero Title Section - Main Title (Mix Blend Difference) */}
-      <div className="fixed top-0 left-0 w-full z-[70] px-[6%] pt-6 md:pt-8 pointer-events-none mix-blend-difference text-white">
-        <motion.div
-          style={{ scale: titleScale, y: titleY }}
-          className="origin-top-left"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+        <div
+          ref={titleRef}
+          className="origin-top-left will-change-transform pointer-events-auto"
         >
-          {/* Invisible spacer to maintain h1 position relative to label */}
-          <div className="flex items-center gap-8 mb-12 md:mb-24 opacity-0">
-            <div className="w-12 h-[1px]" />
-            <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em]">Signals</span>
-          </div>
-
-          <h1 className="font-inter text-[10vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left mix-blend-difference text-white">
+          {/* Main Title (Mix Blend Difference) */}
+          <h1 className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em]">
             Digital <br />
-            <span className="font-playfair italic md:pl-[12vw] text-white/80">Archaeology.</span>
+            <span className="font-playfair italic">Archaeology.</span>
           </h1>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Spacer to push content below the "Hero" area */}
+      {/* Dead Space */}
       <div className="h-[45vh]" />
 
       <section className="relative z-10 px-[6%]">
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.15 }}

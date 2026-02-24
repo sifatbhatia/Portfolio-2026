@@ -3,7 +3,7 @@
 export const runtime = 'edge'
 
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import GlobalNavbar from '../../components/GlobalNavbar'
@@ -11,6 +11,8 @@ import Footer from '../../components/Footer'
 import { useLenis } from 'lenis/react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 interface PulseData {
     title: string
@@ -34,15 +36,31 @@ export default function SignalDetail() {
     const lenis = useLenis()
 
     const heroRef = useRef<HTMLElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
 
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"]
-    })
+    // GSAP Scroll Animations
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger)
 
-    const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-    const scaleHero = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
-    const yHero = useTransform(scrollYProgress, [0, 0.5], [0, 50])
+        const ctx = gsap.context(() => {
+            if (heroRef.current) {
+                gsap.to(heroRef.current.children[0], {
+                    opacity: 0,
+                    scale: 0.95,
+                    y: 0,
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                    ease: "none"
+                })
+            }
+        }, containerRef)
+
+        return () => ctx.revert()
+    }, [loading])
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0)
@@ -103,7 +121,7 @@ export default function SignalDetail() {
             <GlobalNavbar />
 
             <section ref={heroRef} className="relative pt-28 md:pt-60 px-[6%] pb-12 md:pb-40 border-b border-black/5 bg-white z-10">
-                <motion.div style={{ opacity: opacityText, scale: scaleHero, y: yHero }}>
+                <div>
                     <div className="flex items-center gap-4 md:gap-8 mb-8 md:mb-12">
                         <motion.div
                             initial={{ width: 0 }}
@@ -121,7 +139,7 @@ export default function SignalDetail() {
                         </motion.span>
                     </div>
 
-                    <h1 className="font-inter text-[10vw] md:text-[6vw] lg:text-[8vw] font-normal leading-[0.9] md:leading-[0.8] tracking-[-0.04em] md:tracking-[-0.06em] mb-12 md:mb-20 text-black break-words">
+                    <h1 className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em] mb-12 md:mb-20 text-black break-words">
                         <motion.span
                             initial={{ opacity: 0, y: 100 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -134,12 +152,12 @@ export default function SignalDetail() {
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 1, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-                            className="font-playfair italic md:pl-[12vw] block text-[8vw] md:text-[5vw] lg:text-[6vw] opacity-20"
+                            className="font-playfair italic md:pl-[12vw] block opacity-20"
                         >
                             Signal.
                         </motion.span>
                     </h1>
-                </motion.div>
+                </div>
             </section>
 
             <section className="px-[6%] py-16 md:py-32 bg-white relative z-10">

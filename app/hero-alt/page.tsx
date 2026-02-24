@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import GlobalNavbar from '../components/GlobalNavbar'
-import { ArrowUpRight, ArrowDown } from 'lucide-react'
-import ThreeCarousel from '../components/ThreeCarousel'
+import { ArrowUpRight } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const FEATURED_PROJECTS = [
     {
@@ -27,8 +27,7 @@ const FEATURED_PROJECTS = [
 ]
 
 export default function HeroAlt() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const { scrollY } = useScroll()
+    const titleRef = useRef<HTMLHeadingElement>(null)
     const [activeProjectIndex, setActiveProjectIndex] = useState(0)
     const [isHovering, setIsHovering] = useState(false)
 
@@ -44,11 +43,31 @@ export default function HeroAlt() {
         return () => clearInterval(interval)
     }, [isHovering])
 
-    // Sifat Bhatia Scaling Logic - Anchored Top Left
-    // Scale down from 1 to 0.15 (approx navbar logo size)
-    const scale = useTransform(scrollY, [0, 300], [1, 0.15])
-    // Move y position to align with navbar (handled by layout, but fine tune if needed)
-    const y = useTransform(scrollY, [0, 300], [0, -10])
+    // GSAP Scroll Animations
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger)
+
+        if (!titleRef.current) return
+
+        const ctx = gsap.context(() => {
+            if (titleRef.current) {
+                const wrapper = titleRef.current.parentElement
+                gsap.to(wrapper, {
+                    scale: 0.15,
+                    y: 0,
+                    scrollTrigger: {
+                        trigger: "body",
+                        start: "top top",
+                        end: "300 top",
+                        scrub: 1,
+                    },
+                    ease: "none"
+                })
+            }
+        })
+
+        return () => ctx.revert()
+    }, [])
 
     return (
         <main className="min-h-[200vh] bg-white text-black font-inter selection:bg-[var(--accent)] selection:text-white relative">
@@ -61,14 +80,16 @@ export default function HeroAlt() {
             <section className="relative z-10 h-screen flex flex-col justify-between px-[6%] pt-32 pb-12 top-0 pointer-events-none">
 
                 {/* Massive Sticky Title - Top Left */}
-                <div className="fixed top-0 left-[6%] z-[70] origin-top-left pt-6 md:pt-8 mix-blend-difference text-white pointer-events-auto">
-                    <motion.h1
-                        style={{ scale, y }}
-                        className="text-[10vw] leading-[0.9] font-normal tracking-[-0.05em] origin-top-left text-black"
-                    >
-                        Sifat <br className="hidden md:block" />
-                        <span className="font-playfair italic">Bhatia.</span>
-                    </motion.h1>
+                <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
+                    <div className="origin-top-left will-change-transform pointer-events-auto">
+                        <h1
+                            ref={titleRef}
+                            className="font-inter text-5xl sm:text-7xl md:text-[8.5vw] leading-[0.9] font-normal tracking-[-0.05em]"
+                        >
+                            Sifat <br className="hidden md:block" />
+                            <span className="font-playfair italic">Bhatia.</span>
+                        </h1>
+                    </div>
                 </div>
 
                 {/* This spacer pushes content down so it doesn't overlap the fixed header initially */}
@@ -85,7 +106,7 @@ export default function HeroAlt() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-6xl md:text-8xl font-normal tracking-[-0.03em] leading-[0.9] mb-6 text-black"
                         >
-                            Atmospheric <span className="font-playfair italic">Interfaces</span><sup className="text-2xl align-top ml-2 font-inter">™</sup>
+                            Atmospheric <span className="font-playfair italic">Interfaces</span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}

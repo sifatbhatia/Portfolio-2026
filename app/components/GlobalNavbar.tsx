@@ -27,7 +27,7 @@ export default function GlobalNavbar() {
           {navLinks.map(link => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
             return (
-              <li key={link.name} className="relative group">
+              <li key={link.name} className="relative group filter invert-1">
                 <Link
                   href={link.href}
                   className={`no-underline transition-colors duration-300 ${isActive ? 'text-[var(--accent)] font-bold' : 'hover:text-[var(--accent)]'}`}
