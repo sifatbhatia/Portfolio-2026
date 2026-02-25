@@ -7,10 +7,31 @@ import Footer from '../components/Footer'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+const CAPABILITIES = [
+  {
+    category: 'Product Design',
+    items: ['Art Direction', 'UI/UX Design', 'Visual Identity', 'Typography', 'Design Systems', 'Motion Design', 'Interactive Prototypes']
+  },
+  {
+    category: 'Core Engineering',
+    items: ['Next.js / React', 'TypeScript', 'Node.js', 'Tailwind CSS', 'Performance Optimization', 'Wasm Integration', 'API Architecture']
+  },
+  {
+    category: 'Creative Tech',
+    items: ['WebGL / Three.js', 'GSAP Animation', 'Framer Motion', 'Shader Development', 'Dynamic Visualization', 'Generative Art']
+  }
+]
+
+const PRESS = [
+  { name: 'Voyage LA', type: 'Interview', url: 'https://voyagela.com/interview/meet-sifat-bhatia-of-los-angeles/' },
+  { name: 'Shoutout LA', type: 'Interview', url: 'https://shoutoutla.com/meet-sifat-bhatia-web-designer-developer/' },
+  { name: 'Bold Journey', type: 'Interview', url: 'https://boldjourney.com/meet-sifat-bhatia' },
+  { name: 'CanvasRebel', type: 'Coming Soon', url: '#' },
+]
+
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
-  const subContentRef = useRef<HTMLDivElement>(null)
 
   // Responsive scale: bigger minimum on mobile, smaller on desktop
   const [isMobile, setIsMobile] = useState(false)
@@ -41,47 +62,20 @@ export default function About() {
         })
       }
 
-      if (subContentRef.current) {
-        gsap.to(subContentRef.current, {
-          opacity: 0,
-          scrollTrigger: {
-            trigger: "body",
-            start: "top top",
-            end: "150 top",
-            scrub: true,
-          },
-          ease: "none"
-        })
-      }
     }, containerRef)
 
     return () => ctx.revert()
   }, [isMobile])
 
-  // Track if we've scrolled enough to click content
-  const [isScrolled, setIsScrolled] = useState(false)
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <main ref={containerRef} className="min-h-screen bg-white text-black overflow-x-hidden selection:bg-[var(--accent)] selection:text-white relative">
       <GlobalNavbar />
 
-      {/* Hero Background Layer - Removed gradients/textures per user request */}
+      {/* Hero Background Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
 
       {/* Fixed Hero Title Section */}
       <div className="fixed top-0 left-0 w-full z-[500] px-[6%] pt-6 md:pt-8 text-white mix-blend-difference selection:bg-[#2EDBDB] pointer-events-none">
-        <div
-          ref={subContentRef}
-          className="flex items-center gap-8 mb-8 pointer-events-none"
-        >
-          <div className="w-12 h-[1px] bg-[var(--accent)]" />
-          <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">About</span>
-        </div>
 
         <div className="origin-top-left will-change-transform pointer-events-auto">
           <h1
@@ -98,41 +92,82 @@ export default function About() {
       <div className="h-[40vh] md:h-[60vh]" />
 
       <section className="relative z-10 px-[6%] pb-20">
-          <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.15 }}
-          className="grid grid-cols-12 gap-8 mb-40"
-        >
-          <div className="col-span-12 md:col-span-6">
-            <p className="text-xl md:text-3xl font-light leading-snug text-black/80 mb-12">
-              Sifat Bhatia is a Los Angeles-based designer and developer specializing in interactive digital experiences. Through his brand, <span className="text-black font-normal italic">Siftion</span>, he bridges the gap between artistic vision and technical mastery.
-            </p>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-black/60 mb-8">
-              His journey started with a fascination for the intersection of art and technology—transforming concepts into functional, visually compelling realities. Today, Sifat works with notable artists and industry leaders like J. Worra, L’Affaire Musicale, and Wicked Paradise.
-            </p>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-black/60">
-              Every project is a commitment to attention to detail—removing the non-essential to amplify the core identity of the brand or artist.
-            </p>
-          </div>
-          <div className="col-span-12 md:col-start-9 md:col-span-4 border-t border-black/10 pt-8 mt-12 md:mt-0">
-            <span className="block text-[0.6rem] font-bold opacity-30 uppercase tracking-widest mb-8">Capabilities</span>
-            <ul className="flex flex-col gap-6 list-none p-0 m-0 text-black">
-              {['Custom Web Design', 'Webflow & Next.js Development', 'Artist Identity', 'Experience Design', 'CMS Systems'].map(item => (
-                <li key={item} className="text-sm font-bold uppercase tracking-widest flex justify-between items-center group">
-                  {item} <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[var(--accent)]">→</span>
-                </li>
-              ))}
-            </ul>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+          {/* Narrative Content */}
+          <div className="lg:col-span-6 space-y-32">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <p className="text-3xl md:text-5xl font-light leading-[1.1] tracking-tight text-black mb-16">
+                Sifat Bhatia is a Los Angeles-based <span className="italic font-playfair">design engineer</span> whose work exists at the intersection of visual logic and technical precision.
+              </p>
+              <div className="space-y-8 text-lg md:text-xl font-light leading-relaxed text-black/60 max-w-2xl">
+                <p>
+                  My journey began with sketches in notebooks and a fascination for how technology could amplify artistic expression. Today, that curiosity has evolved into a specialization in high-fidelity digital experiences that prioritize structural logic and visual atmosphere.
+                </p>
+                <p>
+                  Operating through <span className="text-black font-normal">Siftion</span> (pronounced "sif-chun"), I partner with industry-leading artists and brands like <span className="text-black font-normal">J. Worra</span>, <span className="text-black font-normal">Miss Dre</span>, and <span className="text-black font-normal">Wicked Paradise</span> to transform abstract visions into functional, animated interfaces.
+                </p>
+                <p>
+                  What sets my work apart is an unwavering focus on <span className="italic font-playfair text-black">feel</span>. I believe a digital presence should be more than just a collection of features—it should be a cohesive narrative defined by motion, clarity, and intentional structure.
+                </p>
+              </div>
+            </motion.div>
 
-            <div className="mt-20 pt-8 border-t border-black/5">
-              <span className="block text-[0.6rem] font-bold opacity-30 uppercase tracking-widest mb-4">Partners</span>
-              <div className="text-xs font-bold uppercase tracking-wider opacity-60 leading-relaxed text-black">
-                J. Worra • Miss Dre • Cherry Tooth • Kaysin • L’Affaire Musicale • Wicked Paradise
+            {/* Press Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+            >
+              <span className="block text-[0.6rem] font-bold opacity-30 uppercase tracking-[0.4em] mb-10">Press & Features</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                {PRESS.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block group border-l border-black/10 pl-6 no-underline text-black transition-all ${item.url === '#' ? 'pointer-events-none opacity-50' : 'hover:border-[var(--accent)]'}`}
+                  >
+                    <span className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 block mb-2">{item.type}</span>
+                    <h4 className="text-xl md:text-2xl font-normal tracking-tight group-hover:italic group-hover:text-[var(--accent)] transition-all">
+                      {item.name}
+                    </h4>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Expanded Capabilities Section */}
+          <div className="lg:col-span-5 lg:col-start-8">
+            <div className="border-t border-black/10 pt-8">
+              <span className="block text-[0.6rem] font-bold opacity-30 uppercase tracking-[0.4em] mb-12">Capabilities</span>
+
+              <div className="space-y-16">
+                {CAPABILITIES.map((group) => (
+                  <div key={group.category} className="group">
+                    <h3 className="text-[0.6rem] font-black uppercase tracking-widest text-[var(--accent)] mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
+                      {group.category}
+                    </h3>
+                    <ul className="grid grid-cols-1 gap-4">
+                      {group.items.map((item) => (
+                        <li key={item} className="text-sm md:text-base font-medium uppercase tracking-tight flex justify-between items-center group/item border-b border-black/5 pb-2">
+                          <span className="group-hover/item:pl-2 transition-all duration-300">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <Footer />

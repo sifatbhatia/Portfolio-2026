@@ -22,7 +22,8 @@ const PROJECT_DATA: Record<string, {
   service: string[],
   url: string,
   slug: string,
-  stats: { label: string, value: string }[]
+  stats: { label: string, value: string }[],
+  screenshotCount?: number
 }> = {
   'j-worra': {
     title: 'J. Worra',
@@ -37,7 +38,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Year', value: '2026' },
       { label: 'Genre', value: 'Tech-House' }
-    ]
+    ],
+    screenshotCount: 8
   },
   'l-affaire-musicale': {
     title: 'L’ Affaire Musicale',
@@ -52,7 +54,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Tenure', value: '20+ Years' },
       { label: 'Platform', value: 'Squarespace' }
-    ]
+    ],
+    screenshotCount: 4
   },
   'wicked-paradise': {
     title: 'Wicked Paradise',
@@ -67,7 +70,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Scale', value: 'Multi-City' },
       { label: 'Platform', value: 'Squarespace' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'qlo-agency': {
     title: 'QLO Agency',
@@ -82,7 +86,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Status', value: 'In Progress' },
       { label: 'Base', value: 'Los Angeles' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'sam-blacky': {
     title: 'Sam Blacky',
@@ -97,7 +102,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Status', value: 'Complete' },
       { label: 'Platform', value: 'Squarespace' }
-    ]
+    ],
+    screenshotCount: 3
   },
   'kaysin': {
     title: 'Kaysin',
@@ -112,7 +118,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Role', value: 'DJ/Producer' },
       { label: 'Focus', value: 'Tech-House' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'star-consciousness': {
     title: 'Star Consciousness',
@@ -127,7 +134,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Year', value: '2025' },
       { label: 'Platform', value: 'Web' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'clipkeep': {
     title: 'ClipKeep',
@@ -142,7 +150,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Platform', value: 'Web / Cloudflare' },
       { label: 'Status', value: 'Live' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'the-void': {
     title: 'The Void',
@@ -157,7 +166,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Sync', value: '4-Hour Cycle' },
       { label: 'Status', value: 'Active' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'sifs-utilities': {
     title: "Sif's Utilities",
@@ -172,7 +182,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Year', value: '2025' },
       { label: 'Stack', value: 'Wasm / Next.js' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'miss-dre': {
     title: 'Miss Dre',
@@ -187,7 +198,8 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Year', value: '2024' },
       { label: 'Focus', value: 'Electronic Music' }
-    ]
+    ],
+    screenshotCount: 1
   },
   'cherry-tooth': {
     title: 'Cherry Tooth',
@@ -202,31 +214,20 @@ const PROJECT_DATA: Record<string, {
     stats: [
       { label: 'Year', value: '2024' },
       { label: 'Type', value: 'Digital Protocol' }
-    ]
+    ],
+    screenshotCount: 3
   }
 }
 
 // Function to get screenshot paths for each project
-const getScreenshotPaths = (slug: string): string[] => {
+const getScreenshotPaths = (slug: string, count: number = 5): string[] => {
   // For The Void (local project), use existing preview
   if (slug === 'the-void') {
     return ['/previews/the-void.png'];
   }
-  
-  // For all other projects, look for screenshots in their subdirectory
-  // You should place your manual screenshots in:
-  // public/previews/{project-slug}/screenshot-1.webp, screenshot-2.webp, etc.
-  const basePaths = [
-    `/previews/${slug}/screenshot-1.webp`,
-    `/previews/${slug}/screenshot-2.webp`, 
-    `/previews/${slug}/screenshot-3.webp`,
-    `/previews/${slug}/screenshot-4.webp`,
-    `/previews/${slug}/screenshot-5.webp`
-  ];
-  
-  // In a real implementation, you'd check which files exist
-  // For now, we'll assume you'll provide the screenshots
-  return basePaths;
+
+  // Generate 'count' number of screenshot paths dynamically
+  return Array.from({ length: count }, (_, i) => `/previews/${slug}/screenshot-${i + 1}.webp`);
 }
 
 const PROJECT_SLUGS = Object.keys(PROJECT_DATA)
@@ -242,7 +243,7 @@ export default function ProjectDetail() {
   }, [slug, lenis])
 
   const project = PROJECT_DATA[slug] || PROJECT_DATA['j-worra']
-  const screenshots = getScreenshotPaths(slug)
+  const screenshots = getScreenshotPaths(slug, project.screenshotCount || 5)
 
   const currentIndex = PROJECT_SLUGS.indexOf(slug)
   const nextSlug = PROJECT_SLUGS[(currentIndex + 1) % PROJECT_SLUGS.length]
@@ -268,7 +269,7 @@ export default function ProjectDetail() {
 
       {/* Primary Showcase - Responsive Carousel */}
       <section className="px-[6%] mb-20">
-        <ResponsiveCarousel 
+        <ResponsiveCarousel
           images={screenshots}
           altTexts={screenshots.map((_, i) => `${project.title} screenshot ${i + 1}`)}
           interval={5000}

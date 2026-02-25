@@ -34,7 +34,7 @@ export default function NotFound() {
                             <span>Back Home</span>
                             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link href="/pulse" className="px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black/5 transition-colors text-black">
+                        <Link href="/signals" className="px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black/5 transition-colors text-black">
                             Read Signals
                         </Link>
                     </div>

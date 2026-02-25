@@ -4,6 +4,7 @@ import React from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Globe } from 'lucide-react'
 import { useRef } from 'react'
+import MagneticWrapper from '../../components/MagneticWrapper'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -79,13 +80,14 @@ export default function Footer() {
             <div className="flex flex-col gap-4">
               {[
                 { name: 'LinkedIn', href: 'https://linkedin.com/in/siftion' },
-                { name: 'Behance', href: 'https://behance.net/siftion' },
-                { name: 'Instagram', href: 'https://instagram.com/sifatxo' },
-                { name: 'Facebook', href: '#' }
+                { name: 'Behance', href: 'https://www.behance.net/siftion' },
+                { name: 'Instagram', href: 'https://instagram.com/siftion' }
               ].map((social) => (
-                <a key={social.name} href={social.href} target="_blank" className="group text-xl md:text-2xl font-normal no-underline text-white hover:text-[var(--accent)] transition-colors w-fit border-b border-white/5 group-hover:border-white/20 pb-1">
-                  {social.name}
-                </a>
+                <MagneticWrapper key={social.name} intensity={0.2} className="w-fit">
+                  <a href={social.href} target="_blank" className="group text-xl md:text-2xl font-normal no-underline text-white hover:text-[var(--accent)] transition-colors w-fit border-b border-white/5 group-hover:border-white/20 pb-1 block">
+                    {social.name}
+                  </a>
+                </MagneticWrapper>
               ))}
             </div>
           </div>

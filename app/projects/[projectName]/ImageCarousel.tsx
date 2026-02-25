@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import MagneticWrapper from '../../../components/MagneticWrapper'
 
 interface ImageCarouselProps {
   images: string[]
@@ -83,21 +84,25 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
       </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <button
-        onClick={prevImage}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white transition-all duration-300 opacity-0 group-hover:opacity-100"
-        aria-label="Previous image"
-      >
-        <ChevronLeft size={20} />
-      </button>
+      <MagneticWrapper intensity={0.2} className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+        <button
+          onClick={prevImage}
+          className="w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white transition-all duration-300 opacity-0 group-hover:opacity-100"
+          aria-label="Previous image"
+        >
+          <ChevronLeft size={20} />
+        </button>
+      </MagneticWrapper>
 
-      <button
-        onClick={nextImage}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white transition-all duration-300 opacity-0 group-hover:opacity-100"
-        aria-label="Next image"
-      >
-        <ChevronRight size={20} />
-      </button>
+      <MagneticWrapper intensity={0.2} className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+        <button
+          onClick={nextImage}
+          className="w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white transition-all duration-300 opacity-0 group-hover:opacity-100"
+          aria-label="Next image"
+        >
+          <ChevronRight size={20} />
+        </button>
+      </MagneticWrapper>
 
       {/* Dots Indicator */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
@@ -108,11 +113,10 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
               setDirection(index > currentIndex ? 1 : -1)
               setCurrentIndex(index)
             }}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentIndex
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                 ? 'bg-white w-6'
                 : 'bg-white/30 hover:bg-white/50'
-            }`}
+              }`}
             aria-label={`Go to image ${index + 1}`}
           />
         ))}

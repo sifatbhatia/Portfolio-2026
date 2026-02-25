@@ -1,19 +1,29 @@
 export const PROJECT_DATA = {
-  'j-worra': '/previews/j-worra/screenshot-1.webp',
-  'l-affaire-musicale': '/previews/l-affaire-musicale/screenshot-1.webp',
-  'wicked-paradise': '/previews/wicked-paradise/screenshot-1.webp',
-  'qlo-agency': '/previews/qlo-agency/screenshot-1.webp',
-  'sam-blacky': '/previews/sam-blacky/screenshot-1.webp',
-  'kaysin': '/previews/kaysin/screenshot-1.webp',
-  'star-consciousness': '/previews/star-consciousness/screenshot-1.webp',
-  'clipkeep': '/previews/clipkeep/screenshot-1.webp',
-  'the-void': '/previews/the-void.png', // Special case - uses existing PNG
-  'sifs-utilities': '/previews/sifs-utilities/screenshot-1.webp',
-  'miss-dre': '/previews/miss-dre/screenshot-1.webp',
-  'cherry-tooth': '/previews/cherry-tooth/screenshot-1.webp'
+  'j-worra': { image: '/previews/j-worra/screenshot-1.webp', screenshotCount: 8, color: '#B31B1B' },
+  'l-affaire-musicale': { image: '/previews/l-affaire-musicale/screenshot-1.webp', screenshotCount: 4, color: '#1e1b4b' },
+  'wicked-paradise': { image: '/previews/wicked-paradise/screenshot-1.webp', screenshotCount: 1, color: '#064e3b' },
+  'qlo-agency': { image: '/previews/qlo-agency/screenshot-1.webp', screenshotCount: 1, color: '#450a0a' },
+  'sam-blacky': { image: '/previews/sam-blacky/screenshot-1.webp', screenshotCount: 3, color: '#0f172a' },
+  'kaysin': { image: '/previews/kaysin/screenshot-1.webp', screenshotCount: 1, color: '#312e81' },
+  'star-consciousness': { image: '/previews/star-consciousness/screenshot-1.webp', screenshotCount: 1, color: '#0a0a0a' },
+  'clipkeep': { image: '/previews/clipkeep/screenshot-1.webp', screenshotCount: 1, color: '#1a1a1a' },
+  'the-void': { image: '/previews/the-void.png', screenshotCount: 1, color: '#000000' },
+  'sifs-utilities': { image: '/previews/sifs-utilities/screenshot-1.webp', screenshotCount: 1, color: '#1a1a1a' },
+  'miss-dre': { image: '/previews/miss-dre/screenshot-1.webp', screenshotCount: 1, color: '#B31B1B' },
+  'cherry-tooth': { image: '/previews/cherry-tooth/screenshot-1.webp', screenshotCount: 3, color: '#000000' }
 }
 
-// Function to get thumbnail for each project
 export const getProjectThumbnail = (slug: string): string => {
-  return PROJECT_DATA[slug as keyof typeof PROJECT_DATA] || '/previews/fallback.webp'
+  const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
+  return data ? data.image : '/previews/fallback.webp'
+}
+
+export const getScreenshotCount = (slug: string): number => {
+  const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
+  return data ? data.screenshotCount : 1
+}
+
+export const getProjectColor = (slug: string): string => {
+  const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
+  return data ? data.color : '#000000'
 }
