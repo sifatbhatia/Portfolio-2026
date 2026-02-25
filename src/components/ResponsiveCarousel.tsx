@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import MagneticWrapper from '../../components/MagneticWrapper'
 
 interface ResponsiveCarouselProps {
   images: string[]
@@ -29,7 +30,7 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
   // Auto-slide functionality
   useEffect(() => {
     if (!isAutoPlaying || isDragging) return
-    
+
     timeoutRef.current = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length)
     }, interval)
@@ -71,10 +72,10 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !carouselRef.current) return
-    
+
     const deltaX = e.clientX - startX
     const deltaY = e.clientY - startY
-    
+
     // Only swipe horizontally if horizontal movement is greater than vertical
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
       if (deltaX > 0) {
@@ -96,12 +97,12 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!isDragging || !carouselRef.current) return
-    
+
     const endX = e.changedTouches[0].clientX
     const endY = e.changedTouches[0].clientY
     const deltaX = endX - startX
     const deltaY = endY - startY
-    
+
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
       if (deltaX > 0) {
         prevSlide()
@@ -109,7 +110,7 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
         nextSlide()
       }
     }
-    
+
     setIsDragging(false)
     setIsAutoPlaying(true)
   }
@@ -125,7 +126,7 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
   }
 
   return (
-    <div 
+    <div
       ref={carouselRef}
       className={`relative aspect-[16/10] rounded-3xl overflow-hidden border ${inverted ? 'border-white/20 bg-black' : 'border-black/20 bg-white'} ${className}`}
       onMouseEnter={() => setIsAutoPlaying(false)}
@@ -154,26 +155,30 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
       {/* Navigation Arrows - Hidden on mobile, visible on desktop */}
       {images.length > 1 && (
         <>
-          <button
-            onClick={prevSlide}
-            className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-sm"
-            aria-label="Previous slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5"></path>
-              <path d="M12 19l-7-7 7-7"></path>
-            </svg>
-          </button>
-          <button
-            onClick={nextSlide}
-            className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-sm"
-            aria-label="Next slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </button>
+          <MagneticWrapper intensity={0.2} className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 z-20">
+            <button
+              onClick={prevSlide}
+              className="p-3 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-sm"
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+          </MagneticWrapper>
+          <MagneticWrapper intensity={0.2} className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 z-20">
+            <button
+              onClick={nextSlide}
+              className="p-3 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-sm"
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </MagneticWrapper>
         </>
       )}
 
@@ -184,11 +189,10 @@ const ResponsiveCarousel: React.FC<ResponsiveCarouselProps> = ({
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentSlide 
-                  ? (inverted ? 'bg-white' : 'bg-black') 
+              className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide
+                  ? (inverted ? 'bg-white' : 'bg-black')
                   : (inverted ? 'bg-white/40' : 'bg-black/40')
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}

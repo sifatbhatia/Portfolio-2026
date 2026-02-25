@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import GlobalNavbar from './components/GlobalNavbar'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowDown } from 'lucide-react' // Changed from ArrowUpRight to ArrowDown
 import Footer from './components/Footer'
 import WorkGallery from './components/WorkGallery'
+import MagneticWrapper from '../components/MagneticWrapper'
 
 export default function Home() {
   const { scrollY } = useScroll()
@@ -104,15 +105,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-8xl font-normal tracking-[-0.03em] leading-[0.9] mb-4 md:mb-6 text-black"
+              className="text-5xl sm:text-6xl md:text-8xl font-normal tracking-[-0.03em] leading-[0.9] mb-3 md:mb-6 text-black"
             >
-              Atmospheric <span className="font-playfair italic">Interfaces</span><sup className="text-xl md:text-2xl align-top ml-1 md:ml-2 font-inter">™</sup>
+              Atmospheric <span className="font-playfair italic">Interfaces</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-lg sm:text-xl md:text-3xl font-light text-black/60 mb-8 md:mb-12 font-inter max-w-xl ml-auto md:ml-0"
+              className="text-xl sm:text-2xl md:text-3xl font-light text-black/60 mb-6 md:mb-12 font-inter max-w-xl ml-auto md:ml-0"
             >
               Design. Engineering. Experience.
             </motion.p>
@@ -120,32 +121,34 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-[0.5rem] md:text-[0.6rem] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[200px] md:max-w-[280px] text-black ml-auto md:ml-0"
+              className="text-[0.55rem] sm:text-[0.6rem] md:text-[0.6rem] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[200px] md:max-w-[280px] text-black ml-auto md:ml-0"
             >
               Los Angeles based designer and developer crafting high-fidelity interactive digital experiences.
             </motion.div>
           </div>
           {/* Right Side - Selected Projects Call to Action */}
-          <div className="flex flex-col items-end gap-4 md:gap-6 w-full md:w-auto mt-8 md:mt-0">
+          <div className="flex flex-col items-end gap-3 md:gap-6 w-full md:w-auto mt-6 md:mt-0">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <button
-                onClick={() => {
-                  const element = document.getElementById('selected-works');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="group relative inline-flex items-center gap-3 md:gap-4 px-6 py-3 md:px-8 md:py-4 bg-black text-white hover:bg-[var(--accent)] transition-colors duration-300 rounded-full overflow-hidden cursor-pointer"
-              >
-                <span className="relative z-10 text-[0.6rem] md:text-xs font-bold uppercase tracking-[0.2em]">Selected Projects</span>
-                <span className="relative z-10 p-1 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
-                  <ArrowUpRight size={12} className="md:w-[14px] md:h-[14px] text-white" />
-                </span>
-              </button>
+              <MagneticWrapper>
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('selected-works');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="group relative inline-flex items-center gap-3 md:gap-4 px-6 py-3 md:px-8 md:py-4 bg-black text-white hover:bg-[var(--accent)] transition-colors duration-300 rounded-full overflow-hidden cursor-pointer"
+                >
+                  <span className="relative z-10 text-[0.6rem] md:text-xs font-bold uppercase tracking-[0.2em]">Selected Projects</span>
+                  <span className="relative z-10 p-1 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
+                    <ArrowDown size={14} className="md:w-4 md:h-4 group-hover:translate-y-1 transition-transform" />
+                  </span>
+                </button>
+              </MagneticWrapper>
             </motion.div>
           </div>
         </div>

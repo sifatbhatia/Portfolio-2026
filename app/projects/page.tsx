@@ -1,39 +1,27 @@
-'use client'
+"use client"
 
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import GlobalNavbar from '../components/GlobalNavbar'
 import Footer from '../components/Footer'
+
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { PROJECT_DATA } from './project-data'
-
-// Function to get thumbnail for each project
-const getProjectThumbnail = (slug: string): string => {
-  // For The Void (local project), use existing preview
-  if (slug === 'the-void') {
-    return '/previews/the-void.png';
-  }
-  
-  // For all other projects, use screenshot-1.webp from their subdirectory
-  return `/previews/${slug}/screenshot-1.webp`;
-}
-
+import { PROJECT_DATA, getProjectThumbnail, getScreenshotCount } from './project-data'
 const selectedProjects = [
   { title: 'J. Worra', cat: 'Artist Identity', year: '2026', slug: 'j-worra', color: '#B31B1B' },
   { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a' },
   { title: 'QLO Agency', cat: 'Studio Identity', year: '2025', slug: 'qlo-agency', color: '#450a0a' },
-  { title: 'L’ Affaire Musicale', cat: 'Agency Refactor', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b' },
-  { title: 'The Void', cat: 'Digital Art', year: '2026', slug: 'the-void', color: '#4c1d95' },
+  { title: "L' Affaire Musicale", cat: 'Agency Refactor', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b' },
+  { title: 'ClipKeep', cat: 'Content Archival', year: '2025', slug: 'clipkeep', color: '#1a1a1a' },
 ]
 
 const ongoingProjects: any[] = []
 
 const otherProjects = [
   { title: 'Star Consciousness', cat: 'Digital Experience', year: '2025', slug: 'star-consciousness', color: '#0a0a0a' },
-  { title: 'ClipKeep', cat: 'Content Archival', year: '2025', slug: 'clipkeep', color: '#1a1a1a' },
   { title: 'Wicked Paradise', cat: 'Event Ecosystem', year: '2026', slug: 'wicked-paradise', color: '#064e3b' },
   { title: 'Sam Blacky', cat: 'Artist Portal', year: '2025', slug: 'sam-blacky', color: '#0f172a' },
   { title: 'Kaysin', cat: 'Digital Gateway', year: '2025', slug: 'kaysin', color: '#312e81' },
@@ -43,17 +31,66 @@ const otherProjects = [
 
 export default function ProjectsIndex() {
   const [activeProjects, setActiveProjects] = useState<any[]>([])
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
+  const [dynamicImage, setDynamicImage] = useState<string | null>(null)
+
+  // Framer Motion values for smooth tracking
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  // Custom spring config for buttery smooth hover following
+  const springConfig = { damping: 25, stiffness: 250, mass: 0.5 }
+  const hoverX = useSpring(mouseX, springConfig)
+  const hoverY = useSpring(mouseY, springConfig)
+
   const titleRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Add thumbnails to all projects
-    const projectsWithThumbnails = [...selectedProjects, ...ongoingProjects, ...otherProjects].map(project => ({
+    // Add thumbnails and dynamic details to all projects
+    const projectsWithDetails = [...selectedProjects, ...ongoingProjects, ...otherProjects].map(project => ({
       ...project,
-      image: getProjectThumbnail(project.slug)
+      image: getProjectThumbnail(project.slug),
+      screenshotCount: getScreenshotCount(project.slug)
     }));
-    setActiveProjects(projectsWithThumbnails)
+    setActiveProjects(projectsWithDetails)
   }, [])
+
+  // Track mouse position natively and handle dynamic thumbnail
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Direct assignment bypassing React renders for supreme performance
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+
+      // Dynamic image calculation mapping
+      if (hoveredProject !== null && activeProjects[hoveredProject]) {
+        const project = activeProjects[hoveredProject]
+        const count = project.screenshotCount || 1
+
+        if (count > 1) {
+          const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 1920
+          const progress = Math.max(0, Math.min(1, e.clientX / windowWidth))
+          const imageIndex = Math.min(Math.floor(progress * count), count - 1)
+
+          if (project.slug === 'the-void') {
+            setDynamicImage('/previews/the-void.png')
+          } else {
+            setDynamicImage(`/previews/${project.slug}/screenshot-${imageIndex + 1}.webp`)
+          }
+        } else {
+          setDynamicImage(project.image)
+        }
+      }
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [hoveredProject, activeProjects, mouseX, mouseY])
+
+  // Clear tracking image when leaving hover
+  useEffect(() => {
+    if (hoveredProject === null) setDynamicImage(null)
+  }, [hoveredProject])
 
   // Responsive state
   const [isMobile, setIsMobile] = useState(false)
@@ -94,6 +131,8 @@ export default function ProjectsIndex() {
       <Link
         key={i}
         href={`/projects/${project.slug}`}
+        onMouseEnter={() => setHoveredProject(absoluteIndex)}
+        onMouseLeave={() => setHoveredProject(null)}
         className="group block no-underline text-black"
       >
         <motion.div
@@ -149,7 +188,7 @@ export default function ProjectsIndex() {
     >
       <GlobalNavbar />
 
-      {/* Hero Background Layer - Removed gradients/textures per user request */}
+      {/* Hero Background Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
 
       {/* Fixed Hero Title Section */}
@@ -163,6 +202,38 @@ export default function ProjectsIndex() {
           </h1>
         </div>
       </div>
+
+      {/* Desktop Hover Preview */}
+      <AnimatePresence>
+        {hoveredProject !== null && !isMobile && activeProjects[hoveredProject] && (
+          <motion.div
+            key={hoveredProject}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            style={{
+              x: hoverX,
+              y: hoverY,
+              translateX: '-50%',
+              translateY: '-50%',
+            }}
+            className="fixed top-0 left-0 pointer-events-none z-[600] w-80 h-52 rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden hidden md:block"
+          >
+            <div
+              className="absolute inset-0 z-0"
+              style={{ backgroundColor: activeProjects[hoveredProject].color }}
+            >
+              <img
+                key={dynamicImage || activeProjects[hoveredProject].image}
+                src={dynamicImage || activeProjects[hoveredProject].image}
+                alt={activeProjects[hoveredProject].title}
+                className="w-full h-full object-cover opacity-90 mix-blend-overlay transition-opacity duration-300"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Dead Space */}
       <div className="h-[40vh] md:h-[60vh]" />

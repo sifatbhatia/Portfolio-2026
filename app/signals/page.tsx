@@ -54,6 +54,22 @@ export default function SignalsIndex() {
                     ease: "none"
                 })
             }
+
+            if (containerRef.current) {
+                gsap.to(containerRef.current, {
+                    backgroundColor: "#000000",
+                    color: "#ffffff",
+                    "--border-light": "rgba(255, 255, 255, 0.05)",
+                    "--border-strong": "rgba(255, 255, 255, 0.1)",
+                    scrollTrigger: {
+                        trigger: "body",
+                        start: "10% top",
+                        end: "80% top",
+                        scrub: true,
+                    },
+                    ease: "none"
+                })
+            }
         }, containerRef)
 
         return () => ctx.revert()
@@ -78,7 +94,14 @@ export default function SignalsIndex() {
     }, [])
 
     return (
-        <main ref={containerRef} className="min-h-screen relative overflow-hidden text-black bg-white selection:bg-[var(--accent)] selection:text-white">
+        <main
+            ref={containerRef}
+            className="min-h-screen relative overflow-hidden bg-white text-black selection:bg-[var(--accent)] selection:text-white"
+            style={{
+                '--border-light': 'rgba(0,0,0,0.05)',
+                '--border-strong': 'rgba(0,0,0,0.1)'
+            } as any}
+        >
             <GlobalNavbar />
 
             {/* 3D Background */}
@@ -108,18 +131,18 @@ export default function SignalsIndex() {
                     className="grid grid-cols-12 gap-8 items-start mb-16 md:mb-32"
                 >
                     <div className="col-span-12 md:col-span-6">
-                        <p className="text-xl md:text-2xl font-light text-black/80 leading-relaxed tracking-tight">
+                        <p className="text-xl md:text-2xl font-light opacity-80 leading-relaxed tracking-tight">
                             Signals is an autonomous research feed driven by Lumené, an AI system that documents its observations and technical evolution. The platform generates insights through a structured loop of research, synthesis, and publication. This systematic approach allows Lumené to surface genuine architectural patterns and foresight, moving beyond mere synthetic generation to deliver active intelligence.
                         </p>
                     </div>
                 </motion.div>
 
-                <div className="border-t border-black/5">
+                <div className="border-t border-[color:var(--border-light)]">
                     {loading ? (
                         <div className="py-20 text-center opacity-20 uppercase tracking-widest font-bold text-xs animate-pulse">Synchronizing...</div>
                     ) : pulses.map((pulse, i) => (
-                        <Link key={pulse.id} href={`/signals/${pulse.slug}`} className="group block no-underline text-black">
-                            <div className="py-8 md:py-16 border-b border-black/5 transition-all duration-700 ease-[0.19, 1, 0.22, 1] group-hover:px-8">
+                        <Link key={pulse.id} href={`/signals/${pulse.slug}`} className="group block no-underline text-current">
+                            <div className="py-8 md:py-16 border-b border-[color:var(--border-light)] transition-all duration-700 ease-[0.19, 1, 0.22, 1] group-hover:px-8">
                                 <div className="flex flex-row justify-between items-center gap-6 md:gap-12">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-4 mb-8 md:mb-12 whitespace-nowrap overflow-hidden">
@@ -131,7 +154,7 @@ export default function SignalsIndex() {
                                             <h2 className="text-4xl md:text-6xl lg:text-8xl font-normal tracking-tight lg:group-hover:opacity-0 transition-opacity duration-500 break-words leading-[1.1]">{pulse.title}</h2>
                                             <h2 className="absolute top-0 left-0 text-4xl md:text-6xl lg:text-8xl font-normal tracking-tight italic opacity-0 lg:group-hover:opacity-100 lg:group-hover:text-[var(--accent)] transition-all duration-500 break-words leading-[1.1] whitespace-normal w-full">{pulse.title}</h2>
                                         </div>
-                                        <div className="text-lg md:text-2xl font-light text-black/60 max-w-2xl line-clamp-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <div className="text-lg md:text-2xl font-light max-w-2xl line-clamp-1 opacity-60 group-hover:opacity-100 transition-opacity">
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
                                                 components={{
@@ -146,7 +169,7 @@ export default function SignalsIndex() {
                                             </ReactMarkdown>
                                         </div>
                                     </div>
-                                    <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] transition-all duration-500 overflow-hidden">
+                                    <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full border border-[color:var(--border-strong)] flex items-center justify-center group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] transition-all duration-500 overflow-hidden">
                                         <motion.div
                                             initial={{ rotate: 0, scale: 1 }}
                                             whileHover={{ rotate: -135, scale: 0.8 }}
