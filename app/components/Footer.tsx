@@ -57,8 +57,8 @@ export default function Footer() {
         {/* Header */}
         <div className="mb-24">
           <h2 className="text-3xl md:text-[8vw] font-normal tracking-tighter leading-[0.8] uppercase text-white">
-            Let's create <br />
-            <span className="font-playfair italic lowercase tracking-tight text-white/80">the</span> future.
+            Let's start <br />
+            <span className="font-playfair italic lowercase tracking-tight text-white/80">the</span> Dialogue.
           </h2>
         </div>
 
@@ -66,10 +66,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-12 mb-32 md:mb-48 items-start">
           {/* Column 1: Email */}
           <div className="col-span-12 lg:col-span-6 mb-12 lg:mb-0">
-            <a href="mailto:hi@sifat.tech" className="group flex flex-col no-underline text-white w-fit">
+            <a href="mailto:sifatbht@gmail.com" className="group flex flex-col no-underline text-white w-fit">
               <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40 mb-4 group-hover:opacity-100 transition-opacity">Email</span>
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal hover:text-[var(--accent)] transition-colors border-b-2 border-white/10 pb-2 break-all sm:break-normal">
-                hi@sifat.tech
+                sifatbht@gmail.com
               </span>
             </a>
           </div>
@@ -95,16 +95,16 @@ export default function Footer() {
           {/* Column 3: Time Block */}
           <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-8 lg:items-end text-left lg:text-right">
             <div className="flex flex-col gap-2">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">Current Time</span>
+              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">Los Angeles, CA</span>
               <div className="flex items-center lg:justify-end gap-3 opacity-60">
                 <Globe size={14} strokeWidth={1.5} />
                 <span className="text-xl md:text-2xl font-medium tracking-tight uppercase">{currentTime} PST</span>
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">System Status</span>
+              <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-40">Studio</span>
               <div className="text-[0.6rem] font-bold uppercase tracking-[0.4em] opacity-60">
-                EST. 2026 // LUMENÉ 4.0
+                Siftion // Est. 2024
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-12 border-t border-white/10 gap-8 w-full">
           <div className="flex gap-8 md:gap-16 text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-60">
             <span className="text-white">Based in Los Angeles</span>
-            <span className="text-white">Available for Q1 2026</span>
+            <span className="text-white">Currently Accepting Q2 2026 Projects</span>
           </div>
           <div className="text-[0.65rem] font-bold uppercase tracking-[0.4em] opacity-40 text-white">
             © {currentYear} // Sifat Bhatia // All Rights Reserved

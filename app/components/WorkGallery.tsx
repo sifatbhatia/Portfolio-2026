@@ -13,6 +13,7 @@ export interface Project {
   slug: string
   color: string
   image?: string
+  description?: string
 }
 
 interface WorkGalleryProps {
@@ -20,10 +21,10 @@ interface WorkGalleryProps {
 }
 
 const defaultProjects: Project[] = [
-  { title: 'J. Worra', cat: 'Art Direction', year: '2026', slug: 'j-worra', color: '#d12424', image: '/previews/j-worra.png' },
-  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities.png' },
-  { title: "L' Affaire Musicale", cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale.png' },
-  { title: 'The Void', cat: 'Digital Art', year: '2026', slug: 'the-void', color: '#4c1d95', image: '/previews/the-void.png' },
+  { title: 'J. Worra', cat: 'Web Identity', year: '2026', slug: 'j-worra', color: '#d12424', image: '/previews/j-worra.png', description: 'Full digital identity and website for the LA-based tech-house DJ and producer.' },
+  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities.png', description: 'Privacy-first file tools running entirely in-browser via WebAssembly.' },
+  { title: "L' Affaire Musicale", cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale.png', description: 'Complete rebrand and website redesign for a 20-year dance music agency.' },
+  { title: 'The Void', cat: 'Digital Art', year: '2026', slug: 'the-void', color: '#4c1d95', image: '/previews/the-void.png', description: 'Living archive of visual logic synthesis, updated every 4 hours via API.' },
 ]
 
 export default function WorkGallery({ projects = defaultProjects }: WorkGalleryProps) {
@@ -91,11 +92,17 @@ export default function WorkGallery({ projects = defaultProjects }: WorkGalleryP
                         {project.title}
                       </h3>
 
-                      <div className="flex items-center gap-4 mb-6">
+                      <div className="flex items-center gap-4 mb-4">
                         <span className="text-sm font-medium text-black/60">{project.cat}</span>
                         <span className="w-1 h-1 rounded-full bg-black/20" />
                         <span className="text-sm font-light text-black/40">{project.year}</span>
                       </div>
+
+                      {project.description && (
+                        <p className="text-sm font-light text-black/40 leading-relaxed mb-6 max-w-xs">
+                          {project.description}
+                        </p>
+                      )}
 
                       <div className="flex items-center gap-2 text-black/40 group-hover:text-[#d12424] transition-colors duration-300">
                         <span className="text-sm font-medium uppercase tracking-wide">View Project</span>

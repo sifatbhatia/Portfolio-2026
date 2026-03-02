@@ -114,7 +114,7 @@ export default function GlobalNavbar() {
               })}
             </ul>
             <div className="mt-auto border-t border-white/10 pt-8">
-              <p className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 mb-2 text-white">Available for projects</p>
+              <p className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 mb-2 text-white">Currently Accepting Q2 2026 Projects</p>
               <a href="mailto:sifatbht@gmail.com" className="text-xl font-bold hover:text-[var(--accent)] transition-colors text-white">sifatbht@gmail.com</a>
             </div>
           </motion.div>

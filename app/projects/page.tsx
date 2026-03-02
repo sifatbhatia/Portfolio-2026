@@ -11,22 +11,22 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PROJECT_DATA, getProjectThumbnail, getScreenshotCount } from './project-data'
 const selectedProjects = [
-  { title: 'J. Worra', cat: 'Artist Identity', year: '2026', slug: 'j-worra', color: '#B31B1B' },
-  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a' },
-  { title: 'QLO Agency', cat: 'Studio Identity', year: '2025', slug: 'qlo-agency', color: '#450a0a' },
-  { title: "L' Affaire Musicale", cat: 'Agency Refactor', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b' },
-  { title: 'ClipKeep', cat: 'Content Archival', year: '2025', slug: 'clipkeep', color: '#1a1a1a' },
+  { title: 'J. Worra', cat: 'Web Identity', year: '2026', slug: 'j-worra', color: '#B31B1B', description: 'Full digital identity and website for the LA-based tech-house DJ and producer.' },
+  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', description: 'Privacy-first file tools running entirely in-browser via WebAssembly.' },
+  { title: 'QLO Agency', cat: 'Studio Identity', year: '2025', slug: 'qlo-agency', color: '#450a0a', description: 'High-performance branding system for an LA design studio in transition.' },
+  { title: "L' Affaire Musicale", cat: 'Agency Rebrand', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', description: 'Complete rebrand and website redesign for a 20-year dance music agency.' },
+  { title: 'ClipKeep', cat: 'Content Archival', year: '2025', slug: 'clipkeep', color: '#1a1a1a', description: 'Fast, minimal archival tool for capturing and organizing digital clippings.' },
 ]
 
 const ongoingProjects: any[] = []
 
 const otherProjects = [
-  { title: 'Star Consciousness', cat: 'Digital Experience', year: '2025', slug: 'star-consciousness', color: '#0a0a0a' },
-  { title: 'Wicked Paradise', cat: 'Event Ecosystem', year: '2026', slug: 'wicked-paradise', color: '#064e3b' },
-  { title: 'Sam Blacky', cat: 'Artist Portal', year: '2025', slug: 'sam-blacky', color: '#0f172a' },
-  { title: 'Kaysin', cat: 'Digital Gateway', year: '2025', slug: 'kaysin', color: '#312e81' },
-  { title: 'Miss Dre', cat: 'Identity Design', year: '2024', slug: 'miss-dre', color: '#B31B1B' },
-  { title: 'Cherry Tooth', cat: 'Visual Protocol', year: '2024', slug: 'cherry-tooth', color: '#000000' },
+  { title: 'Star Consciousness', cat: 'Digital Experience', year: '2025', slug: 'star-consciousness', color: '#0a0a0a', description: 'Immersive web experience exploring consciousness and cosmic connectivity.' },
+  { title: 'Wicked Paradise', cat: 'Event Ecosystem', year: '2026', slug: 'wicked-paradise', color: '#064e3b', description: "Multi-city event brand site for LA's premier day club and boat party series." },
+  { title: 'Sam Blacky', cat: 'Artist Portal', year: '2025', slug: 'sam-blacky', color: '#0f172a', description: 'Performance audit and restoration for a globally recognized DJ and model.' },
+  { title: 'Kaysin', cat: 'Digital Gateway', year: '2025', slug: 'kaysin', color: '#312e81', description: 'Minimal artist portal centralizing discography, tours, and identity.' },
+  { title: 'Miss Dre', cat: 'Identity Design', year: '2024', slug: 'miss-dre', color: '#B31B1B', description: 'Cohesive digital identity for a rising electronic music artist.' },
+  { title: 'Cherry Tooth', cat: 'Visual Protocol', year: '2024', slug: 'cherry-tooth', color: '#000000', description: 'Systematic visual framework for consistent digital art presentation.' },
 ]
 
 export default function ProjectsIndex() {
@@ -47,13 +47,33 @@ export default function ProjectsIndex() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Add thumbnails and dynamic details to all projects
-    const projectsWithDetails = [...selectedProjects, ...ongoingProjects, ...otherProjects].map(project => ({
-      ...project,
-      image: getProjectThumbnail(project.slug),
-      screenshotCount: getScreenshotCount(project.slug)
-    }));
-    setActiveProjects(projectsWithDetails)
+    async function syncProjectData() {
+      try {
+        const res = await fetch('/api/projects', { cache: 'no-store' });
+        const dynamicData = await res.json();
+
+        const projectsWithDetails = [...selectedProjects, ...ongoingProjects, ...otherProjects].map(project => {
+          const dynamic = dynamicData[project.slug] || {};
+          return {
+            ...project,
+            image: dynamic.thumbnail || getProjectThumbnail(project.slug),
+            screenshotCount: dynamic.screenshotCount || getScreenshotCount(project.slug),
+            extension: dynamic.extension || (project.slug === 'the-void' ? '.png' : '.webp')
+          };
+        });
+        setActiveProjects(projectsWithDetails);
+      } catch (e) {
+        console.error("Failed to sync project data", e);
+        // Fallback to static data
+        const projectsWithDetails = [...selectedProjects, ...ongoingProjects, ...otherProjects].map(project => ({
+          ...project,
+          image: getProjectThumbnail(project.slug),
+          screenshotCount: getScreenshotCount(project.slug)
+        }));
+        setActiveProjects(projectsWithDetails);
+      }
+    }
+    syncProjectData();
   }, [])
 
   // Track mouse position natively and handle dynamic thumbnail
@@ -76,7 +96,8 @@ export default function ProjectsIndex() {
           if (project.slug === 'the-void') {
             setDynamicImage('/previews/the-void.png')
           } else {
-            setDynamicImage(`/previews/${project.slug}/screenshot-${imageIndex + 1}.webp`)
+            const ext = project.extension || '.webp'
+            setDynamicImage(`/previews/${project.slug}/screenshot-${imageIndex + 1}${ext}`)
           }
         } else {
           setDynamicImage(project.image)
@@ -157,6 +178,9 @@ export default function ProjectsIndex() {
             <div className="text-left md:text-right">
               <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] group-hover:text-[var(--accent)] transition-colors">{project.cat}</div>
               <div className="text-[0.5rem] md:text-[0.6rem] font-black opacity-30 mt-1 uppercase">{project.year}</div>
+              {project.description && (
+                <div className="text-[0.65rem] md:text-xs font-light text-black/40 mt-2 max-w-[240px] leading-relaxed normal-case tracking-normal hidden md:block">{project.description}</div>
+              )}
             </div>
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] transition-all duration-500 overflow-hidden">
               <motion.div
@@ -220,15 +244,18 @@ export default function ProjectsIndex() {
             }}
             className="fixed top-0 left-0 pointer-events-none z-[600] w-80 h-52 rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden hidden md:block"
           >
-            <div
-              className="absolute inset-0 z-0"
-              style={{ backgroundColor: activeProjects[hoveredProject].color }}
-            >
+            <div className="absolute inset-0 z-0 bg-black/5">
               <img
-                key={dynamicImage || activeProjects[hoveredProject].image}
-                src={dynamicImage || activeProjects[hoveredProject].image}
+                key={dynamicImage || activeProjects[hoveredProject].image || 'fallback'}
+                src={dynamicImage || activeProjects[hoveredProject].image || '/previews/fallback.svg'}
                 alt={activeProjects[hoveredProject].title}
-                className="w-full h-full object-cover opacity-90 mix-blend-overlay transition-opacity duration-300"
+                className="w-full h-full object-cover transition-opacity duration-300"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src && !target.src.endsWith('fallback.svg')) {
+                    target.src = '/previews/fallback.svg';
+                  }
+                }}
               />
             </div>
           </motion.div>
@@ -246,7 +273,7 @@ export default function ProjectsIndex() {
       {/* Other Projects Section */}
       <section className="relative z-10 border-b border-black/5">
         <div className="px-[6%] py-12 md:py-24 border-b border-black/5">
-          <h2 className="text-4xl md:text-7xl font-normal tracking-tight text-black">Other <span className="font-playfair italic">Projects.</span></h2>
+          <h2 className="text-4xl md:text-7xl font-normal tracking-tight text-black">Extended <span className="font-playfair italic">Works.</span></h2>
         </div>
         {otherProjects.map((p, i) => renderProjectItem(p, i, 'other', selectedProjects.length + ongoingProjects.length))}
       </section>

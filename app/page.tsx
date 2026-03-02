@@ -37,9 +37,9 @@ export default function Home() {
   const subContentOpacity = useTransform(scrollY, [0, 150], [1, 0])
 
   const projects = [
-    { title: 'J. Worra', cat: 'Art Direction', year: '2026', slug: 'j-worra', color: '#d12424', image: '/previews/j-worra/screenshot-1.webp' },
-    { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities/screenshot-1.webp' },
-    { title: 'L’ Affaire Musicale', cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale/screenshot-1.webp' },
+    { title: 'J. Worra', cat: 'Web Identity', year: '2026', slug: 'j-worra', color: '#d12424', image: '/previews/j-worra/screenshot-1.webp', description: 'Full digital identity and website for the LA-based tech-house DJ and producer.' },
+    { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities/screenshot-1.webp', description: 'Privacy-first file tools running entirely in-browser via WebAssembly.' },
+    { title: 'L’ Affaire Musicale', cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale/screenshot-1.webp', description: 'Complete rebrand and website redesign for a 20-year dance music agency.' },
   ]
 
   return (
@@ -123,7 +123,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-[0.55rem] sm:text-[0.6rem] md:text-[0.6rem] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[200px] md:max-w-[280px] text-black ml-auto md:ml-0"
             >
-              Los Angeles based designer and developer crafting high-fidelity interactive digital experiences.
+              Los Angeles based designer and developer building websites for artists, brands, and events that perform and feel alive.
             </motion.div>
           </div>
           {/* Right Side - Selected Projects Call to Action */}

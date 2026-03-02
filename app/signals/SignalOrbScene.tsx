@@ -118,8 +118,8 @@ export default function SignalOrbScene({
     // 7. Responsive Positioning
     const updateOffset = () => {
       const isMobile = window.innerWidth < 768
-      // Shift further right on desktop, center on mobile
-      orbGroup.position.set(isMobile ? 0 : 4.0, isMobile ? -1 : 0, 0)
+      // Shift further right on desktop, center on mobile. Shift UP on mobile so it doesn't overlap paragraph text.
+      orbGroup.position.set(isMobile ? 0 : 4.0, isMobile ? 3.0 : 0, 0)
     }
     updateOffset()
 
@@ -182,5 +182,5 @@ export default function SignalOrbScene({
     }
   }, [particleCount, baseRadius, primaryColor, secondaryColor, mouseInfluence])
 
-  return <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none" />
+  return <div ref={containerRef} className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none" />
 }

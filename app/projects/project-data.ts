@@ -1,8 +1,8 @@
 export const PROJECT_DATA = {
   'j-worra': { image: '/previews/j-worra/screenshot-1.webp', screenshotCount: 8, color: '#B31B1B' },
   'l-affaire-musicale': { image: '/previews/l-affaire-musicale/screenshot-1.webp', screenshotCount: 4, color: '#1e1b4b' },
-  'wicked-paradise': { image: '/previews/wicked-paradise/screenshot-1.webp', screenshotCount: 1, color: '#064e3b' },
-  'qlo-agency': { image: '/previews/qlo-agency/screenshot-1.webp', screenshotCount: 1, color: '#450a0a' },
+  'wicked-paradise': { image: '/previews/wicked-paradise/screenshot-1.webp', screenshotCount: 4, color: '#064e3b' },
+  'qlo-agency': { image: '/previews/qlo-agency/screenshot-1.webp', screenshotCount: 2, color: '#450a0a' },
   'sam-blacky': { image: '/previews/sam-blacky/screenshot-1.webp', screenshotCount: 3, color: '#0f172a' },
   'kaysin': { image: '/previews/kaysin/screenshot-1.webp', screenshotCount: 1, color: '#312e81' },
   'star-consciousness': { image: '/previews/star-consciousness/screenshot-1.webp', screenshotCount: 1, color: '#0a0a0a' },
@@ -15,7 +15,7 @@ export const PROJECT_DATA = {
 
 export const getProjectThumbnail = (slug: string): string => {
   const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
-  return data ? data.image : '/previews/fallback.webp'
+  return data ? data.image : ''
 }
 
 export const getScreenshotCount = (slug: string): number => {

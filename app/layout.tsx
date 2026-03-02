@@ -1,15 +1,32 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
+};
 import "./globals.css";
 import "../src/components/ResponsiveCarousel.css";
 import SmoothScroll from "./components/SmoothScroll";
 import BackToTop from "./components/BackToTop";
 import GlowingOrb from "./components/GlowingOrb";
+import Script from "next/script";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sifat.tech'),
   title: "Sifat Bhatia | High-Fidelity Web Design & Development in Los Angeles",
   description: "Portfolio of Sifat Bhatia, an LA-based designer and developer. Specializing in Webflow, Next.js, and custom digital experiences for artists and visionary brands through Siftion.",
   keywords: ["Sifat Bhatia", "Siftion", "Los Angeles Web Designer", "Web Developer LA", "Webflow Developer", "Next.js Developer", "Artist Web Design", "Digital Identity"],
   authors: [{ name: "Sifat Bhatia" }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon/icon-32x32.png', sizes: '32x32', type: 'image/png' },
@@ -30,8 +47,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Sifat Bhatia | Design & Development Portfolio",
-    description: "Surgical precision in high-fidelity digital experiences. Based in Los Angeles.",
-    url: "https://siftion.pages.dev",
+    description: "Websites for artists, brands, and events that perform and feel alive. Based in Los Angeles.",
+    url: "https://sifat.tech",
     siteName: "Sifat Bhatia Portfolio",
     locale: "en_US",
     type: "website",
@@ -39,7 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sifat Bhatia | Design & Development",
-    description: "LA-based designer and developer crafting interactive digital experiences.",
+    description: "LA-based designer and developer building websites for artists, brands, and events that perform and feel alive.",
   },
   other: {
     "google-site-verification": "verification_token_here",
@@ -66,7 +83,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Sifat Bhatia",
-              "url": "https://siftion.pages.dev",
+              "url": "https://sifat.tech",
               "jobTitle": "Web Designer and Developer",
               "brand": {
                 "@type": "Brand",
@@ -82,19 +99,41 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.linkedin.com/in/siftion",
-                "https://dribbble.com/sifatb",
-                "https://www.instagram.com/sifatxo"
+                "https://www.behance.net/siftion",
+                "https://www.instagram.com/siftion"
               ],
               "knowsAbout": [
                 "Web Design",
                 "Webflow Development",
                 "Next.js",
                 "React",
-                "User Interface Design",
+                "Figma",
+                "UI/UX Design",
+                "Design Systems",
                 "Digital Branding",
-                "Aesthetic Engineering"
+                "GSAP Animation"
               ]
             })
+          }}
+        />
+
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-WJFRNZ86BX`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-WJFRNZ86BX', {
+                page_path: window.location.pathname,
+              });
+            `,
           }}
         />
       </head>

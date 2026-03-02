@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const CAPABILITIES = [
   {
     category: 'Product Design',
-    items: ['Art Direction', 'UI/UX Design', 'Visual Identity', 'Typography', 'Design Systems', 'Motion Design', 'Interactive Prototypes']
+    items: ['Figma', 'Art Direction', 'UI/UX Design', 'Visual Identity', 'Typography', 'Design Systems', 'Motion Design', 'Interactive Prototypes']
   },
   {
     category: 'Core Engineering',
@@ -102,17 +102,17 @@ export default function About() {
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
             >
               <p className="text-3xl md:text-5xl font-light leading-[1.1] tracking-tight text-black mb-16">
-                Sifat Bhatia is a Los Angeles-based <span className="italic font-playfair">design engineer</span> whose work exists at the intersection of visual logic and technical precision.
+                Sifat Bhatia is a Los Angeles-based <span className="italic font-playfair">design engineer</span> who builds websites for artists, brands, and events that perform and feel alive.
               </p>
               <div className="space-y-8 text-lg md:text-xl font-light leading-relaxed text-black/60 max-w-2xl">
                 <p>
-                  My journey began with sketches in notebooks and a fascination for how technology could amplify artistic expression. Today, that curiosity has evolved into a specialization in high-fidelity digital experiences that prioritize structural logic and visual atmosphere.
+                  I started with sketches and an obsession with how technology can amplify creative expression. That evolved into a specialization: building fast, accessible digital experiences for the music industry and creative brands — from artist portals and event ecosystems to utility tools and agency platforms.
                 </p>
                 <p>
-                  Operating through <span className="text-black font-normal">Siftion</span> (pronounced "sif-chun"), I partner with industry-leading artists and brands like <span className="text-black font-normal">J. Worra</span>, <span className="text-black font-normal">Miss Dre</span>, and <span className="text-black font-normal">Wicked Paradise</span> to transform abstract visions into functional, animated interfaces.
+                  Operating through <span className="text-black font-normal">Siftion</span> (pronounced "sif-chun"), I've partnered with artists like <span className="text-black font-normal">J. Worra</span>, <span className="text-black font-normal">Miss Dre</span>, and brands like <span className="text-black font-normal">Wicked Paradise</span> to transform abstract visions into functional, animated interfaces that actually drive engagement.
                 </p>
                 <p>
-                  What sets my work apart is an unwavering focus on <span className="italic font-playfair text-black">feel</span>. I believe a digital presence should be more than just a collection of features—it should be a cohesive narrative defined by motion, clarity, and intentional structure.
+                  What sets my work apart is an unwavering focus on <span className="italic font-playfair text-black">feel</span>. A website should be more than features on a page — it should be a cohesive experience defined by motion, clarity, and intentional structure.
                 </p>
               </div>
             </motion.div>

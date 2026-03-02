@@ -2,7 +2,7 @@
 
 export const runtime = 'edge'
 
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
@@ -11,6 +11,8 @@ import GlobalNavbar from '../../components/GlobalNavbar'
 import Footer from '../../components/Footer'
 import { useLenis } from 'lenis/react'
 import ResponsiveCarousel from '../../../src/components/ResponsiveCarousel'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const PROJECT_DATA: Record<string, {
   title: string,
@@ -27,7 +29,7 @@ const PROJECT_DATA: Record<string, {
 }> = {
   'j-worra': {
     title: 'J. Worra',
-    subtitle: 'Artist Identity Design',
+    subtitle: 'Web Identity Design',
     slug: 'j-worra',
     description: 'Jamie Sitter, aka J. Worra, is a Los Angeles-based DJ and Producer who has redefined the tech-house landscape with her "Classic house meets new school tech" sound.',
     objective: 'The project focused on building a high-fidelity digital presence that matches J. Worra’s unique sound and energy. I redesigned the entire site from the ground up to create a more immersive experience for her fans, focusing on clean layouts, smooth transitions, and a better way to showcase her tour dates and merch.',
@@ -219,6 +221,8 @@ const PROJECT_DATA: Record<string, {
   }
 }
 
+import dynamicData from '../dynamic-projects.json'
+
 // Function to get screenshot paths for each project
 const getScreenshotPaths = (slug: string, count: number = 5): string[] => {
   // For The Void (local project), use existing preview
@@ -226,8 +230,13 @@ const getScreenshotPaths = (slug: string, count: number = 5): string[] => {
     return ['/previews/the-void.png'];
   }
 
-  // Generate 'count' number of screenshot paths dynamically
-  return Array.from({ length: count }, (_, i) => `/previews/${slug}/screenshot-${i + 1}.webp`);
+  const dynamic = (dynamicData as Record<string, any>)[slug];
+  const extension = dynamic?.extension || '.webp';
+
+  const finalCount = dynamic?.screenshotCount || count;
+
+  // Generate 'finalCount' number of screenshot paths dynamically
+  return Array.from({ length: finalCount }, (_, i) => `/previews/${slug}/screenshot-${i + 1}${extension}`);
 }
 
 const PROJECT_SLUGS = Object.keys(PROJECT_DATA)
@@ -249,26 +258,79 @@ export default function ProjectDetail() {
   const nextSlug = PROJECT_SLUGS[(currentIndex + 1) % PROJECT_SLUGS.length]
   const nextProject = PROJECT_DATA[nextSlug]
 
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const subtitleRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Responsive scale
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  // GSAP Scroll Animations
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        const wrapper = titleRef.current.parentElement
+        gsap.to(wrapper, {
+          scale: isMobile ? 0.65 : 0.25,
+          y: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "300 top",
+            scrub: 1,
+          },
+          ease: "none"
+        })
+      }
+
+      if (subtitleRef.current) {
+        gsap.to(subtitleRef.current, {
+          opacity: 0,
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "200 top",
+            scrub: 1,
+          },
+          ease: "none"
+        })
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [isMobile])
+
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-[var(--accent)] selection:text-white font-inter">
+    <main ref={containerRef} className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-[var(--accent)] selection:text-white font-inter text-left">
       <GlobalNavbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-28 md:pt-60 px-[6%] pb-20 overflow-hidden bg-black">
-        <div className="relative z-10 w-full">
-          <div className="flex items-center gap-8 mb-12">
+      {/* Fixed Hero Title Section */}
+      <div className="fixed top-0 left-0 w-full z-[500] pt-6 md:pt-8 px-[6%] text-white pointer-events-none mix-blend-difference">
+        <div className="origin-top-left will-change-transform pointer-events-auto">
+          <div ref={subtitleRef} className="hidden md:flex items-center gap-8 mb-4 md:mb-12">
             <div className="w-12 h-[1px] bg-[var(--accent)]" />
             <span className="text-[0.7rem] font-bold uppercase tracking-[0.6em] text-[var(--accent)]">{project.subtitle} // {project.stats.find(s => s.label === 'Year')?.value || '2026'}</span>
           </div>
-          <h1 className="font-inter text-[8vw] md:text-[10vw] font-normal leading-[0.8] tracking-[-0.06em] mb-16 md:mb-24 text-white">
+          <h1 ref={titleRef} className="font-inter text-6xl sm:text-7xl md:text-[10vw] font-normal leading-[0.9] tracking-[-0.05em] text-white">
             {project.title}<br />
-            <span className="font-playfair italic md:pl-[10vw]">Overview.</span>
+            <span className="font-playfair italic pl-8 md:pl-[10vw]">Overview.</span>
           </h1>
         </div>
-      </section>
+      </div>
+
+      {/* Dead Space to compensate for fixed header */}
+      <div className="h-[30vh] md:h-[65vh]" />
 
       {/* Primary Showcase - Responsive Carousel */}
-      <section className="px-[6%] mb-20">
+      <section className="relative z-10 px-[6%] mb-20">
         <ResponsiveCarousel
           images={screenshots}
           altTexts={screenshots.map((_, i) => `${project.title} screenshot ${i + 1}`)}
@@ -278,7 +340,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* Content Section */}
-      <section className="px-[6%] py-20 border-t border-white/10 bg-black">
+      <section className="relative z-10 px-[6%] py-20 border-t border-white/10 bg-black">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
           <div className="lg:col-span-7">
             <p className="text-xl md:text-3xl font-light leading-snug text-white/80 mb-24">
@@ -311,7 +373,7 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          <aside className="lg:col-span-4 lg:col-start-9 space-y-20 border-l border-white/10 pl-12">
+          <aside className="lg:col-span-4 lg:col-start-9 space-y-20 lg:border-l border-white/10 lg:pl-12">
             <div>
               <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] opacity-30 mb-8 text-white">Metadata</span>
               <div className="space-y-6">
@@ -363,7 +425,7 @@ export default function ProjectDetail() {
       <Footer />
 
       {/* Navigation Portal */}
-      <section className="border-t border-white/10 flex flex-col md:flex-row h-auto md:h-[30vh] overflow-hidden bg-white/5 gap-px relative">
+      <section className="relative z-10 border-t border-white/10 flex flex-col md:flex-row h-auto md:h-[30vh] overflow-hidden bg-white/5 gap-px">
         <Link
           href="/projects"
           className="flex-1 group relative bg-black flex flex-col justify-center px-[6%] py-12 no-underline text-white transition-all duration-[1.2s] ease-[0.19, 1, 0.22, 1] hover:flex-[1.5]"

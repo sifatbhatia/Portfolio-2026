@@ -34,15 +34,17 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }, [pathname])
 
     const isHomePage = pathname === '/'
+    const showLoadingScreen = isFirstLoad && isHomePage
+
     // Bottom-to-top sweep for first load and homepage. Right-to-left for other pages.
-    const isVerticalSweep = isFirstLoad || isHomePage
+    const isVerticalSweep = showLoadingScreen || isHomePage
 
     // Ensure we explicitly dictate X and scaleY so animations don't conflict
     const curtainInitial = isVerticalSweep ? { scaleY: 1, x: "0%" } : { scaleY: 1, x: "0%" }
     const curtainAnimate = isVerticalSweep ? { scaleY: 0, x: "0%" } : { scaleY: 1, x: "-100%" }
     const curtainOriginClass = isVerticalSweep ? "origin-top" : ""
 
-    const delay = isFirstLoad ? 1.5 : 0.0
+    const delay = showLoadingScreen ? 1.5 : 0.0
 
     return (
         <div key={pathname} className="relative z-0 min-h-screen">
@@ -67,7 +69,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="flex flex-col items-center gap-6"
                 >
-                    {isFirstLoad && (
+                    {showLoadingScreen && (
                         <div className="overflow-hidden">
                             <motion.div
                                 initial={{ y: "100%" }}

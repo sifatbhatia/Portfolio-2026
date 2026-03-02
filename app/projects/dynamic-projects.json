@@ -1,0 +1,42 @@
+{
+  "cherry-tooth": {
+    "screenshotCount": 3,
+    "thumbnail": "/previews/cherry-tooth/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "clipkeep": {
+    "screenshotCount": 2,
+    "thumbnail": "/previews/clipkeep/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "j-worra": {
+    "screenshotCount": 8,
+    "thumbnail": "/previews/j-worra/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "l-affaire-musicale": {
+    "screenshotCount": 4,
+    "thumbnail": "/previews/l-affaire-musicale/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "qlo-agency": {
+    "screenshotCount": 2,
+    "thumbnail": "/previews/qlo-agency/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "sam-blacky": {
+    "screenshotCount": 3,
+    "thumbnail": "/previews/sam-blacky/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "sifs-utilities": {
+    "screenshotCount": 1,
+    "thumbnail": "/previews/sifs-utilities/screenshot-1.webp",
+    "extension": ".webp"
+  },
+  "wicked-paradise": {
+    "screenshotCount": 4,
+    "thumbnail": "/previews/wicked-paradise/screenshot-1.webp",
+    "extension": ".webp"
+  }
+}
