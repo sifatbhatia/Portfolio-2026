@@ -1,0 +1,146 @@
+.hero-carousel-section {
+  position: relative;
+  width: 100%;
+}
+
+.hero-carousel-viewport {
+  width: 100%;
+  height: 30vh;
+  min-height: 240px;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+}
+
+.hero-carousel-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 100%;
+  flex-shrink: 0;
+  will-change: transform;
+  padding: 0 40px;
+  gap: 0;
+}
+
+.carousel-item {
+  --scale: 1;
+  --scroll-scale: 0.9;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  width: calc(18vw * var(--scale));
+  padding: 0 8px;
+  transition: width 0.6s cubic-bezier(0, 0.4, 0.6, 1), padding 0.6s cubic-bezier(0, 0.4, 0.6, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-item-media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-item-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.item-caption {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.carousel-item:hover .item-caption,
+.carousel-item.is-active .item-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.caption-title {
+  font-size: clamp(13px, 1.05vw, 16px);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.caption-subtitle {
+  font-size: clamp(10px, 0.85vw, 13px);
+  color: rgba(223, 223, 223, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-carousel-track.has-hover .carousel-item:not(.is-hovered) .carousel-item-media img {
+  filter: brightness(0.86);
+}
+
+.mobile-caption {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .hero-carousel-viewport {
+    height: auto;
+    overflow: hidden;
+    cursor: default;
+    display: block;
+  }
+
+  .hero-carousel-track {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    transform: none !important;
+    width: 100%;
+    padding: 24px 0 90px;
+    gap: 12px;
+  }
+
+  .carousel-item {
+    width: calc(30vw * var(--scroll-scale));
+    max-width: 90vw;
+    min-width: 42vw;
+    padding: 0 6px;
+    transition: width 0.15s ease-out;
+  }
+
+  .item-caption {
+    display: none;
+  }
+
+  .mobile-caption {
+    display: block;
+    position: fixed;
+    left: 18px;
+    bottom: 22px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .mobile-caption .caption-title {
+    display: block;
+    font-size: 14px;
+  }
+
+  .mobile-caption .caption-subtitle {
+    display: block;
+    font-size: 12px;
+  }
+}

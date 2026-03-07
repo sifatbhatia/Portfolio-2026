@@ -6,23 +6,22 @@ import { useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-let isAppLoaded = false
-
 export default function Template({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
 
-    // Synchronous lazy evaluation using a module-level variable entirely avoids
-    // hydration mismatches AND prevents any "flashing" or layout-shift frame delays
-    // that happen when using useEffect + isMounted hacks.
-    const [isFirstLoad] = useState(() => {
-        if (!isAppLoaded && typeof window !== 'undefined') {
-            isAppLoaded = true
-            return true
-        } else if (isAppLoaded) {
-            return false
+    // Hydration-safe flags: same initial render on server + client, then decide client-side.
+    const [isHydrated, setIsHydrated] = useState(false)
+    const [isFirstLoad, setIsFirstLoad] = useState(false)
+
+    useEffect(() => {
+        setIsHydrated(true)
+        const key = 'sifat-portfolio-loaded'
+        const alreadyLoaded = window.sessionStorage.getItem(key)
+        if (!alreadyLoaded) {
+            setIsFirstLoad(true)
+            window.sessionStorage.setItem(key, '1')
         }
-        return true // SSR default
-    })
+    }, [])
 
     // Refresh GSAP ScrollTrigger after the sweep so it catches the new page coordinates perfectly
     useEffect(() => {
@@ -34,7 +33,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }, [pathname])
 
     const isHomePage = pathname === '/'
-    const showLoadingScreen = isFirstLoad && isHomePage
+    const showLoadingScreen = isHydrated && isFirstLoad && isHomePage
 
     // Bottom-to-top sweep for first load and homepage. Right-to-left for other pages.
     const isVerticalSweep = showLoadingScreen || isHomePage
@@ -57,7 +56,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                 animate={curtainAnimate}
                 transition={{
                     duration: 1.2,
-                    ease: [0.19, 1, 0.22, 1], // The signature Siftion butter curve
+                    ease: [0.19, 1, 0.22, 1], // Signature motion curve
                     delay: delay,
                 }}
                 className={`fixed inset-0 z-[9999] bg-black pointer-events-none flex flex-col items-center justify-center ${curtainOriginClass}`}
@@ -70,15 +69,25 @@ export default function Template({ children }: { children: React.ReactNode }) {
                     className="flex flex-col items-center gap-6"
                 >
                     {showLoadingScreen && (
-                        <div className="overflow-hidden">
-                            <motion.div
-                                initial={{ y: "100%" }}
-                                animate={{ y: 0 }}
-                                transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.5 }}
-                                className="text-white font-playfair italic font-light tracking-tight text-4xl md:text-6xl"
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="overflow-hidden">
+                                <motion.div
+                                    initial={{ y: "100%" }}
+                                    animate={{ y: 0 }}
+                                    transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.5 }}
+                                    className="text-white font-playfair italic font-light tracking-tight text-4xl md:text-6xl"
+                                >
+                                    Sifat Bhatia.
+                                </motion.div>
+                            </div>
+                            <motion.p
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.9 }}
+                                className="max-w-[760px] px-6 text-center text-white/70 text-sm md:text-base"
                             >
-                                Sifat Bhatia.
-                            </motion.div>
+                                “The details are not the details. They make the design.” — Charles Eames
+                            </motion.p>
                         </div>
                     )}
                 </motion.div>
@@ -86,7 +95,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
             {/* Content wrapper strictly without spatial translations. 
                 This allows GSAP ScrollTrigger to measure the DOM instantly and without glitches. */}
-            <div className="relative z-10 bg-white min-h-screen">
+            <div className="relative z-10 bg-[var(--background)] min-h-screen">
                 {children}
             </div>
         </div>
