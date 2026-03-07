@@ -64,19 +64,19 @@ export default function ProjectDetail() {
     }
 
   return (
-    <main className="min-h-screen bg-[#DFDFDF] text-[#121212] antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased overflow-x-hidden">
       <GlobalNavbar />
 
-      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-12 border-b border-[#121212]/12">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-[#121212]/45">The Project</p>
+      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-12 border-b border-white/12">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Project</p>
         <h1 className="mt-3 text-[clamp(2.4rem,6.4vw,6.2rem)] leading-[0.88] tracking-[-0.045em]">{project.title}</h1>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-[#121212]/50">
+        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-white/50">
           {project.year} · {project.subtitle}
         </p>
-        <p className="mt-5 max-w-[760px] text-[#121212]/72 text-lg leading-relaxed">{project.summary}</p>
+        <p className="mt-5 max-w-[760px] text-white/72 text-lg leading-relaxed">{project.summary}</p>
       </section>
 
-      <section className="px-[6%] py-10">
+      <section className="px-[6%] py-10 border-b border-white/12">
         <div className="grid grid-cols-1 md:grid-cols-12 md:auto-rows-[72px] gap-4 md:gap-5">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -84,7 +84,7 @@ export default function ProjectDetail() {
             transition={{ duration: 0.5 }}
             className="md:col-span-8 md:row-span-7 md:-rotate-[0.35deg]"
           >
-            <div className="h-full rounded-2xl border border-[#121212]/12 bg-white overflow-hidden">
+            <div className="h-full rounded-2xl border border-white/12 bg-white/[0.03] overflow-hidden">
               <img src={project.image} alt={project.title} className="h-full w-full min-h-[300px] object-cover" />
             </div>
           </motion.div>
@@ -93,30 +93,30 @@ export default function ProjectDetail() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.06 }}
-            className="md:col-span-4 md:row-span-3 rounded-2xl border border-[#121212]/12 bg-white p-5 md:translate-y-3"
+            className="md:col-span-4 md:row-span-3 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:translate-y-3"
           >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#121212]/45">The Challenge</p>
-            <p className="mt-3 text-[#121212]/78 leading-relaxed">{project.challenge}</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Challenge</p>
+            <p className="mt-3 text-white/78 leading-relaxed">{project.challenge}</p>
           </motion.article>
 
           <motion.article
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="md:col-span-4 md:row-span-3 rounded-2xl border border-[#121212]/12 bg-white p-5 md:-translate-y-2"
+            className="md:col-span-4 md:row-span-3 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:-translate-y-2"
           >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#121212]/45">The Result</p>
-            <p className="mt-3 text-[#121212]/78 leading-relaxed">{project.outcome}</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Result</p>
+            <p className="mt-3 text-white/78 leading-relaxed">{project.outcome}</p>
           </motion.article>
 
           <motion.article
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18 }}
-            className="md:col-span-3 md:row-span-2 rounded-2xl border border-[#121212]/12 bg-white p-5 md:rotate-[0.25deg]"
+            className="md:col-span-3 md:row-span-2 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:rotate-[0.25deg]"
           >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#121212]/45">Project Details</p>
-            <div className="mt-3 space-y-2 text-sm text-[#121212]/75">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Project Details</p>
+            <div className="mt-3 space-y-2 text-sm text-white/75">
               <p>
                 <span className="font-semibold">Year:</span> {project.year}
               </p>
@@ -152,13 +152,13 @@ export default function ProjectDetail() {
               href={project.liveUrl || '#'}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex rounded-full bg-[#121212] px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:bg-[var(--accent)] transition-colors"
+              className="inline-flex rounded-full bg-white text-[#121212] px-6 py-3 text-[11px] uppercase tracking-[0.2em] no-underline hover:bg-[var(--accent)] hover:text-white transition-colors"
             >
               Visit Live Site
             </a>
             <Link
               href="/projects"
-              className="inline-flex rounded-full border border-[#121212]/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-[#121212] no-underline hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
             >
               Back to projects
             </Link>

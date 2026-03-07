@@ -26,22 +26,22 @@ const tileLayout = [
 
 export default function ProjectsIndex() {
   return (
-    <main className="min-h-screen bg-[#DFDFDF] text-[#121212] antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased overflow-x-hidden">
       <GlobalNavbar />
 
-      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-14 border-b border-[#121212]/12">
+      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-14 border-b border-white/12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <h1 className="text-[clamp(2.3rem,6vw,6.2rem)] tracking-[-0.045em] leading-[0.88]">
             The Work.
           </h1>
-          <p className="max-w-[620px] text-[#121212]/70 leading-relaxed">
+          <p className="max-w-[620px] text-white/70 leading-relaxed">
             Every project here is a digital transformation — visual identity, motion, and engineering working as one.
           </p>
         </div>
       </section>
 
-      <section className="px-[6%] py-10">
-        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-[#121212]/55">More Work.</p>
+      <section className="px-[6%] py-10 border-b border-white/12">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">More Work.</p>
         <div className="grid grid-cols-1 md:grid-cols-12 md:auto-rows-[74px] gap-4 md:gap-5 items-stretch">
           {projects.map((p, i) => (
             <motion.article
@@ -53,21 +53,21 @@ export default function ProjectsIndex() {
             >
               <Link
                 href={`/projects/${p.slug}`}
-                className="relative h-full min-h-[320px] md:min-h-0 flex flex-col rounded-2xl border border-[#121212]/12 bg-white no-underline text-[#121212] overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:border-[var(--accent)]"
+                className="relative h-full min-h-[320px] md:min-h-0 flex flex-col rounded-2xl border border-white/12 bg-white/[0.03] no-underline text-white overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)] hover:border-[var(--accent)]"
               >
-                <div className="relative flex-1 min-h-[180px] overflow-hidden border-b border-[#121212]/10">
+                <div className="relative flex-1 min-h-[180px] overflow-hidden border-b border-white/12">
                   <img src={p.image} alt={p.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.06]" />
-                  <span className="absolute top-3 left-3 rounded-full bg-[#121212]/78 px-2.5 py-1 font-mono text-[10px] tracking-[0.16em] text-white/90">
+                  <span className="absolute top-3 left-3 rounded-full bg-black/72 px-2.5 py-1 font-mono text-[10px] tracking-[0.16em] text-white/90 border border-white/20">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 <div className="p-5 md:p-6">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#121212]/48">{p.cat} · {p.year}</p>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">{p.cat} · {p.year}</p>
                   <h2 className="mt-2 text-[clamp(1.5rem,2.3vw,2.8rem)] leading-[0.92] tracking-[-0.03em] group-hover:text-[var(--accent)] transition-colors">
                     {p.title}
                   </h2>
-                  <p className="mt-2 text-[#121212]/65 text-sm leading-relaxed">{p.note}</p>
+                  <p className="mt-2 text-white/68 text-sm leading-relaxed">{p.note}</p>
                 </div>
               </Link>
             </motion.article>

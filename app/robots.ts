@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://siftion.pages.dev/sitemap.xml',
+        sitemap: 'https://sifat.tech/sitemap.xml',
     }
 }

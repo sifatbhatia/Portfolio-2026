@@ -5,17 +5,17 @@ import Footer from '../components/Footer'
 
 export default function About() {
   return (
-    <main className="min-h-screen bg-[#DFDFDF] text-[#04101D] antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased overflow-x-hidden">
       <GlobalNavbar />
 
-      <section className="px-[clamp(18px,2.2vw,34px)] pt-[118px] md:pt-[146px] pb-14 border-b border-[#04101D]/12">
+      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-14 border-b border-white/12">
         <h1 className="text-[clamp(2.2rem,6vw,5.6rem)] leading-[0.9] tracking-[-0.04em]">
           Design <span className="font-playfair italic text-[var(--accent)]">Metamorphosis.</span>
         </h1>
       </section>
 
-      <section className="px-[clamp(18px,2.2vw,34px)] py-12 border-b border-[#04101D]/12">
-        <div className="max-w-[980px] space-y-6 text-lg leading-relaxed text-[#04101D]/80">
+      <section className="px-[6%] py-12 border-b border-white/12">
+        <div className="max-w-[980px] space-y-6 text-lg leading-relaxed text-white/80">
           <p>
             I'm Sifat — a Los Angeles-based design engineer working at the intersection of visual storytelling and technical precision. My practice is built around one core idea: digital experiences should feel as intentional as they look.
           </p>
@@ -31,37 +31,37 @@ export default function About() {
         </div>
       </section>
 
-      <section className="px-[clamp(18px,2.2vw,34px)] py-12 border-b border-[#04101D]/12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#04101D]/55">What I Do.</p>
+      <section className="px-[6%] py-12 border-b border-white/12">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">What I Do.</p>
         <div className="mt-5 grid md:grid-cols-3 gap-4">
           {[
             ['Direction', 'Editorial hierarchy, strong typography, and visual intent.'],
             ['Execution', 'Production-grade frontend architecture and motion discipline.'],
             ['Outcome', 'Distinctive web presence that supports real business goals.'],
           ].map(([t, d]) => (
-            <article key={t} className="rounded-xl border border-[#04101D]/12 bg-white/60 p-5">
-              <h3 className="text-xl tracking-tight">{t}</h3>
-              <p className="mt-2 text-[#04101D]/70">{d}</p>
+            <article key={t} className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
+              <h3 className="text-xl tracking-tight text-white">{t}</h3>
+              <p className="mt-2 text-white/68">{d}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="px-[clamp(18px,2.2vw,34px)] py-12 border-b border-[#04101D]/12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#04101D]/55">Press & Features.</p>
+      <section className="px-[6%] py-12 border-b border-white/12">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">Press & Features.</p>
         <div className="mt-5 grid md:grid-cols-2 gap-4">
-          <article className="rounded-xl border border-[#04101D]/12 bg-white/60 p-5">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#04101D]/45">Featured Work</p>
-            <p className="mt-2 text-[#04101D]/78">Selected collaborations and releases are being documented here.</p>
+          <article className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Featured Work</p>
+            <p className="mt-2 text-white/78">Selected collaborations and releases are being documented here.</p>
           </article>
-          <article className="rounded-xl border border-[#04101D]/12 bg-white/60 p-5">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#04101D]/45">Updates</p>
-            <p className="mt-2 text-[#04101D]/78">New mentions, interviews, and project highlights will be published as they drop.</p>
+          <article className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Updates</p>
+            <p className="mt-2 text-white/78">New mentions, interviews, and project highlights will be published as they drop.</p>
           </article>
         </div>
       </section>
 
-      <section className="px-[clamp(18px,2.2vw,34px)] py-12">
+      <section className="px-[6%] py-12 border-b border-white/12">
         <a href="/contact" className="inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:brightness-110">
           Start project
         </a>

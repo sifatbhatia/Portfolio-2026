@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://siftion.pages.dev'
+    const baseUrl = 'https://sifat.tech'
 
     // Static Routes
     const routes = [

@@ -13,8 +13,8 @@ import Script from "next/script";
 export const metadata: Metadata = {
   metadataBase: new URL('https://sifat.tech'),
   title: "Sifat Bhatia | High-Fidelity Web Design & Development in Los Angeles",
-  description: "Portfolio of Sifat Bhatia, an LA-based designer and developer. Specializing in Webflow, Next.js, and custom digital experiences for artists and visionary brands through Siftion.",
-  keywords: ["Sifat Bhatia", "Siftion", "Los Angeles Web Designer", "Web Developer LA", "Webflow Developer", "Next.js Developer", "Artist Web Design", "Digital Identity"],
+  description: "Portfolio of Sifat Bhatia, an LA-based designer and developer. Specializing in Webflow, Next.js, and custom digital experiences for artists and visionary brands.",
+  keywords: ["Sifat Bhatia", "Los Angeles Web Designer", "Web Developer LA", "Webflow Developer", "Next.js Developer", "Artist Web Design", "Digital Identity"],
   authors: [{ name: "Sifat Bhatia" }],
   robots: {
     index: true,
@@ -87,7 +87,7 @@ export default function RootLayout({
               "jobTitle": "Web Designer and Developer",
               "brand": {
                 "@type": "Brand",
-                "name": "Siftion"
+                "name": "Sifat Bhatia"
               },
               "location": {
                 "@type": "Place",

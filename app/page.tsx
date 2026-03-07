@@ -275,9 +275,9 @@ export default function Home() {
             <Link href="/contact" className="rounded-full bg-[var(--accent)] px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:brightness-110">
               Book a call
             </Link>
-            <a href="/Sifat_Bhatia_Resume.pdf" className="rounded-full border border-white/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:border-[var(--accent)] hover:text-[var(--accent)]">
-              Download Resume
-            </a>
+            <Link href="/contact" className="rounded-full border border-white/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:border-[var(--accent)] hover:text-[var(--accent)]">
+              Send brief
+            </Link>
           </div>
         </div>
       </section>

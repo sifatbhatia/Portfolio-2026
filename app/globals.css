@@ -8,12 +8,12 @@
 
 :root {
   /* VOID-X Color System - Light Mode */
-  --void-bg: #FFFFFF;
-  --void-bg-secondary: #f4f4f5;
-  --void-bg-tertiary: #e4e4e7;
-  --void-safety-orange: #d12424;
-  --void-safety-orange-dim: #d12424cc;
-  --void-white: #000000;
+  --void-bg: #121212;
+  --void-bg-secondary: #1a1a1a;
+  --void-bg-tertiary: #222222;
+  --void-safety-orange: #C41E3D;
+  --void-safety-orange-dim: #C41E3Dcc;
+  --void-white: #DFDFDF;
   --void-white-dim: #00000080;
   --void-white-faint: #00000020;
   --void-white-ghost: #00000010;
@@ -21,9 +21,9 @@
   --void-border-accent: #d1242430;
 
   /* Legacy compatibility */
-  --background: #FFFFFF;
-  --foreground: #000000;
-  --accent: #d12424;
+  --background: #121212;
+  --foreground: #DFDFDF;
+  --accent: #C41E3D;
   --grid-color: rgba(209, 36, 36, 0.03);
 }
 
@@ -105,6 +105,12 @@ body::-webkit-scrollbar-thumb {
     linear-gradient(rgba(209, 36, 36, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(209, 36, 36, 0.05) 1px, transparent 1px);
   background-size: 10px 10px;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Scanline Effect */
