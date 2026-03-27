@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 export const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Signals', href: '/signals' },
+  { name: 'Journal', href: '/signals' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ]
@@ -20,7 +20,16 @@ export default function GlobalNavbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[20001] flex justify-end items-center px-[6%] py-6 md:py-8 text-white mix-blend-difference pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-[20001] flex justify-between items-center px-[6%] py-6 md:py-8 text-white mix-blend-difference pointer-events-none">
+        
+        {/* Logo Left */}
+        <Link href="/" className="pointer-events-auto transition-transform duration-500 hover:scale-105 active:scale-95 group">
+           <img 
+            src="/Sifat -Bhatia.svg" 
+            alt="Sifat Bhatia Logo" 
+            className="h-8 md:h-10 w-auto invert brightness-0" 
+           />
+        </Link>
 
         {/* Desktop Nav */}
         <ul className="hidden lg:flex gap-12 text-[0.7rem] font-medium uppercase tracking-[0.2em] pointer-events-auto">

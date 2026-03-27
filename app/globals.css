@@ -20,6 +20,10 @@
   --void-border: #00000015;
   --void-border-accent: #d1242430;
 
+  /* Brand Color System (Mitra Style) */
+  --void-brand-cream: #fdf5ef;
+  --void-brand-black: #121212;
+
   /* Legacy compatibility */
   --background: #121212;
   --foreground: #DFDFDF;

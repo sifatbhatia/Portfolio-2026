@@ -1,73 +1,79 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import GlobalNavbar from '../components/GlobalNavbar'
-import Footer from '../components/Footer'
+import FooterBrand from '../components/FooterBrand'
+import AuroraTransition from '../components/AuroraTransition'
 
 export default function About() {
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-[#121212] antialiased overflow-x-hidden selection:bg-[#C41E3D] selection:text-white">
       <GlobalNavbar />
 
-      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-14 border-b border-white/12">
-        <h1 className="text-[clamp(2.2rem,6vw,5.6rem)] leading-[0.9] tracking-[-0.04em]">
-          Design <span className="font-playfair italic text-[var(--accent)]">Metamorphosis.</span>
-        </h1>
-      </section>
-
-      <section className="px-[6%] py-12 border-b border-white/12">
-        <div className="max-w-[980px] space-y-6 text-lg leading-relaxed text-white/80">
-          <p>
-            I'm Sifat — a Los Angeles-based design engineer working at the intersection of visual storytelling and technical precision. My practice is built around one core idea: digital experiences should feel as intentional as they look.
-          </p>
-          <p>
-            It started with notebook sketches and a single question — how do you make technology feel human? That curiosity grew into a full creative practice focused on motion, atmosphere, and the details most people never consciously notice but always feel.
-          </p>
-          <p>
-            I work under Siftion (pronounced "sif-chun"), partnering with artists and brands — J. Worra, Miss Dre, Wicked Paradise — to turn abstract creative visions into interfaces that move, breathe, and hold attention.
-          </p>
-          <p>
-            What separates my work isn't a stack or a style. It's the refusal to treat any element as an afterthought. Every project is a cohesive narrative built from motion, clarity, and structure that earns trust.
-          </p>
+      {/* ─── STUDIO MANIFESTO ─── */}
+      <section className="px-[6%] pt-56 md:pt-80 pb-48 text-white relative">
+        <div className="max-w-[1700px] mx-auto">
+          <div className="flex flex-col gap-12 md:gap-24">
+             <span className="font-mono text-[10px] uppercase tracking-[0.6em] text-[#C41E3D] font-bold">The Studio</span>
+             <h1 className="text-[clamp(4.5rem,14vw,18rem)] tracking-tighter leading-[0.75] font-bold">
+               Built for <br />
+               <span className="italic font-playfair font-normal text-[#DFDFDF] opacity-30">Endurance.</span>
+             </h1>
+          </div>
         </div>
       </section>
 
-      <section className="px-[6%] py-12 border-b border-white/12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">What I Do.</p>
-        <div className="mt-5 grid md:grid-cols-3 gap-4">
-          {[
-            ['Direction', 'Editorial hierarchy, strong typography, and visual intent.'],
-            ['Execution', 'Production-grade frontend architecture and motion discipline.'],
-            ['Outcome', 'Distinctive web presence that supports real business goals.'],
-          ].map(([t, d]) => (
-            <article key={t} className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
-              <h3 className="text-xl tracking-tight text-white">{t}</h3>
-              <p className="mt-2 text-white/68">{d}</p>
-            </article>
-          ))}
-        </div>
+      {/* ─── NARRATIVE SPREAD ─── */}
+      <section className="px-[6%] py-64 md:py-96 bg-[#080808] text-white border-y border-white/5">
+         <div className="max-w-[1600px] mx-auto grid lg:grid-cols-2 gap-40 md:gap-64 items-start">
+            <div className="space-y-16">
+               <h2 className="text-5xl md:text-8xl tracking-tight leading-none font-bold">
+                  The <br />
+                  <span className="italic font-playfair font-normal text-[#C41E3D]">Philosophy.</span>
+               </h2>
+               <p className="text-white/40 text-2xl md:text-4xl font-light leading-relaxed italic font-playfair max-w-[18ch]">
+                  &ldquo;We believe in digital craftsmanship that outlives the trend.&rdquo;
+               </p>
+            </div>
+
+            <div className="space-y-32 pt-12 md:pt-24 font-light text-white/50 text-xl md:text-2xl leading-relaxed">
+               <p>
+                 Siftion is a boutique creative studio focused on the intersection of visual identity and engineering precision. We don&apos;t just build websites; we forge digital environments that feel alive and intentional.
+               </p>
+               <p>
+                 Our approach is human-centric by design. We prioritize clarity, performance, and the emotional resonance of motion—ensuring every interaction is a moment of discovery rather than just a click.
+               </p>
+               <p className="text-[#DFDFDF] opacity-30 font-bold tracking-widest uppercase text-[10px] font-mono pt-12">
+                 Est. 2026 · Based in the creative cloud.
+               </p>
+            </div>
+         </div>
       </section>
 
-      <section className="px-[6%] py-12 border-b border-white/12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">Press & Features.</p>
-        <div className="mt-5 grid md:grid-cols-2 gap-4">
-          <article className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Featured Work</p>
-            <p className="mt-2 text-white/78">Selected collaborations and releases are being documented here.</p>
-          </article>
-          <article className="rounded-xl border border-white/12 bg-white/[0.03] p-5">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Updates</p>
-            <p className="mt-2 text-white/78">New mentions, interviews, and project highlights will be published as they drop.</p>
-          </article>
-        </div>
+      {/* ─── CAPABILITIES (RE-ITERATED) ─── */}
+      <section className="px-[6%] py-48 md:py-80 bg-[#121212]">
+         <div className="max-w-[1700px] mx-auto grid md:grid-cols-3 gap-24 md:gap-40">
+            {[
+               { t: 'Strategy', d: 'Defining the core intent before drawing a single pixel.' },
+               { t: 'Identity', d: 'Crafting the visual language that speaks when you don’t.' },
+               { t: 'Engineering', d: 'Turning vision into performant, high-fidelity code bases.' }
+            ].map(c => (
+               <div key={c.t} className="group flex flex-col gap-8">
+                  <h3 className="text-4xl md:text-6xl font-bold tracking-tight group-hover:text-[#C41E3D] transition-colors duration-500">{c.t}</h3>
+                  <div className="h-[1.5px] w-12 bg-white/5 group-hover:w-full group-hover:bg-[#C41E3D] transition-all duration-1000" />
+                  <p className="text-white/30 text-xl md:text-2xl font-light italic font-playfair group-hover:text-white/70 transition-colors duration-700">{c.d}</p>
+               </div>
+            ))}
+         </div>
       </section>
 
-      <section className="px-[6%] py-12 border-b border-white/12">
-        <a href="/contact" className="inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:brightness-110">
-          Start project
-        </a>
+      {/* ─── FINAL FOOTER ─── */}
+      <section className="relative">
+         <AuroraTransition />
+         <div className="relative z-30 rounded-t-[5rem] bg-[#fdf5ef] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
+            <FooterBrand />
+         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

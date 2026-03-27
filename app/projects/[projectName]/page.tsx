@@ -4,15 +4,16 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import GlobalNavbar from '../../components/GlobalNavbar'
-import Footer from '../../components/Footer'
+import FooterBrand from '../../components/FooterBrand'
+import AuroraTransition from '../../components/AuroraTransition'
 
 type ProjectRecord = {
   title: string
   subtitle: string
   year: string
   summary: string
-  challenge: string
-  outcome: string
+  challengeText: string
+  outcomeText: string
   services: string[]
   stack: string[]
   image: string
@@ -22,25 +23,25 @@ type ProjectRecord = {
 const PROJECTS: Record<string, ProjectRecord> = {
   'j-worra': {
     title: 'J. Worra',
-    subtitle: 'Web Identity',
+    subtitle: 'Digital Identity',
     year: '2026',
-    summary: 'J. Worra needed a site as bold as her art—fast, discoverable, and unmistakably hers.',
-    challenge: 'An artist website should feel personal and expressive without sacrificing performance and SEO.',
-    outcome: 'A sharp site that loads quickly and improved contact conversions by ~30%.',
-    services: ['Art Direction', 'UI/UX Design', 'Frontend Engineering'],
-    stack: ['Next.js', 'TypeScript', 'Framer Motion'],
+    summary: 'A bold artist platform crafted to match a high-energy creative spirit—fast, memorable, and unmistakably hers. Built for the endurance of a global artist career.',
+    challengeText: 'The project demanded a digital home that felt personal and expressive without sacrificing the technical performance required of a top-tier artist platform.',
+    outcomeText: 'A high-fidelity experience that captured the nuance of her brand while driving a significant increase in engagement and direct inquiries through motion-led storytelling.',
+    services: ['Creative Direction', 'UI/UX Design', 'Engineering'],
+    stack: ['Next.js', 'GSAP', 'Framer Motion'],
     image: '/previews/j-worra/screenshot-1.webp',
     liveUrl: 'https://jworra.com',
   },
   'sifs-utilities': {
-    title: "Sif's Utilities",
-    subtitle: 'Performance Utilities',
+    title: "My Utilities",
+    subtitle: 'Digital Tools',
     year: '2025',
-    summary: 'A suite of privacy-first browser tools where everything runs locally.',
-    challenge: 'Make powerful utilities feel simple and trustworthy for repeat use.',
-    outcome: 'A clean interface that reduced setup friction and boosted retention.',
-    services: ['Product Design', 'TypeScript Development', 'Frontend Architecture'],
-    stack: ['Next.js', 'React', 'Web APIs'],
+    summary: 'A suite of private tools where efficiency meets a clean, focused aesthetic—built for the daily high-frequency work of a designer.',
+    challengeText: 'Balancing powerful technical utility with an interface that feels calm and intuitive for repeat use without cognitive load.',
+    outcomeText: 'A streamlined toolset that removed friction from the creative workflow, now serving as a core part of the studio stack for internal operations.',
+    services: ['Product Design', 'Web Development'],
+    stack: ['TypeScript', 'React', 'Local APIs'],
     image: '/previews/sifs-utilities/screenshot-1.webp',
     liveUrl: '#',
   },
@@ -52,121 +53,133 @@ export default function ProjectDetail() {
   const project: ProjectRecord =
     PROJECTS[slug] || {
       title: slug.replace(/-/g, ' '),
-      subtitle: 'Case Study',
+      subtitle: 'Selected Work',
       year: '2026',
-      summary: 'Detailed case study coming soon.',
-      challenge: 'Context in progress.',
-      outcome: 'Publishing shortly.',
+      summary: 'A detailed exploration of this project is coming soon.',
+      challengeText: 'We are currently documenting the creative process behind this work.',
+      outcomeText: 'Full results and insights will be published shortly.',
       services: ['Design', 'Engineering'],
-      stack: ['Next.js'],
+      stack: ['Modern Web'],
       image: '/previews/fallback.svg',
       liveUrl: '#',
     }
 
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-[#121212] antialiased overflow-x-hidden selection:bg-[#C41E3D] selection:text-white pb-32">
       <GlobalNavbar />
 
-      <section className="px-[6%] pt-[118px] md:pt-[146px] pb-12 border-b border-white/12">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Project</p>
-        <h1 className="mt-3 text-[clamp(2.4rem,6.4vw,6.2rem)] leading-[0.88] tracking-[-0.045em]">{project.title}</h1>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-white/50">
-          {project.year} · {project.subtitle}
-        </p>
-        <p className="mt-5 max-w-[760px] text-white/72 text-lg leading-relaxed">{project.summary}</p>
-      </section>
+      {/* ─── EXPERIENTIAL HEADER ─── */}
+      <section className="px-[6%] pt-56 md:pt-80 pb-48 text-white relative">
+        <div className="max-w-[1700px] mx-auto">
+          <div className="flex flex-col gap-24">
+             <div className="flex items-center gap-8 mb-4">
+                <span className="font-mono text-[11px] uppercase tracking-[0.5em] text-[#C41E3D] font-bold">Case Study </span>
+                <div className="h-[1px] w-20 bg-white/5" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.4em] opacity-20 font-bold">{project.year}</span>
+             </div>
+             
+             <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-16">
+               <h1 className="text-[clamp(4.5rem,14vw,18rem)] tracking-tighter leading-[0.7] font-bold">
+                 {project.title.split(' ')[0]} <br />
+                 {project.title.split(' ').slice(1).join(' ') && (
+                    <span className="italic font-playfair font-normal text-[#DFDFDF] opacity-30">
+                       {project.title.split(' ').slice(1).join(' ')}
+                    </span>
+                 )}
+               </h1>
 
-      <section className="px-[6%] py-10 border-b border-white/12">
-        <div className="grid grid-cols-1 md:grid-cols-12 md:auto-rows-[72px] gap-4 md:gap-5">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="md:col-span-8 md:row-span-7 md:-rotate-[0.35deg]"
-          >
-            <div className="h-full rounded-2xl border border-white/12 bg-white/[0.03] overflow-hidden">
-              <img src={project.image} alt={project.title} className="h-full w-full min-h-[300px] object-cover" />
-            </div>
-          </motion.div>
-
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.06 }}
-            className="md:col-span-4 md:row-span-3 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:translate-y-3"
-          >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Challenge</p>
-            <p className="mt-3 text-white/78 leading-relaxed">{project.challenge}</p>
-          </motion.article>
-
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className="md:col-span-4 md:row-span-3 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:-translate-y-2"
-          >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">The Result</p>
-            <p className="mt-3 text-white/78 leading-relaxed">{project.outcome}</p>
-          </motion.article>
-
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.18 }}
-            className="md:col-span-3 md:row-span-2 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:rotate-[0.25deg]"
-          >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">Project Details</p>
-            <div className="mt-3 space-y-2 text-sm text-white/75">
-              <p>
-                <span className="font-semibold">Year:</span> {project.year}
-              </p>
-              <p>
-                <span className="font-semibold">Type:</span> {project.subtitle}
-              </p>
-            </div>
-          </motion.article>
-
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24 }}
-            className="md:col-span-5 md:row-span-2 rounded-2xl bg-[var(--accent)] p-5 text-white md:-translate-y-1"
-          >
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/70">Stack & Services</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {[...project.services, ...project.stack].map((s) => (
-                <span key={s} className="rounded-full border border-white/25 px-3 py-1 text-[10px] uppercase tracking-[0.14em]">
-                  {s}
-                </span>
-              ))}
-            </div>
-          </motion.article>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="md:col-span-4 md:row-span-1 flex items-end gap-3"
-          >
-            <a
-              href={project.liveUrl || '#'}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex rounded-full bg-white text-[#121212] px-6 py-3 text-[11px] uppercase tracking-[0.2em] no-underline hover:bg-[var(--accent)] hover:text-white transition-colors"
-            >
-              Visit Live Site
-            </a>
-            <Link
-              href="/projects"
-              className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-white no-underline hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-            >
-              Back to projects
-            </Link>
-          </motion.div>
+               <div className="flex flex-col items-start md:items-end gap-10 md:text-right md:pb-8">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.5em] text-[#C41E3D] font-bold italic">{project.subtitle}</p>
+                  <a 
+                    href={project.liveUrl} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="group flex items-center gap-6 py-8 px-16 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all shadow-[0_40px_80px_-20px_rgba(255,255,255,0.1)] active:scale-95"
+                  >
+                     <span className="font-mono text-[11px] uppercase tracking-[0.4em] font-bold">Discover</span>
+                     <div className="w-3 h-3 rounded-full bg-[#C41E3D] group-hover:bg-black animate-pulse" />
+                  </a>
+               </div>
+             </div>
+          </div>
         </div>
       </section>
 
-      <Footer />
+      {/* ─── NARRATIVE FLOW ─── */}
+      <section className="px-[6%] py-64 md:py-96 bg-[#080808] text-white border-y border-white/5">
+         <div className="max-w-[1700px] mx-auto grid lg:grid-cols-[1fr_1.85fr] gap-40 md:gap-64 items-start">
+            
+            {/* Metadata Rail */}
+            <div className="lg:sticky lg:top-32 space-y-32">
+               <div>
+                  <h3 className="font-mono text-[11px] uppercase tracking-[0.6em] text-[#C41E3D] font-bold mb-12 italic">The Services</h3>
+                  <div className="flex flex-col gap-6">
+                    {project.services.map(s => (
+                      <span key={s} className="text-2xl md:text-4xl font-light border-b border-white/5 pb-4 last:border-0 hover:text-[#C41E3D] transition-colors">{s}</span>
+                    ))}
+                  </div>
+               </div>
+               <div className="pt-24 md:pt-48 border-t border-white/5">
+                  <h3 className="font-mono text-[11px] uppercase tracking-[0.6em] text-white/20 font-bold mb-12">The Stack</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {project.stack.map(s => (
+                      <span key={s} className="px-8 py-3 rounded-full bg-white/[0.03] font-mono text-[11px] tracking-[0.3em] font-bold border border-white/5 hover:bg-white/10 transition-colors uppercase">{s}</span>
+                    ))}
+                  </div>
+               </div>
+            </div>
+
+            {/* Content Thread */}
+            <div className="space-y-64 md:space-y-96 pr-4 lg:pr-24">
+               <div className="space-y-16">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-[#C41E3D] font-bold">Concept</span>
+                  <p className="text-[clamp(2.5rem,5vw,5rem)] leading-[1.05] font-light tracking-tight italic font-playfair text-[#DFDFDF]">
+                     &ldquo;{project.summary}&rdquo;
+                  </p>
+               </div>
+
+               <div className="grid md:grid-cols-2 gap-32 md:gap-48 items-start">
+                  <div className="space-y-10 group">
+                     <h4 className="font-mono text-[11px] uppercase tracking-[0.6em] text-white/20 font-bold mb-12 transition-colors group-hover:text-[#C41E3D]">The Vision</h4>
+                     <p className="text-2xl md:text-3xl leading-snug text-white/40 italic font-playfair group-hover:text-white/70 transition-colors duration-700">{project.challengeText}</p>
+                     <div className="h-[1.5px] w-20 bg-[#C41E3D]/30 mt-12 transition-all duration-1000 group-hover:w-full" />
+                  </div>
+                  <div className="space-y-10 group">
+                     <h4 className="font-mono text-[11px] uppercase tracking-[0.6em] text-white/20 font-bold mb-12 transition-colors group-hover:text-[#C41E3D]">The Outcome</h4>
+                     <p className="text-2xl md:text-3xl leading-snug text-white/40 italic font-playfair group-hover:text-white/70 transition-colors duration-700">{project.outcomeText}</p>
+                     <div className="h-[1.5px] w-20 bg-[#C41E3D]/30 mt-12 transition-all duration-1000 group-hover:w-full" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* ─── VISUAL IMPACT ─── */}
+      <section className="px-[6%] py-48 md:py-96 bg-[#121212]">
+         <div className="max-w-[1900px] mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, clipPath: 'inset(10% 10% 10% 10%)' }}
+              whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 2, ease: [0.19, 1, 0.22, 1] }}
+              className="rounded-[4rem] md:rounded-[7.5rem] overflow-hidden bg-[#080808] shadow-2xl"
+            >
+               <img 
+                 src={project.image} 
+                 alt={project.title} 
+                 className="w-full aspect-[16/10] md:aspect-[16/7] object-cover scale-[1.08] hover:scale-100 transition-transform duration-[3000ms] pointer-events-none opacity-90"
+               />
+            </motion.div>
+         </div>
+      </section>
+
+      {/* ─── FOOTER BRIDGE ─── */}
+      <section className="relative mt-32">
+         <AuroraTransition />
+         <div className="relative z-30 rounded-t-[5rem] bg-[#fdf5ef] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
+            <FooterBrand />
+         </div>
+      </section>
     </main>
   )
 }

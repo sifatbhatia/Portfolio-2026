@@ -18,7 +18,15 @@ const CONFIG = Object.freeze({
   RESIZE_DEBOUNCE_MS: 100,
 })
 
-export default function HeroCarousel({ items }: { items: Item[] }) {
+export default function HeroCarousel({
+  items,
+  showHeader = true,
+  seamless = false,
+}: {
+  items: Item[]
+  showHeader?: boolean
+  seamless?: boolean
+}) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLSpanElement>(null)
@@ -229,16 +237,18 @@ export default function HeroCarousel({ items }: { items: Item[] }) {
   }, [])
 
   return (
-    <section className="hero-carousel-section px-[6%] pt-6 pb-4 border-b border-white/12">
-      <div className="mb-3 flex items-end justify-between gap-4">
-        <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/45">Selected Works.</p>
-          <p className="mt-1 max-w-[760px] text-sm text-white/60">
-            A curated set of projects where visual logic meets technical precision — and where ambitious ideas become something you can feel.
-          </p>
+    <section className={`hero-carousel-section ${seamless ? 'px-0 pt-0 pb-0 border-0' : 'px-[6%] pt-6 pb-4 border-b border-white/12'}`}>
+      {showHeader && (
+        <div className="mb-3 flex items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/45">Selected Works.</p>
+            <p className="mt-1 max-w-[760px] text-sm text-white/60">
+              A curated set of projects where visual logic meets technical precision — and where ambitious ideas become something you can feel.
+            </p>
+          </div>
+          <p className="text-[10px] text-white/35 whitespace-nowrap">Drag / Scroll to explore</p>
         </div>
-        <p className="text-[10px] text-white/35 whitespace-nowrap">Drag / Scroll to explore</p>
-      </div>
+      )}
       <div id="carouselViewport" ref={viewportRef} className="hero-carousel-viewport">
         <div id="carouselTrack" ref={trackRef} className="hero-carousel-track">
           {items.map((item) => (
