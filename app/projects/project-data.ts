@@ -1,3 +1,8 @@
+/**
+ * Project preview assets live under `public/previews/<slug>/` as
+ * `screenshot-1.webp` … `screenshot-N.webp` (see `screenshotCount`).
+ * Exceptions: if `image` is not a `screenshot-*` path, that single URL is the only asset.
+ */
 export const PROJECT_DATA = {
   'j-worra': { image: '/previews/j-worra/screenshot-1.webp', screenshotCount: 8, color: '#B31B1B' },
   'l-affaire-musicale': { image: '/previews/l-affaire-musicale/screenshot-1.webp', screenshotCount: 4, color: '#1e1b4b' },
@@ -6,12 +11,12 @@ export const PROJECT_DATA = {
   'sam-blacky': { image: '/previews/sam-blacky/screenshot-1.webp', screenshotCount: 3, color: '#0f172a' },
   'kaysin': { image: '/previews/kaysin/screenshot-1.webp', screenshotCount: 1, color: '#312e81' },
   'star-consciousness': { image: '/previews/star-consciousness/screenshot-1.webp', screenshotCount: 1, color: '#0a0a0a' },
-  'clipkeep': { image: '/previews/clipkeep/screenshot-1.webp', screenshotCount: 1, color: '#1a1a1a' },
+  'clipkeep': { image: '/previews/clipkeep/screenshot-1.webp', screenshotCount: 2, color: '#1a1a1a' },
   'the-void': { image: '/previews/the-void.png', screenshotCount: 1, color: '#000000' },
   'sifs-utilities': { image: '/previews/sifs-utilities/screenshot-1.webp', screenshotCount: 1, color: '#1a1a1a' },
   'miss-dre': { image: '/previews/miss-dre/screenshot-1.webp', screenshotCount: 1, color: '#B31B1B' },
-  'cherry-tooth': { image: '/previews/cherry-tooth/screenshot-1.webp', screenshotCount: 3, color: '#000000' }
-}
+  'cherry-tooth': { image: '/previews/cherry-tooth/screenshot-1.webp', screenshotCount: 3, color: '#000000' },
+} as const
 
 export const getProjectThumbnail = (slug: string): string => {
   const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
@@ -26,4 +31,17 @@ export const getScreenshotCount = (slug: string): number => {
 export const getProjectColor = (slug: string): string => {
   const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
   return data ? data.color : '#000000'
+}
+
+/** Ordered list of gallery images for a slug; unknown slugs → fallback.svg */
+export function getProjectScreenshots(slug: string): string[] {
+  const data = PROJECT_DATA[slug as keyof typeof PROJECT_DATA]
+  if (!data) return ['/previews/fallback.svg']
+  const path = data.image
+  if (!path.includes('screenshot-')) {
+    return [path]
+  }
+  const m = path.match(/\.(webp|png|jpe?g)$/i)
+  const ext = m ? m[1].toLowerCase() : 'webp'
+  return Array.from({ length: data.screenshotCount }, (_, i) => `/previews/${slug}/screenshot-${i + 1}.${ext}`)
 }

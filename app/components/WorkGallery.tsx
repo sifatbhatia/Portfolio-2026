@@ -22,9 +22,9 @@ interface WorkGalleryProps {
 }
 
 const defaultProjects: Project[] = [
-  { title: 'J. Worra', cat: 'Web Identity', year: '2026', slug: 'j-worra', color: '#C41E3D', image: '/previews/j-worra.png', description: 'Full digital identity and website for the LA-based tech-house DJ and producer.' },
-  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities.png', description: 'Privacy-first file tools running entirely in-browser via WebAssembly.' },
-  { title: "L' Affaire Musicale", cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale.png', description: 'Complete rebrand and website redesign for a 20-year dance music agency.' },
+  { title: 'J. Worra', cat: 'Web Identity', year: '2026', slug: 'j-worra', color: '#b83a3a', image: '/previews/j-worra/screenshot-1.webp', description: 'Full digital identity and website for the LA-based tech-house DJ and producer.' },
+  { title: "Sif's Utilities", cat: 'Performance Utilities', year: '2025', slug: 'sifs-utilities', color: '#1a1a1a', image: '/previews/sifs-utilities/screenshot-1.webp', description: 'Privacy-first file tools running entirely in-browser via WebAssembly.' },
+  { title: "L' Affaire Musicale", cat: 'Identity Design', year: '2025', slug: 'l-affaire-musicale', color: '#1e1b4b', image: '/previews/l-affaire-musicale/screenshot-1.webp', description: 'Complete rebrand and website redesign for a 20-year dance music agency.' },
   { title: 'The Void', cat: 'Digital Art', year: '2026', slug: 'the-void', color: '#4c1d95', image: '/previews/the-void.png', description: 'Living archive of visual logic synthesis, updated every 4 hours via API.' },
 ]
 

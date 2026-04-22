@@ -99,7 +99,7 @@ export default function RootFrame({ children }: { children: React.ReactNode }) {
         <div style={{ position: 'absolute', bottom: '3.5rem', left: '6%', right: '6%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', pointerEvents: 'auto' }}>
            <div style={{ display: 'flex', gap: '4rem' }}>
               <Link href="/work" style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.4em', color: '#000', textDecoration: 'none', opacity: pathname === '/work' ? 1 : 0.35 }}>INDEX</Link>
-              <Link href="/about" style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.4em', color: '#000', textDecoration: 'none', opacity: pathname === '/about' ? 1 : 0.35 }}>STUDIO</Link>
+              <Link href="/about" style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.4em', color: '#000', textDecoration: 'none', opacity: pathname === '/about' ? 1 : 0.35 }}>ABOUT</Link>
               <Link href="/contact" style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.4em', color: '#000', textDecoration: 'none', opacity: pathname === '/contact' ? 1 : 0.35 }}>CONTACT</Link>
            </div>
            

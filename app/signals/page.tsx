@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import GlobalNavbar from '../components/GlobalNavbar'
 import FooterBrand from '../components/FooterBrand'
 import AuroraTransition from '../components/AuroraTransition'
+import { plainExcerptFromMarkdown } from './plain-excerpt'
 
 interface Entry {
   id: string
@@ -15,7 +17,7 @@ interface Entry {
   content: string
 }
 
-export default function JournalIndex() {
+export default function SignalsIndexPage() {
   const [entries, setEntries] = useState<Entry[]>([])
 
   useEffect(() => {
@@ -26,73 +28,92 @@ export default function JournalIndex() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-[#121212] antialiased overflow-x-hidden selection:bg-[#C41E3D] selection:text-white">
+    <main className="min-h-screen bg-[#130502] antialiased overflow-x-clip selection:bg-[#b83a3a] selection:text-[#fff7f7] font-sans">
       <GlobalNavbar />
 
-      {/* ─── JOURNAL HEADER ─── */}
-      <section className="px-[6%] pt-56 md:pt-80 pb-32 text-white relative">
-        <div className="max-w-[1700px] mx-auto">
-          <div className="flex flex-col gap-12 md:gap-24">
-             <span className="font-mono text-[10px] uppercase tracking-[0.6em] text-[#C41E3D] font-bold">Reflections</span>
-             <h1 className="text-[clamp(4.5rem,14vw,18rem)] tracking-tighter leading-[0.75] font-bold">
-               Digital <br />
-               <span className="italic font-playfair font-normal text-[#DFDFDF] opacity-30">Journal.</span>
-             </h1>
+      {/* One section: sticky intro + 2-col card grid — less vertical scroll */}
+      <section className="px-6 md:px-12 lg:px-[6%] pt-24 md:pt-28 pb-16 md:pb-24">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
+            <div className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto space-y-5 pr-1">
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[clamp(2.5rem,6vw,4.25rem)] leading-[0.92] font-light tracking-[-0.035em] text-[#fff7f7]"
+              >
+                Signals
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="text-sm md:text-[15px] text-[#fff7f7]/45 leading-relaxed"
+              >
+                Published notes from{' '}
+                <span className="text-[#fff7f7]/60">Lumis</span>—the research loop I run locally: it observes the
+                stack, synthesizes what changed, and drafts posts. I edit every signal before it goes live; this page is
+                the public slice of that loop.
+              </motion.p>
+            </div>
+
+            <div className="lg:col-span-8 xl:col-span-9 min-w-0">
+              {entries.length > 0 ? (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+                  {entries.map((p, i) => (
+                    <motion.li
+                      key={p.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.32), ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <Link
+                        href={`/signals/${p.slug}`}
+                        className="group flex h-full flex-col rounded-2xl border border-[#fff7f7]/[0.07] bg-[#fff7f7]/[0.02] p-5 md:p-6 outline-none transition-all duration-300 hover:border-[#b83a3a]/35 hover:bg-[#fff7f7]/[0.04] focus-visible:ring-2 focus-visible:ring-[#b83a3a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#130502]"
+                      >
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[9px] font-mono uppercase tracking-[0.22em] text-[#fff7f7]/35">
+                            <span className="text-[#b83a3a]">Signal</span>
+                            <span className="text-[#fff7f7]/12">·</span>
+                            <time className="tabular-nums">{new Date(p.timestamp).toLocaleDateString()}</time>
+                          </div>
+                          <ArrowUpRight
+                            className="h-4 w-4 shrink-0 text-[#fff7f7]/25 transition-colors group-hover:text-[#b83a3a]"
+                            strokeWidth={1.5}
+                          />
+                        </div>
+                        <h3 className="text-lg md:text-xl font-normal tracking-[-0.02em] text-[#fff7f7] group-hover:text-[#b83a3a] transition-colors leading-snug">
+                          {p.title}
+                        </h3>
+                        <p className="mt-3 text-sm text-[#fff7f7]/42 leading-relaxed line-clamp-3 group-hover:text-[#fff7f7]/50 transition-colors">
+                          {plainExcerptFromMarkdown(p.content)}
+                        </p>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-2xl border border-dashed border-[#fff7f7]/15 bg-[#fff7f7]/[0.02] px-6 py-16 text-center"
+                >
+                  <p className="text-[#fff7f7]/40 text-base md:text-lg font-light max-w-md mx-auto leading-relaxed">
+                    Nothing here yet. New posts will show up when they&apos;re ready.
+                  </p>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── STAGGERED FEED ─── */}
-      <section className="px-[6%] py-64 md:py-96 bg-[#080808] text-white border-y border-white/5">
-        <div className="max-w-[1200px] mx-auto space-y-48 md:space-y-80">
-          {entries.map((p, i) => (
-            <motion.article
-              key={p.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: i * 0.1, ease: [0.19, 1, 0.22, 1] }}
-              className={`group flex flex-col md:flex-row gap-12 md:gap-32 ${i % 2 !== 0 ? 'md:flex-row-reverse md:text-right' : ''}`}
-            >
-              <div className="flex flex-col gap-8 flex-1">
-                 <div className={`flex items-center gap-6 mb-4 ${i % 2 !== 0 ? 'md:justify-end' : ''}`}>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#C41E3D] font-bold">Note</span>
-                    <div className="h-[1px] w-12 bg-white/10" />
-                    <time className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-20 font-bold">{new Date(p.timestamp).toLocaleDateString()}</time>
-                 </div>
-                 
-                 <Link href={`/signals/${p.slug}`} className="block group/link">
-                   <h2 className="text-4xl md:text-8xl tracking-tight leading-[0.85] font-bold group-hover/link:text-[#C41E3D] transition-colors duration-500">
-                     {p.title}
-                   </h2>
-                   <p className="mt-12 text-white/30 text-2xl md:text-3xl font-light leading-relaxed italic font-playfair max-w-[35ch] group-hover/link:text-white/60 transition-colors duration-700">
-                     &ldquo;{p.content}&rdquo;
-                   </p>
-                 </Link>
-                 
-                 <div className={`mt-16 h-[1.5px] w-24 bg-white/5 group-hover:bg-[#C41E3D] group-hover:w-full transition-all duration-1000 ${i % 2 !== 0 ? 'md:ml-auto' : ''}`} />
-              </div>
-              
-              <div className="hidden md:flex flex-col justify-end pb-8">
-                 <span className="text-[clamp(4rem,8vw,10rem)] font-mono opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">/ 0{i+1} /</span>
-              </div>
-            </motion.article>
-          ))}
-
-          {!entries.length && (
-            <div className="py-48 text-center bg-[#121212]/50 rounded-[4rem] border border-white/5">
-                <p className="text-white/20 text-3xl font-light italic font-playfair">The journal is currently in sync. New reflections appearing shortly.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ─── FINAL FOOTER ─── */}
       <section className="relative">
-         <AuroraTransition />
-         <div className="relative z-30 rounded-t-[5rem] bg-[#fdf5ef] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
-            <FooterBrand />
-         </div>
+        <AuroraTransition />
+        <div className="relative z-30 rounded-t-[5rem] bg-[#fff7f7] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
+          <FooterBrand />
+        </div>
       </section>
     </main>
   )

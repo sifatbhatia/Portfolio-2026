@@ -26,7 +26,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
     // Refresh GSAP ScrollTrigger after the sweep so it catches the new page coordinates perfectly
     useEffect(() => {
-        const refreshDelay = pathname === '/' ? 4700 : 1300
+        const refreshDelay = pathname === '/' ? 2500 : 600
         const timer = setTimeout(() => {
             gsap.registerPlugin(ScrollTrigger)
             ScrollTrigger.refresh()
@@ -59,7 +59,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                     holdCurtainForLoadCheck
                         ? { duration: 0 }
                         : {
-                            duration: 1.1,
+                            duration: 0.5,
                             ease: [0.19, 1, 0.22, 1],
                             delay: delay,
                         }
@@ -67,11 +67,19 @@ export default function Template({ children }: { children: React.ReactNode }) {
                 className={`fixed inset-0 z-[9999] bg-black pointer-events-none ${curtainOriginClass}`}
             />
 
-            {/* Content wrapper strictly without spatial translations. 
-                This allows GSAP ScrollTrigger to measure the DOM instantly and without glitches. */}
-            <div className="relative z-10 bg-[var(--background)] min-h-screen">
+            {/* Content wrapper with clip-path reveal */}
+            <motion.div
+                initial={{ clipPath: isVerticalSweep ? 'inset(100% 0 0 0)' : 'inset(0 100% 0 0)' }}
+                animate={{ clipPath: 'inset(0 0 0 0)' }}
+                transition={{
+                    duration: 0.5,
+                    ease: [0.19, 1, 0.22, 1],
+                    delay: delay + 0.1,
+                }}
+                className="relative z-10 bg-[var(--background)] min-h-screen"
+            >
                 {children}
-            </div>
+            </motion.div>
         </div>
     )
 }

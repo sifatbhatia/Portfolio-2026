@@ -5,87 +5,169 @@ import GlobalNavbar from '../components/GlobalNavbar'
 import FooterBrand from '../components/FooterBrand'
 import AuroraTransition from '../components/AuroraTransition'
 
+const SOCIALS = [
+  { label: 'Instagram', href: 'https://instagram.com/siftion' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/siftion' },
+  { label: 'Behance', href: 'https://www.behance.net/siftion' },
+  { label: 'X', href: 'https://twitter.com/siftion' },
+] as const
+
 export default function Contact() {
   return (
-    <main className="min-h-screen bg-[#121212] antialiased overflow-x-hidden selection:bg-[#C41E3D] selection:text-white">
+    <main className="min-h-screen bg-[#130502] antialiased overflow-x-clip selection:bg-[#b83a3a] selection:text-[#fff7f7] font-sans">
       <GlobalNavbar />
 
-      {/* ─── CONTACT HEADER ─── */}
-      <section className="px-[6%] pt-56 md:pt-80 pb-32 text-white relative">
-        <div className="max-w-[1700px] mx-auto">
-          <div className="flex flex-col gap-12 md:gap-24">
-             <span className="font-mono text-[10px] uppercase tracking-[0.6em] text-[#C41E3D] font-bold">Inquiry</span>
-             <h1 className="text-[clamp(4.5rem,14vw,18rem)] tracking-tighter leading-[0.75] font-bold">
-               Let&apos;s Build <br />
-               <span className="italic font-playfair font-normal text-[#DFDFDF] opacity-30">Something.</span>
-             </h1>
+      <header className="relative px-6 md:px-12 lg:px-[6%] pt-28 md:pt-36 pb-12 md:pb-20 overflow-x-clip">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+            <div className="lg:col-span-7">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] font-light tracking-[-0.035em] text-[#fff7f7]"
+              >
+                Contact
+              </motion.h1>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5"
+            >
+              <p className="text-base md:text-lg text-[#fff7f7]/45 leading-relaxed max-w-md">
+                Limited slots each quarter so each build gets full attention. Share a short note—email is fastest.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </header>
+
+      <section className="border-t border-[#fff7f7]/[0.08] px-6 md:px-12 lg:px-[6%] pb-24 md:pb-32">
+        <div className="max-w-[1600px] mx-auto pt-12 md:pt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7"
+            >
+              <p className="text-lg md:text-xl text-[#fff7f7]/50 leading-relaxed max-w-xl mb-12 font-playfair italic">
+                &ldquo;We take on a limited number of projects so every partner gets focused creative time.&rdquo;
+              </p>
+
+              <form className="max-w-xl space-y-10" onSubmit={(e) => e.preventDefault()}>
+                <div className="group border-b border-[#fff7f7]/10 pb-4 transition-colors focus-within:border-[#b83a3a]/40">
+                  <label
+                    htmlFor="contact-name"
+                    className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#b83a3a]/90 block mb-3"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    autoComplete="name"
+                    placeholder="Your name"
+                    className="w-full bg-transparent border-none outline-none text-lg md:text-xl font-light text-[#fff7f7] placeholder:text-[#fff7f7]/30"
+                  />
+                </div>
+                <div className="group border-b border-[#fff7f7]/10 pb-4 transition-colors focus-within:border-[#b83a3a]/40">
+                  <label
+                    htmlFor="contact-email"
+                    className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#b83a3a]/90 block mb-3"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@domain.com"
+                    className="w-full bg-transparent border-none outline-none text-lg md:text-xl font-light text-[#fff7f7] placeholder:text-[#fff7f7]/30"
+                  />
+                </div>
+                <div className="group border-b border-[#fff7f7]/10 pb-4 transition-colors focus-within:border-[#b83a3a]/40">
+                  <label
+                    htmlFor="contact-message"
+                    className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#b83a3a]/90 block mb-3"
+                  >
+                    Project
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    rows={4}
+                    placeholder="Timeline, scope, links…"
+                    className="w-full bg-transparent border-none outline-none text-lg md:text-xl font-light text-[#fff7f7] placeholder:text-[#fff7f7]/30 resize-y min-h-[120px]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-3 rounded-full border border-[#fff7f7]/15 bg-[#fff7f7]/[0.04] px-8 py-4 text-[11px] font-mono uppercase tracking-[0.28em] text-[#fff7f7] transition-all duration-300 hover:border-[#b83a3a]/45 hover:bg-[#b83a3a]/15"
+                >
+                  Send note
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#b83a3a]" />
+                </button>
+                <p className="text-xs text-[#fff7f7]/30 font-mono">
+                  Form is a preview—email{' '}
+                  <a href="mailto:sifatbht@gmail.com" className="text-[#b83a3a] hover:text-[#fff7f7] transition-colors">
+                    sifatbht@gmail.com
+                  </a>{' '}
+                  to reach out today.
+                </p>
+              </form>
+            </motion.div>
+
+            <motion.aside
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-4 lg:col-start-9 space-y-12 lg:sticky lg:top-32"
+            >
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#b83a3a] font-semibold mb-4">
+                  Email
+                </p>
+                <a
+                  href="mailto:sifatbht@gmail.com"
+                  className="text-xl md:text-2xl font-light text-[#fff7f7] hover:text-[#b83a3a] transition-colors border-b border-[#fff7f7]/10 pb-2 inline-block"
+                >
+                  sifatbht@gmail.com
+                </a>
+              </div>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#fff7f7]/35 font-semibold mb-6">
+                  Elsewhere
+                </p>
+                <ul className="space-y-4">
+                  {SOCIALS.map(({ label, href }) => (
+                    <li key={href}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex items-center justify-between text-base md:text-lg font-light text-[#fff7f7]/60 hover:text-[#fff7f7] transition-colors"
+                      >
+                        {label}
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#b83a3a]/35 transition-colors group-hover:bg-[#b83a3a]" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.aside>
           </div>
         </div>
       </section>
 
-      {/* ─── CONTACT GRID ─── */}
-      <section className="px-[6%] py-64 md:py-96 bg-[#080808] text-white border-y border-white/5">
-         <div className="max-w-[1700px] mx-auto grid lg:grid-cols-[1.5fr_1fr] gap-40 md:gap-64 items-start">
-            
-            <div className="space-y-32">
-               <h2 className="text-4xl md:text-7xl tracking-tight leading-none font-bold">
-                  The <br />
-                  <span className="italic font-playfair font-normal text-[#C41E3D]">Approach.</span>
-               </h2>
-               <div className="space-y-16 max-w-[700px]">
-                  <p className="text-white/40 text-2xl md:text-3xl font-light leading-relaxed italic font-playfair">
-                    &ldquo;We take on a limited number of projects each quarter to ensure every partner receives our full creative focus.&rdquo;
-                  </p>
-                  
-                  {/* Simple, high-end form placeholder/style */}
-                  <div className="pt-24 space-y-12">
-                     <div className="group border-b border-white/10 pb-4 focus-within:border-[#C41E3D] transition-colors duration-500">
-                        <label className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/20 font-bold block mb-4">Name</label>
-                        <input type="text" placeholder="Your Storyteller" className="w-full bg-transparent border-none outline-none text-2xl md:text-4xl font-light placeholder:text-white/5 font-playfair italic" />
-                     </div>
-                     <div className="group border-b border-white/10 pb-4 focus-within:border-[#C41E3D] transition-colors duration-500">
-                        <label className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/20 font-bold block mb-4">Email</label>
-                        <input type="email" placeholder="story@siftion.studio" className="w-full bg-transparent border-none outline-none text-2xl md:text-4xl font-light placeholder:text-white/5 font-playfair italic" />
-                     </div>
-                     <div className="group border-b border-white/10 pb-4 focus-within:border-[#C41E3D] transition-colors duration-500">
-                        <label className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/20 font-bold block mb-4">Vision</label>
-                        <textarea rows={2} placeholder="What are we building?" className="w-full bg-transparent border-none outline-none text-2xl md:text-4xl font-light placeholder:text-white/5 font-playfair italic resize-none" />
-                     </div>
-                     
-                     <button className="group relative inline-flex items-center gap-10 py-10 px-24 bg-white rounded-full text-[#121212] text-[12px] uppercase font-mono tracking-[0.5em] transition-all hover:scale-[1.05] active:scale-95 shadow-[0_40px_80px_-20px_rgba(255,255,255,0.15)] font-bold">
-                        Reach Out
-                        <div className="w-3 h-3 rounded-full bg-[#C41E3D] animate-pulse" />
-                     </button>
-                  </div>
-               </div>
-            </div>
-
-            <div className="lg:sticky lg:top-32 space-y-32 md:pt-24">
-               <div>
-                  <h3 className="font-mono text-[11px] uppercase tracking-[0.6em] text-[#C41E3D] font-bold mb-12 italic">Direct Channel</h3>
-                  <a href="mailto:sifatbht@gmail.com" className="text-3xl md:text-5xl font-light text-white/40 hover:text-white transition-colors block border-b border-white/5 pb-8">sifatbht@gmail.com</a>
-               </div>
-               <div>
-                  <h3 className="font-mono text-[11px] uppercase tracking-[0.6em] text-white/20 font-bold mb-12">Social Connect</h3>
-                  <div className="flex flex-col gap-6">
-                     {['Instagram', 'LinkedIn', 'Behance', 'Twitter'].map(s => (
-                        <a key={s} href="#" className="text-2xl font-light text-white/30 hover:text-white transition-all duration-500 flex items-center justify-between group">
-                           {s}
-                           <span className="w-2 h-2 rounded-full bg-[#C41E3D]/30 group-hover:bg-[#C41E3D] transition-colors" />
-                        </a>
-                     ))}
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* ─── FINAL FOOTER ─── */}
       <section className="relative">
-         <AuroraTransition />
-         <div className="relative z-30 rounded-t-[5rem] bg-[#fdf5ef] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
-            <FooterBrand />
-         </div>
+        <AuroraTransition />
+        <div className="relative z-30 rounded-t-[5rem] bg-[#fff7f7] shadow-[-30px_0_120px_rgba(0,0,0,0.6)]">
+          <FooterBrand />
+        </div>
       </section>
     </main>
   )
