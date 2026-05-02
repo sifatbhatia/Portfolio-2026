@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -20,23 +20,28 @@ export default function GlobalNavbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[20001] flex justify-end items-center px-[6%] py-6 md:py-8 text-white mix-blend-difference pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-[20001] border-b border-[var(--color-chalk)] bg-[var(--color-eggshell)]/95 backdrop-blur-md">
+        <div className="mx-auto flex h-12 max-w-[1200px] items-center justify-between px-5 md:px-8">
+          <Link href="/" className="flex items-center gap-3 no-underline text-black">
+            <span className="h-5 w-5 rounded-full bg-[conic-gradient(from_180deg,#3d75d8,#75bee5,#52d0e9,#2159ba,#ade8f3,#20bad0,#3d75d8)] shadow-[rgba(0,0,0,0.4)_0px_0px_1px_0px]" />
+            <span className="text-sm font-bold tracking-[0.05em]">SIFTION</span>
+          </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden lg:flex gap-12 text-[0.7rem] font-medium uppercase tracking-[0.2em] pointer-events-auto">
+        <ul className="hidden lg:flex items-center gap-6 text-sm font-normal tracking-[0.01em] text-black">
           {navLinks.map(link => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
             return (
-              <li key={link.name} className="relative group filter invert-1">
+              <li key={link.name} className="relative group">
                 <Link
                   href={link.href}
-                  className={`no-underline transition-colors duration-300 ${isActive ? 'text-[var(--accent)] font-bold' : 'hover:text-[var(--accent)]'}`}
+                  className={`no-underline transition-colors duration-300 ${isActive ? 'text-black' : 'text-[var(--color-gravel)] hover:text-black'}`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="nav-dot"
-                      className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--accent)] rounded-full"
+                      className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[var(--color-obsidian)]"
                     />
                   )}
                 </Link>
@@ -45,11 +50,16 @@ export default function GlobalNavbar() {
           })}
         </ul>
 
+        <div className="hidden items-center gap-2 lg:flex">
+          <Link href="/contact" className="pill-button pill-button-ghost no-underline">Contact</Link>
+          <Link href="/projects" className="pill-button pill-button-primary no-underline">View work</Link>
+        </div>
+
         {/* Mobile Toggle */}
         <motion.div
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           whileTap={{ scale: 0.95 }}
-          className="lg:hidden z-[20002] text-[0.6rem] font-medium uppercase tracking-widest border border-white/20 px-4 py-2 rounded-full cursor-pointer relative overflow-hidden group min-w-[80px] flex justify-center items-center h-8 pointer-events-auto bg-white/10 backdrop-blur-sm"
+          className="relative z-[20002] flex h-9 min-w-9 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-[var(--color-chalk)] bg-white text-black shadow-[var(--shadow-subtle-2)] lg:hidden"
         >
           <motion.span
             animate={{
@@ -58,7 +68,7 @@ export default function GlobalNavbar() {
             }}
             className="block"
           >
-            Menu
+            <Menu size={16} />
           </motion.span>
           <motion.span
             initial={{ y: 40, opacity: 0 }}
@@ -66,12 +76,12 @@ export default function GlobalNavbar() {
               y: isMenuOpen ? 0 : 40,
               opacity: isMenuOpen ? 1 : 0
             }}
-            className="absolute inset-0 flex justify-center items-center text-white font-bold gap-1"
+            className="absolute inset-0 flex items-center justify-center text-black"
           >
-            <X size={12} strokeWidth={3} />
-            Close
+            <X size={16} strokeWidth={2} />
           </motion.span>
         </motion.div>
+        </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
@@ -82,7 +92,7 @@ export default function GlobalNavbar() {
             animate={{ clipPath: 'circle(150% at 90% 5%)' }}
             exit={{ clipPath: 'circle(0% at 90% 5%)' }}
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 z-[20000] bg-[#050505] text-white p-[6%] pt-32 flex flex-col"
+            className="fixed inset-0 z-[20000] bg-[var(--color-eggshell)] p-[6%] pt-28 text-black flex flex-col"
           >
             <ul className="flex flex-col gap-8">
               {navLinks.map((link, i) => {
@@ -98,13 +108,13 @@ export default function GlobalNavbar() {
                     <Link
                       href={link.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="group relative inline-block text-5xl font-normal tracking-tight no-underline text-white"
+                      className="group relative inline-block font-display text-5xl font-light leading-none no-underline text-black"
                     >
-                      <span className={`block transition-all duration-500 ${isActive ? 'italic text-[var(--accent)] opacity-100' : 'group-hover:opacity-0'}`}>
+                      <span className={`block transition-all duration-500 ${isActive ? 'text-black opacity-100' : 'text-[var(--color-gravel)] group-hover:opacity-0'}`}>
                         {link.name}
                       </span>
                       {!isActive && (
-                        <span className="absolute top-0 left-0 block opacity-0 transition-opacity duration-500 group-hover:opacity-100 italic text-[var(--accent)] whitespace-nowrap">
+                        <span className="absolute top-0 left-0 block opacity-0 transition-opacity duration-500 group-hover:opacity-100 text-black whitespace-nowrap">
                           {link.name}
                         </span>
                       )}
@@ -113,9 +123,9 @@ export default function GlobalNavbar() {
                 )
               })}
             </ul>
-            <div className="mt-auto border-t border-white/10 pt-8">
-              <p className="text-[0.6rem] font-bold uppercase tracking-widest opacity-30 mb-2 text-white">Available for projects</p>
-              <a href="mailto:sifatbht@gmail.com" className="text-xl font-bold hover:text-[var(--accent)] transition-colors text-white">sifatbht@gmail.com</a>
+            <div className="mt-auto border-t border-[var(--color-chalk)] pt-8">
+              <p className="text-sm text-[var(--color-gravel)] mb-2">Available for projects</p>
+              <a href="mailto:sifatbht@gmail.com" className="text-xl font-medium text-black transition-colors">sifatbht@gmail.com</a>
             </div>
           </motion.div>
         )}
