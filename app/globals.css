@@ -4,27 +4,38 @@
   --font-inter: "Inter", sans-serif;
   --font-geist-mono: "Geist Mono", "Fira Code", monospace;
   --font-playfair: "Playfair Display", serif;
+  --font-waldenburg: "Cormorant Garamond", "Playfair Display", serif;
 }
 
 :root {
-  /* VOID-X Color System - Light Mode */
-  --void-bg: #FFFFFF;
-  --void-bg-secondary: #f4f4f5;
-  --void-bg-tertiary: #e4e4e7;
-  --void-safety-orange: #d12424;
-  --void-safety-orange-dim: #d12424cc;
-  --void-white: #000000;
-  --void-white-dim: #00000080;
-  --void-white-faint: #00000020;
-  --void-white-ghost: #00000010;
-  --void-border: #00000015;
-  --void-border-accent: #d1242430;
+  --color-eggshell: #fdfcfc;
+  --color-powder: #f5f3f1;
+  --color-chalk: #e5e5e5;
+  --color-fog: #b1b0b0;
+  --color-gravel: #777169;
+  --color-slate: #a59f97;
+  --color-obsidian: #000000;
+  --color-signal-blue: #0447ff;
+  --color-ember: #ff4704;
+  --shadow-subtle: rgba(0, 0, 0, 0.075) 0px 0px 0px 0.5px inset;
+  --shadow-subtle-2: rgba(0, 0, 0, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 2px 4px 0px;
+  --shadow-subtle-4: rgba(0, 0, 0, 0.4) 0px 0px 1px 0px, rgba(0, 0, 0, 0.04) 0px 2px 4px 0px;
 
   /* Legacy compatibility */
-  --background: #FFFFFF;
-  --foreground: #000000;
-  --accent: #d12424;
-  --grid-color: rgba(209, 36, 36, 0.03);
+  --void-bg: var(--color-eggshell);
+  --void-bg-secondary: var(--color-powder);
+  --void-bg-tertiary: var(--color-chalk);
+  --void-safety-orange: var(--color-ember);
+  --void-white: var(--color-obsidian);
+  --void-white-dim: rgba(0, 0, 0, 0.5);
+  --void-white-faint: rgba(0, 0, 0, 0.12);
+  --void-white-ghost: rgba(0, 0, 0, 0.06);
+  --void-border: var(--color-chalk);
+  --void-border-accent: var(--color-chalk);
+  --background: var(--color-eggshell);
+  --foreground: var(--color-obsidian);
+  --accent: var(--color-obsidian);
+  --grid-color: rgba(0, 0, 0, 0.025);
 }
 
 /* Geist Mono Font Import */
@@ -38,6 +49,7 @@
 
 html {
   background-color: var(--void-bg);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -50,7 +62,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: thin;
-  scrollbar-color: var(--void-safety-orange) var(--void-bg-secondary);
+  scrollbar-color: var(--color-fog) var(--void-bg-secondary);
 }
 
 body::-webkit-scrollbar {
@@ -62,8 +74,44 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: var(--void-safety-orange);
-  border-radius: 0;
+  background: var(--color-fog);
+  border-radius: 9999px;
+}
+
+.font-display {
+  font-family: var(--font-waldenburg);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-chalk);
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-subtle-2);
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.pill-button:hover {
+  transform: translateY(-1px);
+}
+
+.pill-button-primary {
+  background: var(--color-obsidian);
+  color: var(--color-eggshell);
+}
+
+.pill-button-ghost {
+  background: #ffffff;
+  color: var(--color-obsidian);
 }
 
 /* VOID-X Typography Classes */
