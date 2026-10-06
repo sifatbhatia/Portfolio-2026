@@ -39,3 +39,6 @@ next-env.d.ts
 # windows/WSL metadata
 *:Zone.Identifier
 *Zone.Identifier
+/dist/
+.vinext/
+.cloudflare/
